@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="midnightBlue">#002D72</color>
+    <color name="vermilionOrange">#FC4C02</color>
+    <color name="hitGray">#A2AAAD</color>
+    <color name="tennOrange">#D45D00</color>
+    <color name="selectiveYellow">#EAAA00</color>
+    <color name="sandwisp">#F5E1A4</color>
+    <color name="sisal">#D1CCBD</color>
+    <color name="geyser">#D9E1E2</color>
+    <color name="goldenrod">#FDD26E</color>
 </resources>

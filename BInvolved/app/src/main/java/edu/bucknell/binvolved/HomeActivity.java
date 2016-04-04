@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Button;
@@ -17,6 +16,7 @@ import android.view.View.OnClickListener;
 public class HomeActivity extends AppCompatActivity {
 
     Button button;
+    Button button2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +39,20 @@ public class HomeActivity extends AppCompatActivity {
         button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Intent intent = new Intent(context,CategoryActivity.class);
+                Intent intent = new Intent(context,IndividualCategoryActivity.class);
                 startActivity(intent);
             }
         });
+        /*
+        button2 = (Button) findViewById(R.id.button2);
+        button2.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(context,IndividualEventActivity.class);
+                startActivity(intent);
+            }
+        });
+        */
     }
 
     @Override
