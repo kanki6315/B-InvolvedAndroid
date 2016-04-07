@@ -1,5 +1,7 @@
 package edu.bucknell.binvolved;
 
+import android.app.Activity;
+import android.os.Bundle;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,15 +9,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.app.Activity;
-import java.util.list;
+import java.util.List;
 
 public class ListAdapter extends ArrayAdapter {
 
     private Context context;
     private boolean useList = true;
 
-    public ListAdapter(Context context, List items){
-        super(context. android.R.layout.simple_list_item_1, items);
+    public ListAdapter(Context context, List items) {
+        super(context, R.layout.item, items);
         this.context = context;
     }
 
@@ -24,8 +26,9 @@ public class ListAdapter extends ArrayAdapter {
     }
 
     public View getView(int pos, View convertView, ViewGroup parent){
+        /*
         ViewHolder holder = null;
-        ListItem item = (ListItem)getItem(position);
+        ListItem item = (ListItem)getItem(pos);
         View viewToUse = null;
 
         // This block exists to inflate the settings list item conditionally based on whether
@@ -49,5 +52,7 @@ public class ListAdapter extends ArrayAdapter {
 
         holder.titleText.setText(item.getItemTitle());
         return viewToUse;
+        */
+        return null;
     }
 }

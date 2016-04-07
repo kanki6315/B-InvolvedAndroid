@@ -13,10 +13,17 @@ import android.content.Intent;
 import android.widget.Button;
 import android.view.View.OnClickListener;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeActivity extends AppCompatActivity {
 
     Button button;
-    Button button2;
+
+    List<Event> allEvents;
+    List<Organization> allOrganizations;
+    List<Category> allCategories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,21 +46,90 @@ public class HomeActivity extends AppCompatActivity {
         button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Intent intent = new Intent(context,IndividualCategoryActivity.class);
+                Intent intent = new Intent(context, IndividualCategoryActivity.class);
                 startActivity(intent);
             }
         });
-        /*
-        button2 = (Button) findViewById(R.id.button2);
-        button2.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                Intent intent = new Intent(context,IndividualEventActivity.class);
-                startActivity(intent);
-            }
-        });
-        */
+
+        // read in the CSV files
+        readInOrganizations();
+        readInCategories();
+        readInEvents();
+
     }
+
+    /**
+     * Reads the CSV file of Organizations and creates the Organization objects.
+     */
+    public void readInOrganizations() {
+        // read CSV file for Organizations
+        allOrganizations = new ArrayList<Organization>();
+        InputStream inputStream = getResources().openRawResource(R.raw.organizations);
+        CSVFile csvFile = new CSVFile(inputStream);
+        List scoreList = csvFile.read();
+        // ignore first row because it is the title row
+        for (int i = 1; i < scoreList.size(); i++) {
+            String[] organizationInfo = (String[]) scoreList.get(i);
+
+            // inputs to Organization constructor:
+            // String name, int logoPhotoID, int photo1ID, int photo2ID, int photo3ID
+
+            // get all image IDs according to the names
+            //int logoPhotoID = context.getResources().getIdentifier(organizationInfo[1], "drawable", context.getPackageName());
+            //int photo1ID = context.getResources().getIdentifier(organizationInfo[2], "drawable", context.getPackageName());
+            //int photo2ID = context.getResources().getIdentifier(organizationInfo[3], "drawable", context.getPackageName());
+            //int photo3ID = context.getResources().getIdentifier(organizationInfo[4], "drawable", context.getPackageName());
+            allOrganizations.add(new Organization(organizationInfo[0],1,2,3,4/*logoPhotoID, photo1ID, photo2ID, photo3ID*/));
+        }
+    }
+
+    /**
+     * Reads the CSV file of Categories and creates the Category objects.
+     */
+    public void readInCategories() {
+        // read CSV file for Categories
+        allCategories = new ArrayList<Category>();
+        InputStream inputStream = getResources().openRawResource(R.raw.categories);
+        CSVFile csvFile = new CSVFile(inputStream);
+        List scoreList = csvFile.read();
+        // ignore first row because it is the title row
+        for (int i = 1; i < scoreList.size(); i++) {
+            String[] categoryInfo = (String[]) scoreList.get(i);
+
+            // inputs to Category constructor:
+            // String name, int smallPhotoID, int bannerPhotoID
+
+            // get all image IDs according to the names
+            //int smallPhotoID = context.getResources().getIdentifier(organizationInfo[1], "drawable", context.getPackageName());
+            //int bannerPhotoID = context.getResources().getIdentifier(organizationInfo[2], "drawable", context.getPackageName());
+            allCategories.add(new Category(categoryInfo[0],1,2/*smallPhotoID, bannerPhotoID*/));
+        }
+    }
+
+    /**
+     * Reads the CSV file of Events and creates the Event objects.
+     */
+    public void readInEvents() {
+        // read CSV file for events
+        allEvents = new ArrayList<Event>();
+        InputStream inputStream = getResources().openRawResource(R.raw.events);
+        CSVFile csvFile = new CSVFile(inputStream);
+        List scoreList = csvFile.read();
+        // ignore first row because it is the title row
+        for (int i = 1; i < scoreList.size(); i++) {
+            String[] eventData = (String[]) scoreList.get(i);
+
+            // inputs to Event constructor:
+            // String name, String date, String startTime, String endTime, String location,
+            // int photoID, String organizations, String categories, String description
+
+            // get image ID according to its name
+            //int photoID = context.getResources().getIdentifier(eventData[5], "drawable", context.getPackageName());
+            allEvents.add(new Event(eventData[0], eventData[1], eventData[2], eventData[3], eventData[4],
+                    1/*photoID*/, eventData[6], eventData[7], eventData[8]));
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
