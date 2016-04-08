@@ -81,6 +81,15 @@ public class Organization {
     }
 
     /**
+     * Returns the list of Events for the Organization.
+     *
+     * @return          the list of Events
+     */
+    public List<Event> getEvents() {
+        return this.events;
+    }
+
+    /**
      * Returns the name of the Organization.
      *
      * @return          the name of the Organization

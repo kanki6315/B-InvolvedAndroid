@@ -1,8 +1,10 @@
 package edu.bucknell.binvolved;
 
+import java.util.Date;
 import java.util.Calendar;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.TimeZone;
 
 /**
  * Class for an Event, which are activities created by Organizations.
@@ -93,9 +95,9 @@ public class Event {
         int minute = Integer.parseInt(startTime.substring(startTime.indexOf(":")+1, startTime.indexOf(" ")));
 
         // set the starting date and time of the Event
-        this.start = Calendar.getInstance();
-        this.start.clear();
-        this.start.set(year, month, day, hour, minute);
+        this.start = Calendar.getInstance(TimeZone.getDefault());
+        //this.start.clear();
+        this.start.set(year, month-1, day, hour, minute);
     }
 
     /**
@@ -121,9 +123,9 @@ public class Event {
         int minute = Integer.parseInt(endTime.substring(endTime.indexOf(":")+1, endTime.indexOf(" ")));
 
         // set the ending date and time of the Event
-        this.end = Calendar.getInstance();
-        this.end.clear();
-        this.end.set(year, month, day, hour, minute);
+        this.end = Calendar.getInstance(TimeZone.getDefault());
+        //this.end.clear();
+        this.end.set(year, month-1, day, hour, minute);
         // adjust if the event goes past midnight
         if (endTime.contains("AM") && startTime.contains("PM")) {
             this.end.add(Calendar.DAY_OF_MONTH, 1);

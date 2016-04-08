@@ -64,6 +64,14 @@ public class Category {
     }
 
     /**
+     * Returns the list of Events for the Category.
+     * @return          the list of Events
+     */
+    public List<Event> getEvents() {
+        return this.events;
+    }
+
+    /**
      * Returns the Category object with the specified name.
      * If no such Category exists, then one is created with the images set to a default set.
      *

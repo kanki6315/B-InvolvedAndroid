@@ -15,10 +15,20 @@ import java.util.List;
 public class CSVFile {
     InputStream inputStream;
 
+    /**
+     * Constructor for CSVFile class.
+     *
+     * @param inputStream
+     */
     public CSVFile(InputStream inputStream){
         this.inputStream = inputStream;
     }
 
+    /**
+     * Reads the CSV file and puts result into a List of Arrays of Strings.
+     *
+     * @return      the List of read values
+     */
     public List read(){
         List <String[]> resultList = new ArrayList<String[]>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));

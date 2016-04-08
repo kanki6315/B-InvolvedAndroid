@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> {
 
@@ -35,6 +36,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
         this.events = events;
     }
 
+    String[] days = {"", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
@@ -51,11 +54,26 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
     public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
         personViewHolder.eventName.setText(events.get(i).name);
 
-        // TO-DO: UPDATE THIS
         Calendar calendar = events.get(i).start;
-        String date = calendar.MONTH + "/" + calendar.DATE + " " + calendar.HOUR;
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        int date = calendar.get(Calendar.DAY_OF_MONTH);
+        int hour = calendar.get(Calendar.HOUR);
+        int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
 
-        personViewHolder.eventDateTime.setText(date);
+        String extension = "PM";
+        if (hour == hourOfDay) {
+            extension = "AM";
+        }
+        if (minute != 0) {
+            extension = ":" + minute + extension;
+        }
+
+        String dateAndTime = days[day] + " " + (month+1) + "/" + date + " " + hour + extension;
+
+        personViewHolder.eventDateTime.setText(dateAndTime);
 
         personViewHolder.eventPhoto.setImageResource(events.get(i).photoID);
     }
