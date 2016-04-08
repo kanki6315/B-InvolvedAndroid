@@ -33,6 +33,20 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".EventActivity"
+            android:label="@string/title_activity_event"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".categories.Main"
+            android:label="@string/title_activity_event"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".categories.CategoryActivity"
+            android:label="@string/title_activity_event"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
