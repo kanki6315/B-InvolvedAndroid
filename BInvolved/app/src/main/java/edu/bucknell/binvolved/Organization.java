@@ -64,7 +64,9 @@ public class Organization {
         for (Event event : this.events) {
             events += event.getName() + ", ";
         }
-        events = events.substring(0, events.length() - 2);
+        if (events.length() > 0) {
+            events = events.substring(0, events.length() - 2);
+        }
 
         return "Organization Name: " + this.name + "\nLogoPhotoID: " + this.images[0]
                 + "\nOtherPhotoIDs: " + this.images[1] + ", " + this.images[2] + ", " + this.images[3]

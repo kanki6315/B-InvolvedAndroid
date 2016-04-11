@@ -20,6 +20,7 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity {
 
     Button button;
+    Button button2;
 
     List<Event> allEvents;
     List<Organization> allOrganizations;
@@ -42,12 +43,30 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         final Context context = this;
+
+        // button to go to individual category page
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Intent intent = new Intent(context, IndividualCategoryActivity.class);
-                startActivity(intent);
+                Bundle localBundle = new Bundle();
+                localBundle.putString("Category Name", "Free Food");
+                Intent localIntent = new Intent(context, IndividualCategoryActivity.class);
+                localIntent.putExtras(localBundle);
+                startActivity(localIntent);
+            }
+        });
+
+        // button to go to individual event page
+        button2 = (Button) findViewById(R.id.button2);
+        button2.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Bundle localBundle = new Bundle();
+                localBundle.putString("Category Name", "Free Food");
+                Intent localIntent = new Intent(context, IndividualEventActivity.class);
+                localIntent.putExtras(localBundle);
+                startActivity(localIntent);
             }
         });
 
@@ -141,7 +160,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
+        // automatically handle clicks on the Home/Up buttonFollowCategory, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 

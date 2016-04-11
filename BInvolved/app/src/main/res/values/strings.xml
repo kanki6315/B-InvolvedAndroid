@@ -152,4 +152,13 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+
+
+    <!-- String for Individual Category -->
+    <string name="follow_updates">Follow Updates</string>
+    <string name="this_week">This Week</string>
+    <string name="top_events">Top Events</string>
+    <string name="all_events">All Events</string>
+    <string name="more">more</string>
+    <string name="banner_image_description">Banner for Individual Category</string>
 </resources>

@@ -170,6 +170,9 @@ public class Event {
             categories = categories.substring(categories.indexOf(";")+1);
 
             // update Category's List of events
+            if (catName.equals("Free Food")) {
+                System.out.println("Adding additional event to Category Free Food");
+            }
             Category.getCategoryWithName(catName).addEvent(this);
         }
         this.categories.add(Category.getCategoryWithName(categories));
@@ -182,6 +185,15 @@ public class Event {
      */
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * Returns the starting Calendar date of the Event object.
+     *
+     * @return      the starting Calendar date
+     */
+    public Calendar getStartCalendar() {
+        return this.start;
     }
 }
 

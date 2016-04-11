@@ -10,7 +10,9 @@ import android.widget.TextView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Layout for an individual Category
@@ -19,10 +21,14 @@ import java.util.List;
  */
 public class IndividualCategoryActivity extends Activity {
 
+    // Category name
+    TextView categoryName;
     // banner image for Category
     ImageView image;
-    // follow update button for Category
-    Button button;
+    // follow update buttonFollowCategory for Category
+    Button buttonFollowCategory;
+    // more buttonFollowCategory for all Events
+    Button buttonAllEvents;
 
     // parts for the card view
     ImageView eventImage;
@@ -30,15 +36,15 @@ public class IndividualCategoryActivity extends Activity {
     TextView eventDateTime;
 
     // parts for recycler view 1: This Week
-    private ArrayList<Event> events1;
+    private List<Event> events1;
     private RecyclerView rv1;
 
     // parts for recycler view 2: Top Events
-    private ArrayList<Event> events2;
+    private List<Event> events2;
     private RecyclerView rv2;
 
     // parts for recycler view 3: All Events
-    private ArrayList<Event> events3;
+    private List<Event> events3;
     private RecyclerView rv3;
 
     /**
@@ -52,8 +58,11 @@ public class IndividualCategoryActivity extends Activity {
         setContentView(R.layout.individual_category);
 
         // get elements for Category
+        categoryName = (TextView) findViewById(R.id.category_name);
+        categoryName.setText(getIntent().getStringExtra("Category Name"));
         image = (ImageView) findViewById(R.id.cat_banner);
         addListenerOnButton();
+
 
         // get elements for card view
         eventImage = (ImageView) findViewById(R.id.event_photo);
@@ -76,19 +85,29 @@ public class IndividualCategoryActivity extends Activity {
 
         // initialize stuff
         initializeData();
-        initializeAdapter();
+        initializeAdapters();
     }
 
     /**
-     * Adds an onClickListener to the button for following updates.
+     * Adds an onClickListener to the follow button for following updates
+     * and for the more button for all Events.
      */
     public void addListenerOnButton() {
-        button = (Button) findViewById(R.id.follow_update);
-        button.setOnClickListener(new OnClickListener() {
+        buttonFollowCategory = (Button) findViewById(R.id.follow_update);
+        buttonFollowCategory.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 //do something
                 System.out.println("The follow update button got pressed.");
+            }
+        });
+
+        buttonAllEvents = (Button) findViewById(R.id.all_events_more);
+        buttonAllEvents.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //do something
+                System.out.println("The more event button got pressed.");
             }
         });
     }
@@ -98,11 +117,25 @@ public class IndividualCategoryActivity extends Activity {
      *
      */
     private void initializeData() {
-        events1 = new ArrayList<Event>();
+
 
         // inputs to Event constructor:
         //String name, String date, String startTime, String endTime, String location,
         //int photoID, String organizations, String categories, String description
+
+        // gets the Category name and the list of Events
+        String categoryName = this.categoryName.getText().toString();
+        System.out.println("categoryName: " + categoryName);
+        Category category = Category.getCategoryWithName(categoryName);
+        System.out.println("category: " + category);
+        List<Event> categoryEvents = category.getEvents();
+        System.out.println("categoryEvents: " + categoryEvents);
+
+        // get Events within a week of the current date
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        Calendar calendarNextWeek = Calendar.getInstance(TimeZone.getDefault());
+        calendarNextWeek.add(Calendar.DATE, 7);
+        events1 = new ArrayList<Event>();
 
         events1.add(new Event("name1", "4/7/2016", "7:00 PM", "10:00 PM", "location",
                 R.drawable.rsz_1chrysalis, "org1", "Free Food;Alcohol(21+)", "description"));
@@ -110,24 +143,52 @@ public class IndividualCategoryActivity extends Activity {
                 R.drawable.ace, "org2", "Dance;Music", "description"));
         events1.add(new Event("name3", "4/30/2016", "7:00 PM", "2:00 AM", "location",
                 R.drawable.ace, "org1", "Theater;Social", "description"));
-        events1.add(new Event("name4", "5/5/2016", "11:00 AM", "3:00 PM", "location",
-                R.drawable.ace, "org1", "Free Food;Alcohol(21+)", "description"));
-        events1.add(new Event("name5", "5/10/2016", "10:00 AM", "5:00 PM", "location",
-                R.drawable.ace, "org2", "Free Food", "description"));
+        /*
+        for (Event event:categoryEvents) {
+            if (event.getStartCalendar().before(calendarNextWeek)) {
+                events1.add(event);
+            }
+        }
+        System.out.println("events1 size: " + events1.size());
+        */
 
-
+        // TODO: top Events: how to determine a top event
         events2 = new ArrayList<Event>();
-        List<Event> catEvents = Category.getCategoryWithName("Free Food").getEvents();
+        events2.add(new Event("name1", "4/7/2016", "7:00 PM", "10:00 PM", "location",
+                R.drawable.rsz_1chrysalis, "org1", "Free Food;Alcohol(21+)", "description"));
+        events2.add(new Event("name2", "4/20/2016", "6:15 PM", "11:30 AM", "location",
+                R.drawable.ace, "org2", "Dance;Music", "description"));
+        events2.add(new Event("name3", "4/30/2016", "7:00 PM", "2:00 AM", "location",
+                R.drawable.ace, "org1", "Theater;Social", "description"));
+        events2.add(new Event("name4", "5/5/2016", "11:00 AM", "3:00 PM", "location",
+                R.drawable.ace, "org1", "Free Food;Alcohol(21+)", "description"));
+        events2.add(new Event("name5", "5/10/2016", "10:00 AM", "5:00 PM", "location",
+                R.drawable.ace, "org2", "Free Food", "description"));
+        System.out.println("events2 size: " + events2.size());
 
+        // a subset of all Events
+        System.out.println("categoryEvents size: " + categoryEvents.size());
+        int min = Math.min(categoryEvents.size(), 10);
 
-        events3 = new ArrayList<Event>();
+        //events3 = new ArrayList<Event>();
+
+        events3 = categoryEvents.subList(0,min);
+
+        System.out.println("events3 size: " + events3.size());
+
     }
 
     /**
      * Initilizes the adapter for the RecyclerView.
      */
-    private void initializeAdapter(){
-        RVAdapter adapter = new RVAdapter(events1);
-        rv1.setAdapter(adapter);
+    private void initializeAdapters(){
+        RVAdapter adapter1 = new RVAdapter(events1);
+        rv1.setAdapter(adapter1);
+
+        RVAdapter adapter2 = new RVAdapter(events2);
+        rv2.setAdapter(adapter2);
+
+        RVAdapter adapter3 = new RVAdapter(events3);
+        rv3.setAdapter(adapter3);
     }
 }

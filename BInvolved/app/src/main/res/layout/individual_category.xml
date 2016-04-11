@@ -20,27 +20,33 @@
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:src="@drawable/cat_free_food_banner"
-        android:contentDescription="Banner for Individual Category"/>
-    <LinearLayout
+        android:contentDescription="@string/banner_image_description"/>
+
+    <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
         <TextView
+            android:id="@+id/category_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
             android:textSize="30sp"
-            android:textAlignment="textStart"
-            android:text="Free Food" />
+            android:textStyle="bold"
+            android:textAlignment="textStart" />
 
         <Button
             android:id="@+id/follow_update"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_gravity="end"
-            android:text="Follow Updates"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:text="@string/follow_updates"
             android:background="@color/vermilionOrange" />
-    </LinearLayout>
+    </RelativeLayout>
 
 
 
@@ -52,10 +58,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:text="This Week"/>
+            android:layout_marginStart="10dp"
+            android:textStyle="bold"
+            android:text="@string/this_week"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:orientation="horizontal" >
 
@@ -76,10 +84,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:text="Top Events"/>
+            android:layout_marginStart="10dp"
+            android:textStyle="bold"
+            android:text="@string/top_events"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:orientation="horizontal" >
 
@@ -97,28 +107,33 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="30dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:text="All Events"/>
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold"
+                android:text="@string/all_events"/>
 
             <Button
-                android:id="@+id/more"
+                android:id="@+id/all_events_more"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="20dp"
                 android:layout_gravity="end"
-                android:text="more"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:text="@string/more"
                 android:textColor="@color/white"
                 android:background="@color/midnightBlue" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:orientation="horizontal" >
 
