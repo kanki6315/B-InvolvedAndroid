@@ -17,7 +17,7 @@ public class ListAdapter extends ArrayAdapter {
     private boolean useList = true;
 
     public ListAdapter(Context context, List items) {
-        super(context, R.layout.item, items);
+        super(context, R.layout.event_card_view, items);
         this.context = context;
     }
 

@@ -8,32 +8,30 @@
     >
 
     <RelativeLayout
-        android:layout_width="100dp"
-        android:layout_height="100dp" >
+        android:layout_width="@dimen/card_view_total_width"
+        android:layout_height="@dimen/card_view_total_height" >
 
         <ImageView
-            android:maxWidth="100dp"
-            android:layout_width="100dp"
-            android:maxHeight="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/card_view_total_width"
+            android:layout_height="@dimen/card_view_image_height"
             android:id="@+id/event_photo"
             android:layout_alignParentTop="true"
-            android:contentDescription="Image for CardView"/>
+            android:contentDescription="@string/card_view_image_description"/>
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/card_view_total_width"
+            android:layout_height="wrap_content"
             android:id="@+id/event_name"
             android:layout_below="@+id/event_photo"
-            android:textSize="12sp"
+            android:textSize="@dimen/card_view_text_size"
             android:textAlignment="center" />
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/card_view_total_width"
+            android:layout_height="wrap_content"
             android:id="@+id/event_date_time"
             android:layout_below="@+id/event_name"
-            android:textSize="12sp"
+            android:textSize="@dimen/card_view_text_size"
             android:textAlignment="center" />
 
     </RelativeLayout>

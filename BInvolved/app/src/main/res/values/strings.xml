@@ -161,4 +161,13 @@
     <string name="all_events">All Events</string>
     <string name="more">more</string>
     <string name="banner_image_description">Banner for Individual Category</string>
+
+    <string name="card_view_image_description">Image for CardView</string>
+
+
+    <!-- String for Home Page -->
+    <string name="your_top_10"> Your Top 10</string>
+    <string name="categories">Categories</string>
+    <string name="upcoming_events">Upcoming Events</string>
+
 </resources>

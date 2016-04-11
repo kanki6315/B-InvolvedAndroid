@@ -18,14 +18,14 @@
     <ImageView
         android:id="@+id/cat_banner"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="@dimen/banner_image_height"
         android:src="@drawable/cat_free_food_banner"
         android:contentDescription="@string/banner_image_description"/>
 
     <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="40dp">
 
         <TextView
             android:id="@+id/category_name"
@@ -64,7 +64,7 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/card_view_total_height"
             android:orientation="horizontal" >
 
             <android.support.v7.widget.RecyclerView
@@ -90,7 +90,7 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/card_view_total_height"
             android:orientation="horizontal" >
 
             <android.support.v7.widget.RecyclerView
@@ -109,11 +109,11 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="@dimen/section_title_height"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
                 android:textStyle="bold"
@@ -122,7 +122,7 @@
             <Button
                 android:id="@+id/all_events_more"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="@dimen/more_button_height"
                 android:layout_gravity="end"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="10dp"
@@ -133,8 +133,8 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_view_total_height"
             android:orientation="horizontal" >
 
             <android.support.v7.widget.RecyclerView

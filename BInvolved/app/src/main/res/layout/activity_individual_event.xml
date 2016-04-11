@@ -16,7 +16,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="@dimen/banner_image_height"
         android:src="@drawable/bucknell_student_alumni_virtual_networking_event" />
 
     <Gallery

@@ -63,27 +63,18 @@ public class IndividualCategoryActivity extends Activity {
         image = (ImageView) findViewById(R.id.cat_banner);
         addListenerOnButton();
 
-
         // get elements for card view
         eventImage = (ImageView) findViewById(R.id.event_photo);
         eventName = (TextView) findViewById(R.id.event_name);
         eventDateTime = (TextView) findViewById(R.id.event_date_time);
 
-        // get elements for recycler views and set layout manager for each
-        LinearLayoutManager llm1 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        // get elements for recycler views
         rv1 =(RecyclerView)findViewById(R.id.recycler_view_1);
-        rv1.setLayoutManager(llm1);
-        rv1.setHasFixedSize(true);
-        LinearLayoutManager llm2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rv2 =(RecyclerView)findViewById(R.id.recycler_view_2);
-        rv2.setLayoutManager(llm2);
-        rv2.setHasFixedSize(true);
-        LinearLayoutManager llm3 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rv3 =(RecyclerView)findViewById(R.id.recycler_view_3);
-        rv3.setLayoutManager(llm3);
-        rv3.setHasFixedSize(true);
 
         // initialize stuff
+        setLayoutManagers();
         initializeData();
         initializeAdapters();
     }
@@ -113,11 +104,27 @@ public class IndividualCategoryActivity extends Activity {
     }
 
     /**
+     * Sets the layout managers for the recycler views.
+     */
+    private void setLayoutManagers() {
+        LinearLayoutManager llm1 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rv1.setLayoutManager(llm1);
+        rv1.setHasFixedSize(true);
+
+        LinearLayoutManager llm2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rv2.setLayoutManager(llm2);
+        rv2.setHasFixedSize(true);
+
+        LinearLayoutManager llm3 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rv3.setLayoutManager(llm3);
+        rv3.setHasFixedSize(true);
+    }
+
+    /**
      * Initializes temporary data. This will be replaced with actual data from the CSV file.
      *
      */
     private void initializeData() {
-
 
         // inputs to Event constructor:
         //String name, String date, String startTime, String endTime, String location,
@@ -179,7 +186,7 @@ public class IndividualCategoryActivity extends Activity {
     }
 
     /**
-     * Initilizes the adapter for the RecyclerView.
+     * Initializes the adapter for the RecyclerView.
      */
     private void initializeAdapters(){
         RVAdapter adapter1 = new RVAdapter(events1);

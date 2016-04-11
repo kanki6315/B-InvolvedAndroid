@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
@@ -26,10 +28,17 @@ public class HomeActivity extends AppCompatActivity {
     List<Organization> allOrganizations;
     List<Category> allCategories;
 
+    // parts for the recycler views
+    private List<Category> categories;
+    private RecyclerView rv1;
+    private List<Event> upcomingEvents;
+    private RecyclerView rv2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -50,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Bundle localBundle = new Bundle();
-                localBundle.putString("Category Name", "Free Food");
+                localBundle.putString("Event Name", "Some event name");
                 Intent localIntent = new Intent(context, IndividualCategoryActivity.class);
                 localIntent.putExtras(localBundle);
                 startActivity(localIntent);
@@ -74,6 +83,15 @@ public class HomeActivity extends AppCompatActivity {
         readInOrganizations();
         readInCategories();
         readInEvents();
+
+        // do setup for recycler view
+        rv1 =(RecyclerView)findViewById(R.id.recycler_view_1);
+        rv2 =(RecyclerView)findViewById(R.id.recycler_view_2);
+        categories = allCategories.subList(0,3);
+        upcomingEvents = allEvents.subList(0,2);
+        setLayoutManagersAndInitializeAdapters();
+
+
 
     }
 
@@ -149,6 +167,22 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    private void setLayoutManagersAndInitializeAdapters() {
+        LinearLayoutManager llm1 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rv1.setLayoutManager(llm1);
+        rv1.setHasFixedSize(true);
+
+        LinearLayoutManager llm2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rv2.setLayoutManager(llm2);
+        rv2.setHasFixedSize(true);
+
+        // adapters
+        RVCategoryAdapter adapter1 = new RVCategoryAdapter(categories);
+        rv1.setAdapter(adapter1);
+
+        RVAdapter adapter2 = new RVAdapter(upcomingEvents);
+        rv2.setAdapter(adapter2);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

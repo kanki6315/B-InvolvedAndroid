@@ -13,11 +13,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_home"
     tools:context="edu.bucknell.binvolved.HomeActivity">
-
-    <TextView
-        android:text="Hello World!"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    
 
     <Button
         android:id="@+id/button"
@@ -31,5 +27,105 @@
         android:layout_width="fill_parent"
         android:layout_height="75dp"
         android:text="Click me to go to individual event screen"/>
+    
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/banner_image_height"
+        android:src="@drawable/rsz_chrysalis"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/section_title_height"
+        android:textAlignment="center"
+        android:textColor="@color/midnightBlue"
+        android:text="@string/your_top_10"
+        android:background="@drawable/back"/>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold"
+                android:text="@string/categories"/>
+
+            <Button
+                android:id="@+id/all_categories"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/more_button_height"
+                android:layout_gravity="end"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:text="@string/more"
+                android:textColor="@color/white"
+                android:background="@color/midnightBlue" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_view_total_height"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recycler_view_1" >
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold"
+                android:text="@string/upcoming_events"/>
+
+            <Button
+                android:id="@+id/upcoming_events"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/more_button_height"
+                android:layout_gravity="end"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:text="@string/more"
+                android:textColor="@color/white"
+                android:background="@color/midnightBlue" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_view_total_height"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recycler_view_2" >
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
