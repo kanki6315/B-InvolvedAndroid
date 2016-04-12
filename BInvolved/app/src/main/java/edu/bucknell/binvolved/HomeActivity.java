@@ -162,13 +162,6 @@ public class HomeActivity extends AppCompatActivity {
             int bannerPhotoID = context.getResources().getIdentifier(categoryInfo[2], "drawable", context.getPackageName());
             allCategories.add(new Category(categoryInfo[0],smallPhotoID, bannerPhotoID));
 
-            if (categoryInfo[0].equals("Free Food")) {
-                Category cat = Category.getCategoryWithName("Free Food");
-                System.out.println("bannerPhotoID: " + cat.getBannerPhotoID());
-                System.out.println("drawable name: " + categoryInfo[2]);
-            }
-
-
             System.out.println("categoryInfo: " + categoryInfo[0] + " " + categoryInfo[1] + " " + categoryInfo[2]);
         }
     }
