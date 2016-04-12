@@ -26,13 +26,14 @@
             android:label="@string/title_activity_event"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
+
         <activity
-            android:name=".categories.Main"
+            android:name=".categories.CategoryActivity"
             android:label="@string/title_activity_event"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name=".categories.CategoryActivity"
+            android:name=".categories.TabActivity"
             android:label="@string/title_activity_event"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

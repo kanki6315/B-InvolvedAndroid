@@ -25,18 +25,11 @@ public class CategoryFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mPage = getArguments().getInt(ARG_PAGE);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.categories_list, container, false);
-        TextView textView = (TextView) view;
-        textView.setText("Fragment #" + mPage);
         return view;
     }
 }

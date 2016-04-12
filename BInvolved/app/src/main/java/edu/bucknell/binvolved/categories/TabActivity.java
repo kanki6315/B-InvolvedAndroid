@@ -7,6 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.TabHost;
+
+import java.io.InputStream;
+import java.util.List;
 
 import edu.bucknell.binvolved.R;
 
@@ -15,17 +21,23 @@ import edu.bucknell.binvolved.R;
  */
 public class TabActivity extends AppCompatActivity {
 
+
+    private ListView listView1;
+    private ListView listView2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.category_tabs);
+        setContentView(R.layout.tab_view_id);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
+
+
+
+
         tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 3"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -50,3 +62,4 @@ public class TabActivity extends AppCompatActivity {
             }
         });
     }
+}
