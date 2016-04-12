@@ -24,30 +24,32 @@
     <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/category_name"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="10dp"
-            android:textSize="30sp"
+            android:layout_marginStart="@dimen/section_margin_left"
             android:textStyle="bold"
+            android:textSize="@dimen/page_title_text_size"
             android:textAlignment="textStart" />
 
         <Button
             android:id="@+id/follow_update"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/options_button_height"
             android:layout_gravity="end"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="@dimen/section_margin_right"
             android:text="@string/follow_updates"
             android:background="@color/vermilionOrange" />
     </RelativeLayout>
 
-
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,7 +59,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/section_title_height"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/section_margin_left"
             android:textStyle="bold"
             android:text="@string/this_week"/>
 
@@ -75,6 +77,10 @@
         </LinearLayout>
     </LinearLayout>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -83,7 +89,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/section_title_height"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/section_margin_left"
             android:textStyle="bold"
             android:text="@string/top_events"/>
 
@@ -101,6 +107,10 @@
         </LinearLayout>
     </LinearLayout>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -114,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/section_title_height"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="@dimen/section_margin_left"
                 android:textStyle="bold"
                 android:text="@string/all_events"/>
 
@@ -124,7 +134,7 @@
                 android:layout_height="@dimen/more_button_height"
                 android:layout_gravity="end"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="@dimen/section_margin_right"
                 android:text="@string/more"
                 android:textColor="@color/white"
                 android:background="@color/midnightBlue" />

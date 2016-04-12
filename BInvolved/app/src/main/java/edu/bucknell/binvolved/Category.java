@@ -36,13 +36,9 @@ public class Category {
         this.bannerPhotoID = bannerPhotoID;
         this.events = new ArrayList<Event>();
 
+        // add to static list of all Categories
         Category.allCategories.add(this);
         Category.allCategoryNames.add(this.name);
-
-        if (name.equals("Free Food")) {
-            System.out.println("MAKING FREE FOOD");
-            System.out.println("banner photo id: " + this.bannerPhotoID);
-        }
     }
 
     /**

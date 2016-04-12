@@ -61,15 +61,12 @@ public class IndividualCategoryActivity extends Activity {
         setContentView(R.layout.individual_category);
 
         Bundle inputs = getIntent().getExtras();
-        System.out.println("input from button: " + inputs.getString("Category Name"));
         category = Category.getCategoryWithName(inputs.getString("Category Name"));
 
         // get elements for Category
         categoryName = (TextView) findViewById(R.id.category_name);
         categoryName.setText(category.getName());
         image = (ImageView) findViewById(R.id.category_banner);
-        System.out.println("R.drawable.free_food_banner: " + R.drawable.free_food_banner);
-        System.out.println("banner photo id: " + category.getBannerPhotoID());
         image.setImageResource(category.getBannerPhotoID());
 
         addListenerOnButton();

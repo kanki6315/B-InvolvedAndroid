@@ -64,23 +64,21 @@ public class IndividualOrganizationActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.individual_organization);
 
-        organization = Organization.getOrganizationWithName(getIntent().getStringExtra("Organization Name"));
+        Bundle inputs = getIntent().getExtras();
+        organization = Organization.getOrganizationWithName(inputs.getString("Organization Name"));
 
-
-        // get elements for Organization
+        // get and set elements for Organization
         organizationName = (TextView) findViewById(R.id.organizationName);
         organizationName.setText(organization.getName());
         organizationDescription = (TextView) findViewById(R.id.organizationDescription);
         organizationDescription.setText(organization.getDescription());
 
-
+        // set up images
         gallery = (Gallery) findViewById(R.id.gallery);
         organizationBannerPhoto = (ImageView) findViewById(R.id.organizationBannerPhoto);
-        organizationBannerPhoto.setImageAlpha(organization.getImages()[1]);
+        organizationBannerPhoto.setImageResource(organization.getImages()[1]);
         organizationLogoPhoto = (ImageView) findViewById(R.id.organizationLogoImage);
         organizationLogoPhoto.setImageResource(organization.getImages()[0]);
-
-
 
         // sets up the button listeners
         addButtonOnClickListeners();

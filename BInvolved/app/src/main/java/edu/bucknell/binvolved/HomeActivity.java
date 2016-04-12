@@ -88,9 +88,10 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Bundle localBundle = new Bundle();
-                localBundle.putString("Organization Name", "Uptown");
+                //localBundle.putString("Organization Name", "Uptown");
                 Intent localIntent = new Intent(context, IndividualOrganizationActivity.class);
-                localIntent.putExtras(localBundle);
+                //localIntent.putExtras(localBundle);
+                localIntent.putExtra("Organization Name", "Uptown");
                 startActivity(localIntent);
             }
         });
@@ -124,20 +125,20 @@ public class HomeActivity extends AppCompatActivity {
         for (int i = 1; i < scoreList.size(); i++) {
             String[] organizationInfo = (String[]) scoreList.get(i);
 
-
             // inputs to Organization constructor:
             // String name, int logoPhotoID, int photo1ID, int photo2ID, int photo3ID
+
+            // group together description
+            String description = getDescription(5, organizationInfo);
 
             // get all image IDs according to the names
             int logoPhotoID = context.getResources().getIdentifier(organizationInfo[1], "drawable", context.getPackageName());
             int photo1ID = context.getResources().getIdentifier(organizationInfo[2], "drawable", context.getPackageName());
             int photo2ID = context.getResources().getIdentifier(organizationInfo[3], "drawable", context.getPackageName());
             int photo3ID = context.getResources().getIdentifier(organizationInfo[4], "drawable", context.getPackageName());
-            allOrganizations.add(new Organization(organizationInfo[0], logoPhotoID, photo1ID, photo2ID, photo3ID, organizationInfo[5]));
+            allOrganizations.add(new Organization(organizationInfo[0], logoPhotoID, photo1ID, photo2ID, photo3ID, description));
 
-
-
-            System.out.println("organizationInfo: " + organizationInfo[0] + " " + organizationInfo[1] + " " + organizationInfo[2] + " " + organizationInfo[3] + " " + organizationInfo[4]);
+            //System.out.println("organizationInfo: " + organizationInfo[0] + " " + organizationInfo[1] + " " + organizationInfo[2] + " " + organizationInfo[3] + " " + organizationInfo[4]);
         }
     }
 
@@ -162,7 +163,7 @@ public class HomeActivity extends AppCompatActivity {
             int bannerPhotoID = context.getResources().getIdentifier(categoryInfo[2], "drawable", context.getPackageName());
             allCategories.add(new Category(categoryInfo[0],smallPhotoID, bannerPhotoID));
 
-            System.out.println("categoryInfo: " + categoryInfo[0] + " " + categoryInfo[1] + " " + categoryInfo[2]);
+            //System.out.println("categoryInfo: " + categoryInfo[0] + " " + categoryInfo[1] + " " + categoryInfo[2]);
         }
     }
 
@@ -179,6 +180,9 @@ public class HomeActivity extends AppCompatActivity {
         for (int i = 1; i < scoreList.size(); i++) {
             String[] eventData = (String[]) scoreList.get(i);
 
+            // group together description
+            String description = getDescription(8, eventData);
+
             // inputs to Event constructor:
             // String name, String date, String startTime, String endTime, String location,
             // int photoID, String organizations, String categories, String description
@@ -186,7 +190,7 @@ public class HomeActivity extends AppCompatActivity {
             // get image ID according to its name
             //int photoID = context.getResources().getIdentifier(eventData[5], "drawable", context.getPackageName());
             allEvents.add(new Event(eventData[0], eventData[1], eventData[2], eventData[3], eventData[4],
-                    1/*photoID*/, eventData[6], eventData[7], eventData[8]));
+                    1/*photoID*/, eventData[6], eventData[7], description));
         }
     }
 
@@ -205,6 +209,30 @@ public class HomeActivity extends AppCompatActivity {
 
         RVEventAdapter adapter2 = new RVEventAdapter(upcomingEvents);
         rv2.setAdapter(adapter2);
+    }
+
+    /**
+     * Starts the specified integer index and combines the String values
+     * in the array from that point on.
+     *
+     * @param num           index to start at
+     * @param data          array of String values
+     * @return              the combination of String values
+     */
+    private String getDescription(int num, String[] data) {
+        String description = "";
+        for (int j = num; j < data.length; j++) {
+            description += data[j];
+            if (j == num) {
+                description = description.substring(1);
+            }
+            if (j != data.length - 1) {
+                description += ",";
+            } else {
+                description = description.substring(0,description.length()-1);
+            }
+        }
+        return description;
     }
 
     @Override
