@@ -21,10 +21,23 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".IndividualEventActivity"></activity>
+        <activity
+            android:name=".IndividualEventActivity"
+            android:label="@string/title_activity_individual_event" >
+        </activity>
         <activity
             android:name=".IndividualCategoryActivity"
-            android:label="@string/app_name"
+            android:label="@string/title_activity_individual_category"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".IndividualOrganizationActivity"
+            android:label="@string/title_activity_individual_organization"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

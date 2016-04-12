@@ -16,6 +16,8 @@ public class Organization {
     int[] images;
     // List of Event objects by the Organization
     List<Event> events;
+    // Description of the Organization
+    String description;
 
     // static list of all Organization objects created
     public static List<Organization> allOrganizations = new ArrayList<Organization>();
@@ -30,8 +32,9 @@ public class Organization {
      * @param photo1ID      int representing one extra photo for the Organization
      * @param photo2ID      int representing another extra photo
      * @param photo3ID      int representing a third extra photo
+     * @param description   String describing the Organization
      */
-    public Organization(String name, int logoPhotoID, int photo1ID, int photo2ID, int photo3ID) {
+    public Organization(String name, int logoPhotoID, int photo1ID, int photo2ID, int photo3ID, String description) {
         // first check to see if the Organization name already exists
         if (allOrganizationNames.contains(name)) {
             // got a duplicate Organization name
@@ -47,6 +50,7 @@ public class Organization {
         this.images[2] = photo2ID;
         this.images[3] = photo3ID;
         this.events = new ArrayList<Event>();
+        this.description = description;
 
         // add to static List of Organizations
         allOrganizations.add(this);
@@ -101,6 +105,24 @@ public class Organization {
     }
 
     /**
+     * Returns a list of image ID numbers.
+     *
+     * @return          list of image ID numbers
+     */
+    public int[] getImages() {
+        return this.images;
+    }
+
+    /**
+     * Returns the description of the Organization.
+     *
+     * @return          the description of the Organization
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * Returns the Organization object with the specified name.
      * If the Organization name is not found, then creates a new one
      * with the images set to a default image.
@@ -115,7 +137,7 @@ public class Organization {
         }
 
         // if no Organization found, create a new one
-        Organization newOrg = new Organization(orgName, 0, 0, 0, 0);
+        Organization newOrg = new Organization(orgName, 0, 0, 0, 0, "Description");
         allOrganizations.add(newOrg);
         allOrganizationNames.add(orgName);
         return newOrg;

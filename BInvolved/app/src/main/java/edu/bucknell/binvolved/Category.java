@@ -35,6 +35,12 @@ public class Category {
         this.smallPhotoID = smallPhotoID;
         this.bannerPhotoID = bannerPhotoID;
         this.events = new ArrayList<Event>();
+
+        if (name.equals("Free Food")) {
+            System.out.println("MAKING FREE FOOD");
+
+
+        }
     }
 
     /**
@@ -67,10 +73,38 @@ public class Category {
 
     /**
      * Returns the list of Events for the Category.
+     *
      * @return          the list of Events
      */
     public List<Event> getEvents() {
         return this.events;
+    }
+
+    /**
+     * Returns the name of the Category.
+     *
+     * @return          the name of the Category
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Returns the ID of the banner image of the Category.
+     *
+     * @return          the ID of the banner image
+     */
+    public int getBannerPhotoID() {
+        return this.bannerPhotoID;
+    }
+
+    /**
+     * Returns the ID of the small image for the Category.
+     *
+     * @return          the ID of the small image
+     */
+    public int getSmallPhotoID() {
+        return this.smallPhotoID;
     }
 
     /**

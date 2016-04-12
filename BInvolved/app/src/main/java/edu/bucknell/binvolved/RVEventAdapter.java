@@ -10,9 +10,8 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> {
+public class RVEventAdapter extends RecyclerView.Adapter<RVEventAdapter.PersonViewHolder> {
 
     public static class PersonViewHolder extends RecyclerView.ViewHolder {
 
@@ -32,7 +31,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
 
     List<Event> events;
 
-    RVAdapter(List<Event> events){
+    RVEventAdapter(List<Event> events){
         this.events = events;
     }
 

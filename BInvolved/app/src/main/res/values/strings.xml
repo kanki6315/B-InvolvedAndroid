@@ -2,6 +2,11 @@
     <string name="app_name">BInvolved</string>
     <string name="action_search">Search</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_individual_event">Individual Event</string>
+    <string name="title_activity_individual_organization">Individual Organization</string>
+    <string name="title_activity_individual_category">Individual Category</string>
+
+
     <string name="action_settings">WTH IS THIS</string>
 
     <!-- Strings related to Settings -->
@@ -164,6 +169,9 @@
 
     <string name="card_view_image_description">Image for CardView</string>
 
+
+    <!-- String for Individual Organization -->
+    <string name="contact">Contact</string>
 
     <!-- String for Home Page -->
     <string name="your_top_10"> Your Top 10</string>

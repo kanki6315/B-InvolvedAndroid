@@ -16,10 +16,9 @@
 
 
     <ImageView
-        android:id="@+id/cat_banner"
+        android:id="@+id/category_banner"
         android:layout_width="match_parent"
         android:layout_height="@dimen/banner_image_height"
-        android:src="@drawable/cat_free_food_banner"
         android:contentDescription="@string/banner_image_description"/>
 
     <RelativeLayout
@@ -57,7 +56,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/section_title_height"
             android:layout_marginStart="10dp"
             android:textStyle="bold"
             android:text="@string/this_week"/>
@@ -83,7 +82,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/section_title_height"
             android:layout_marginStart="10dp"
             android:textStyle="bold"
             android:text="@string/top_events"/>

@@ -25,9 +25,9 @@ public class IndividualCategoryActivity extends Activity {
     TextView categoryName;
     // banner image for Category
     ImageView image;
-    // follow update buttonFollowCategory for Category
+    // follow update button for Category
     Button buttonFollowCategory;
-    // more buttonFollowCategory for all Events
+    // more button for all Events
     Button buttonAllEvents;
 
     // parts for the card view
@@ -47,6 +47,9 @@ public class IndividualCategoryActivity extends Activity {
     private List<Event> events3;
     private RecyclerView rv3;
 
+    // Category
+    Category category;
+
     /**
      * Specifies what to do on creation of the page.
      *
@@ -57,10 +60,18 @@ public class IndividualCategoryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.individual_category);
 
+        Bundle inputs = getIntent().getExtras();
+        System.out.println("input from button: " + inputs.getString("Category Name"));
+        category = Category.getCategoryWithName(inputs.getString("Category Name"));
+
         // get elements for Category
         categoryName = (TextView) findViewById(R.id.category_name);
-        categoryName.setText(getIntent().getStringExtra("Category Name"));
-        image = (ImageView) findViewById(R.id.cat_banner);
+        categoryName.setText(category.getName());
+        image = (ImageView) findViewById(R.id.category_banner);
+        System.out.println("R.drawable.free_food_banner: " + R.drawable.free_food_banner);
+        System.out.println("banner photo id: " + category.getBannerPhotoID());
+        image.setImageResource(category.getBannerPhotoID());
+
         addListenerOnButton();
 
         // get elements for card view
@@ -145,7 +156,7 @@ public class IndividualCategoryActivity extends Activity {
         events1 = new ArrayList<Event>();
 
         events1.add(new Event("name1", "4/7/2016", "7:00 PM", "10:00 PM", "location",
-                R.drawable.rsz_1chrysalis, "org1", "Free Food;Alcohol(21+)", "description"));
+                R.drawable.ace, "org1", "Free Food;Alcohol(21+)", "description"));
         events1.add(new Event("name2", "4/20/2016", "6:15 PM", "11:30 AM", "location",
                 R.drawable.ace, "org2", "Dance;Music", "description"));
         events1.add(new Event("name3", "4/30/2016", "7:00 PM", "2:00 AM", "location",
@@ -162,7 +173,7 @@ public class IndividualCategoryActivity extends Activity {
         // TODO: top Events: how to determine a top event
         events2 = new ArrayList<Event>();
         events2.add(new Event("name1", "4/7/2016", "7:00 PM", "10:00 PM", "location",
-                R.drawable.rsz_1chrysalis, "org1", "Free Food;Alcohol(21+)", "description"));
+                R.drawable.ace, "org1", "Free Food;Alcohol(21+)", "description"));
         events2.add(new Event("name2", "4/20/2016", "6:15 PM", "11:30 AM", "location",
                 R.drawable.ace, "org2", "Dance;Music", "description"));
         events2.add(new Event("name3", "4/30/2016", "7:00 PM", "2:00 AM", "location",
@@ -189,13 +200,13 @@ public class IndividualCategoryActivity extends Activity {
      * Initializes the adapter for the RecyclerView.
      */
     private void initializeAdapters(){
-        RVAdapter adapter1 = new RVAdapter(events1);
+        RVEventAdapter adapter1 = new RVEventAdapter(events1);
         rv1.setAdapter(adapter1);
 
-        RVAdapter adapter2 = new RVAdapter(events2);
+        RVEventAdapter adapter2 = new RVEventAdapter(events2);
         rv2.setAdapter(adapter2);
 
-        RVAdapter adapter3 = new RVAdapter(events3);
+        RVEventAdapter adapter3 = new RVEventAdapter(events3);
         rv3.setAdapter(adapter3);
     }
 }

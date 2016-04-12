@@ -1,14 +1,14 @@
-Names,Small Picture,Banner Picture
-Learning,Academic.jpg,blah
-Alcohol (21+),Alcohol (21+).jpeg,Alcohol (21+) Banner.jpeg
-Arts & Crafts,Arts & Crafts.jpg,blah
-Community Service,Community Service.jpg,blah
-Dance,Dance.png,blah
-Free Food,Free Food.jpg,Free Food Banner.png
-Guest Speaker,Guest Speaker.jpg,blah
-Music,Music.png,blah
-Social,Social.jpg,blah
-Sports & Games,Sports & Games.jpg,blah
-Theater,Theater.jpg,blah
-Career Development,blah,blah
-Cultural,blah,blah
+Name,Small Picture,Banner Picture
+Learning,academic,academic_banner
+Alcohol (21+),alcohol,alcohol_banner.jpeg
+Arts & Crafts,arts_and_crafts,arts_and_crafts_banner
+Community Service,community_service,community_service_banner
+Dance,dance,dance_banner
+Free Food,free_food,free_food_banner
+Guest Speaker,guest_speakers,guest_speakers_banner
+Music,music.png,music_banner
+Social,social,social_banner.png
+Sports & Games,sports_and_games,sports_and_games_banner
+Theater,theater,theater_banner
+Career Development,career_development,career_development_banner
+Cultural,cultural,cultural_banner

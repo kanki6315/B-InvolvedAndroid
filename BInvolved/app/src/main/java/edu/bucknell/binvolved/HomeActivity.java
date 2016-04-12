@@ -23,10 +23,13 @@ public class HomeActivity extends AppCompatActivity {
 
     Button button;
     Button button2;
+    Button button3;
 
     List<Event> allEvents;
     List<Organization> allOrganizations;
     List<Category> allCategories;
+
+    final Context context = this;
 
     // parts for the recycler views
     private List<Category> categories;
@@ -51,7 +54,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        final Context context = this;
 
         // button to go to individual category page
         button = (Button) findViewById(R.id.button);
@@ -59,9 +61,9 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Bundle localBundle = new Bundle();
-                localBundle.putString("Event Name", "Some event name");
+                //localBundle.putString("Category Name", "Some event name");
                 Intent localIntent = new Intent(context, IndividualCategoryActivity.class);
-                localIntent.putExtras(localBundle);
+                localIntent.putExtra("Category Name", "Free Food");
                 startActivity(localIntent);
             }
         });
@@ -72,8 +74,22 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Bundle localBundle = new Bundle();
-                localBundle.putString("Category Name", "Free Food");
+                //localBundle.putString("Event Name", "Free Food");
                 Intent localIntent = new Intent(context, IndividualEventActivity.class);
+                //localIntent.putExtras(localBundle);
+                localIntent.putExtra("Event Name", "Some Event Name");
+                startActivity(localIntent);
+            }
+        });
+
+        // button to go to individual organization page
+        button3 = (Button) findViewById(R.id.button3);
+        button3.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Bundle localBundle = new Bundle();
+                localBundle.putString("Organization Name", "Uptown");
+                Intent localIntent = new Intent(context, IndividualOrganizationActivity.class);
                 localIntent.putExtras(localBundle);
                 startActivity(localIntent);
             }
@@ -108,15 +124,20 @@ public class HomeActivity extends AppCompatActivity {
         for (int i = 1; i < scoreList.size(); i++) {
             String[] organizationInfo = (String[]) scoreList.get(i);
 
+
             // inputs to Organization constructor:
             // String name, int logoPhotoID, int photo1ID, int photo2ID, int photo3ID
 
             // get all image IDs according to the names
-            //int logoPhotoID = context.getResources().getIdentifier(organizationInfo[1], "drawable", context.getPackageName());
-            //int photo1ID = context.getResources().getIdentifier(organizationInfo[2], "drawable", context.getPackageName());
-            //int photo2ID = context.getResources().getIdentifier(organizationInfo[3], "drawable", context.getPackageName());
-            //int photo3ID = context.getResources().getIdentifier(organizationInfo[4], "drawable", context.getPackageName());
-            allOrganizations.add(new Organization(organizationInfo[0],1,2,3,4/*logoPhotoID, photo1ID, photo2ID, photo3ID*/));
+            int logoPhotoID = context.getResources().getIdentifier(organizationInfo[1], "drawable", context.getPackageName());
+            int photo1ID = context.getResources().getIdentifier(organizationInfo[2], "drawable", context.getPackageName());
+            int photo2ID = context.getResources().getIdentifier(organizationInfo[3], "drawable", context.getPackageName());
+            int photo3ID = context.getResources().getIdentifier(organizationInfo[4], "drawable", context.getPackageName());
+            allOrganizations.add(new Organization(organizationInfo[0], logoPhotoID, photo1ID, photo2ID, photo3ID, organizationInfo[5]));
+
+
+
+            System.out.println("organizationInfo: " + organizationInfo[0] + " " + organizationInfo[1] + " " + organizationInfo[2] + " " + organizationInfo[3] + " " + organizationInfo[4]);
         }
     }
 
@@ -137,9 +158,18 @@ public class HomeActivity extends AppCompatActivity {
             // String name, int smallPhotoID, int bannerPhotoID
 
             // get all image IDs according to the names
-            //int smallPhotoID = context.getResources().getIdentifier(organizationInfo[1], "drawable", context.getPackageName());
-            //int bannerPhotoID = context.getResources().getIdentifier(organizationInfo[2], "drawable", context.getPackageName());
-            allCategories.add(new Category(categoryInfo[0],1,2/*smallPhotoID, bannerPhotoID*/));
+            int smallPhotoID = context.getResources().getIdentifier(categoryInfo[1], "drawable", context.getPackageName());
+            int bannerPhotoID = context.getResources().getIdentifier(categoryInfo[2], "drawable", context.getPackageName());
+            allCategories.add(new Category(categoryInfo[0],smallPhotoID, bannerPhotoID));
+
+            if (categoryInfo[0].equals("Free Food")) {
+                Category cat = Category.getCategoryWithName("Free Food");
+                System.out.println("bannerPhotoID: " + cat.getBannerPhotoID());
+                System.out.println("drawable name: " + categoryInfo[2]);
+            }
+
+
+            System.out.println("categoryInfo: " + categoryInfo[0] + " " + categoryInfo[1] + " " + categoryInfo[2]);
         }
     }
 
@@ -180,7 +210,7 @@ public class HomeActivity extends AppCompatActivity {
         RVCategoryAdapter adapter1 = new RVCategoryAdapter(categories);
         rv1.setAdapter(adapter1);
 
-        RVAdapter adapter2 = new RVAdapter(upcomingEvents);
+        RVEventAdapter adapter2 = new RVEventAdapter(upcomingEvents);
         rv2.setAdapter(adapter2);
     }
 

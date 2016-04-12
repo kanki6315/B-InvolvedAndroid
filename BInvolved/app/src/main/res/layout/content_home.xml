@@ -21,17 +21,22 @@
         android:layout_height="75dp"
         android:text="Click me to go to individual category screen"/>
 
-
     <Button
         android:id="@+id/button2"
         android:layout_width="fill_parent"
         android:layout_height="75dp"
         android:text="Click me to go to individual event screen"/>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="fill_parent"
+        android:layout_height="75dp"
+        android:text="Click me to go to individual organization screen"/>
     
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="@dimen/banner_image_height"
-        android:src="@drawable/rsz_chrysalis"/>
+        android:src="@drawable/ace"/>
 
 
     <TextView
