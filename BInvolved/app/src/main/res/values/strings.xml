@@ -169,7 +169,7 @@
     <string name="top_events">Top Events</string>
     <string name="all_events">All Events</string>
     <string name="more">more</string>
-    <string name="banner_image_description">Banner for Individual Category</string>
+    <string name="banner_image_description">Banner Image</string>
 
     <string name="card_view_image_description">Image for CardView</string>
 

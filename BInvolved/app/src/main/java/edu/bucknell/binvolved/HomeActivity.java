@@ -17,7 +17,9 @@ import android.view.View.OnClickListener;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -54,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-
+        /*
         // button to go to individual category page
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new OnClickListener() {
@@ -95,6 +97,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(localIntent);
             }
         });
+        */
 
         // read in the CSV files
         readInOrganizations();
@@ -104,10 +107,30 @@ public class HomeActivity extends AppCompatActivity {
         // do setup for recycler view
         rv1 =(RecyclerView)findViewById(R.id.recycler_view_1);
         rv2 =(RecyclerView)findViewById(R.id.recycler_view_2);
-        categories = allCategories.subList(0,3);
-        upcomingEvents = allEvents.subList(0,2);
+        int minCategoryDisplay = Math.min(5, allCategories.size());
+        categories = allCategories.subList(0,minCategoryDisplay);
+
+
+        Calendar now = Calendar.getInstance(TimeZone.getDefault());
+
+        int minEventDisplay = Math.min(5,allEvents.size());
+        upcomingEvents = new ArrayList<Event>();
+        int count = 0;
+        for (Event event: allEvents) {
+            if (event.getStartCalendar().getTime().after(now.getTime())) {
+                upcomingEvents.add(event);
+                count += 1;
+            }
+            if (count == minEventDisplay) {
+                break;
+            }
+        }
+        //upcomingEvents = allEvents.subList(0,minEventDisplay);
+
+
         setLayoutManagersAndInitializeAdapters();
     }
+
 
     /**
      * Reads the CSV file of Organizations and creates the Organization objects.
@@ -201,7 +224,7 @@ public class HomeActivity extends AppCompatActivity {
         rv2.setHasFixedSize(true);
 
         // adapters
-        RVCategoryAdapter adapter1 = new RVCategoryAdapter(categories);
+        RVCategoryAdapter adapter1 = new RVCategoryAdapter(context, categories);
         rv1.setAdapter(adapter1);
 
         RVEventAdapter adapter2 = new RVEventAdapter(upcomingEvents);
