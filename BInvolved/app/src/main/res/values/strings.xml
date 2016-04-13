@@ -159,6 +159,10 @@
     </string>
 
 
+
+
+
+
     <!-- String for Individual Category -->
     <string name="follow_updates">Follow Updates</string>
     <string name="this_week">This Week</string>
@@ -173,9 +177,11 @@
     <!-- String for Individual Organization -->
     <string name="contact">Contact</string>
 
+
     <!-- String for Home Page -->
     <string name="your_top_10"> Your Top 10</string>
     <string name="categories">Categories</string>
     <string name="upcoming_events">Upcoming Events</string>
+
 
 </resources>

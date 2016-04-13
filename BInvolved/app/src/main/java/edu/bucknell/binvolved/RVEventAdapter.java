@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Button;
 
 import java.util.Calendar;
 import java.util.List;
@@ -19,6 +20,7 @@ public class RVEventAdapter extends RecyclerView.Adapter<RVEventAdapter.PersonVi
         TextView eventName;
         TextView eventDateTime;
         ImageView eventPhoto;
+        Button eventOptionShortcut;
 
         PersonViewHolder(View itemView) {
             super(itemView);
@@ -26,6 +28,7 @@ public class RVEventAdapter extends RecyclerView.Adapter<RVEventAdapter.PersonVi
             eventName = (TextView)itemView.findViewById(R.id.event_name);
             eventDateTime = (TextView)itemView.findViewById(R.id.event_date_time);
             eventPhoto = (ImageView)itemView.findViewById(R.id.event_photo);
+            eventOptionShortcut = (Button)itemView.findViewById(R.id.event_option_shortcut);
         }
     }
 
@@ -51,7 +54,7 @@ public class RVEventAdapter extends RecyclerView.Adapter<RVEventAdapter.PersonVi
 
     @Override
     public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
-        personViewHolder.eventName.setText(events.get(i).name);
+        personViewHolder.eventName.setText(events.get(i).getName());
 
         Calendar calendar = events.get(i).start;
         int day = calendar.get(Calendar.DAY_OF_WEEK);
@@ -74,8 +77,14 @@ public class RVEventAdapter extends RecyclerView.Adapter<RVEventAdapter.PersonVi
 
         personViewHolder.eventDateTime.setText(dateAndTime);
 
-        personViewHolder.eventPhoto.setImageResource(R.drawable.ace);
-        //personViewHolder.eventPhoto.setImageResource(events.get(i).photoID);
+        personViewHolder.eventPhoto.setImageResource(events.get(i).getPhotoID());
+
+        personViewHolder.eventOptionShortcut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("event shortcut option pressed");
+            }
+        });
     }
 
     @Override

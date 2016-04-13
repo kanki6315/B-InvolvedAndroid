@@ -25,11 +25,25 @@
             android:textSize="@dimen/card_view_text_size"
             android:textAlignment="center" />
 
+        <Button
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:id="@+id/event_option_shortcut"
+            android:background="@drawable/ic_more_vert_black_48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/card_view_image_height"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:id="@+id/space"
+            android:layout_below="@id/event_name"/>
+
         <TextView
             android:layout_width="@dimen/card_view_total_width"
             android:layout_height="wrap_content"
             android:id="@+id/event_date_time"
-            android:layout_below="@+id/event_name"
+            android:layout_below="@+id/space"
             android:textSize="@dimen/card_view_text_size"
             android:textAlignment="center" />
 

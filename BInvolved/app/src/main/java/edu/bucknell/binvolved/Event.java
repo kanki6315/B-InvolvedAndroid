@@ -188,6 +188,15 @@ public class Event {
     }
 
     /**
+     * Returns the ID of the Event image.
+     *
+     * @return      the ID attribute
+     */
+    public int getPhotoID() {
+        return this.photoID;
+    }
+
+    /**
      * Returns the starting Calendar date of the Event object.
      *
      * @return      the starting Calendar date

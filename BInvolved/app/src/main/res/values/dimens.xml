@@ -19,7 +19,7 @@
     <dimen name="card_view_image_width">100dp</dimen>
     <dimen name="card_view_total_height">100dp</dimen>
     <dimen name="card_view_total_width">100dp</dimen>
-    <dimen name="card_view_text_size">20sp</dimen>
+    <dimen name="card_view_text_size">10sp</dimen>
 
 
     <dimen name="more_button_height">20dp</dimen>

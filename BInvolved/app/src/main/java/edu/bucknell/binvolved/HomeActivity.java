@@ -107,9 +107,6 @@ public class HomeActivity extends AppCompatActivity {
         categories = allCategories.subList(0,3);
         upcomingEvents = allEvents.subList(0,2);
         setLayoutManagersAndInitializeAdapters();
-
-
-
     }
 
     /**
@@ -188,9 +185,9 @@ public class HomeActivity extends AppCompatActivity {
             // int photoID, String organizations, String categories, String description
 
             // get image ID according to its name
-            //int photoID = context.getResources().getIdentifier(eventData[5], "drawable", context.getPackageName());
+            int photoID = context.getResources().getIdentifier(eventData[5], "drawable", context.getPackageName());
             allEvents.add(new Event(eventData[0], eventData[1], eventData[2], eventData[3], eventData[4],
-                    1/*photoID*/, eventData[6], eventData[7], description));
+                    photoID, eventData[6], eventData[7], description));
         }
     }
 
@@ -221,15 +218,19 @@ public class HomeActivity extends AppCompatActivity {
      */
     private String getDescription(int num, String[] data) {
         String description = "";
+        boolean removedFirstQuote = false;
         for (int j = num; j < data.length; j++) {
             description += data[j];
-            if (j == num) {
+            if (j == num && description.charAt(0) == '"') {
                 description = description.substring(1);
+                removedFirstQuote = true;
             }
             if (j != data.length - 1) {
                 description += ",";
             } else {
-                description = description.substring(0,description.length()-1);
+                if (removedFirstQuote) {
+                    description = description.substring(0,description.length()-1);
+                }
             }
         }
         return description;

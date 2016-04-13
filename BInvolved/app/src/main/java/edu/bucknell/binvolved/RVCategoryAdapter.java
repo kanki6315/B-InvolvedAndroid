@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Button;
 
 import java.util.Calendar;
 import java.util.List;
@@ -18,12 +19,14 @@ public class RVCategoryAdapter extends RecyclerView.Adapter<RVCategoryAdapter.Pe
         CardView cv;
         TextView categoryName;
         ImageView categoryPhoto;
+        Button categoryOptionShortcut;
 
         PersonViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.card_view);
             categoryName = (TextView)itemView.findViewById(R.id.category_name);
             categoryPhoto = (ImageView)itemView.findViewById(R.id.category_photo);
+            categoryOptionShortcut = (Button)itemView.findViewById(R.id.category_option_shortcut);
         }
     }
 
@@ -49,7 +52,12 @@ public class RVCategoryAdapter extends RecyclerView.Adapter<RVCategoryAdapter.Pe
     public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
         personViewHolder.categoryName.setText(categories.get(i).name);
         personViewHolder.categoryPhoto.setImageResource(R.drawable.ace);
-        //personViewHolder.categoryPhoto.setImageResource(categories.get(i).smallPhotoID);
+        personViewHolder.categoryOptionShortcut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("category shortcut option pressed");
+            }
+        });
     }
 
     @Override
