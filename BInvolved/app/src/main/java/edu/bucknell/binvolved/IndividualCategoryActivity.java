@@ -157,9 +157,11 @@ public class IndividualCategoryActivity extends Activity {
         System.out.println("categoryEvents: " + categoryEvents);
 
         // get Events within a week of the current date
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        Calendar today = Calendar.getInstance(TimeZone.getDefault());
         Calendar calendarNextWeek = Calendar.getInstance(TimeZone.getDefault());
         calendarNextWeek.add(Calendar.DATE, 7);
+        //System.out.println("today: " + today.getTime());
+        //System.out.println("one week: " + calendarNextWeek.getTime());
         events1 = new ArrayList<Event>();
 
         /*
@@ -171,7 +173,7 @@ public class IndividualCategoryActivity extends Activity {
                 R.drawable.ace, "org1", "Theater;Social", "description"));
         */
         for (Event event:categoryEvents) {
-            if (event.getStartCalendar().before(calendarNextWeek)) {
+            if (event.getStartCalendar().after(today) && event.getStartCalendar().before(calendarNextWeek)) {
                 events1.add(event);
             }
         }
@@ -179,9 +181,18 @@ public class IndividualCategoryActivity extends Activity {
 
 
         // TODO: top Events: how to determine a top event
-        //events2 = new ArrayList<Event>();
+        events2 = new ArrayList<Event>();
         int min2 = Math.min(categoryEvents.size(), 5);
-        events2 = categoryEvents.subList(0,min2);
+        int count2 = 0;
+        for (Event event:categoryEvents) {
+            if (event.getStartCalendar().after(today)) {
+                events2.add(event);
+                count2 += 1;
+            }
+            if (count2 == min2) {
+                break;
+            }
+        }
         /*
         events2.add(new Event("name1", "4/7/2016", "7:00 PM", "10:00 PM", "location",
                 R.drawable.ace, "org1", "Free Food;Alcohol(21+)", "description"));
@@ -197,8 +208,18 @@ public class IndividualCategoryActivity extends Activity {
         System.out.println("events2 size: " + events2.size());
 
         // a subset of all Events
+        events3 = new ArrayList<Event>();
         int min = Math.min(categoryEvents.size(), 10);
-        events3 = categoryEvents.subList(0,min);
+        int count = 0;
+        for (Event event:categoryEvents) {
+            if (event.getStartCalendar().after(today)) {
+                events3.add(event);
+                count += 1;
+            }
+            if (count == min) {
+                break;
+            }
+        }
 
         System.out.println("events3 size: " + events3.size());
 

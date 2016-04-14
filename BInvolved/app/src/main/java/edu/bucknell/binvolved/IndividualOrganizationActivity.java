@@ -13,7 +13,9 @@ import android.view.View.OnClickListener;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Layout for an individual Organization
@@ -138,8 +140,22 @@ public class IndividualOrganizationActivity extends Activity {
      */
     private void initializeData() {
         List<Event> organizationEvents = organization.getEvents();
-        int min = Math.min(organizationEvents.size(), 5);
-        events1 = organizationEvents.subList(0,min);
+        events1 = new ArrayList<Event>();
+
+        Calendar today = Calendar.getInstance(TimeZone.getDefault());
+        int min = Math.min(organizationEvents.size(), 10);
+        int count = 0;
+        for (Event event:organizationEvents) {
+            if (event.getStartCalendar().after(today)) {
+                events1.add(event);
+                count += 1;
+            }
+            if (count == min) {
+                break;
+            }
+        }
+
+        System.out.println("ORGANIZATION EVENTS: " + organizationEvents.size());
 
     }
 }

@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.content.Intent;
+import android.content.Context;
 
 import java.util.Calendar;
 import java.util.List;
@@ -43,6 +46,9 @@ public class IndividualEventActivity extends AppCompatActivity {
     // Event
     Event event;
 
+    final Context context = this;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +67,14 @@ public class IndividualEventActivity extends AppCompatActivity {
         // get logo for first organization
         eventLogoImage = (ImageView) findViewById(R.id.logoImage);
         eventLogoImage.setImageResource(eventOrganizationsList.get(0).getImages()[0]);
+        eventLogoImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, IndividualOrganizationActivity.class);
+                intent.putExtra("Organization Name", eventOrganizationsList.get(0).getName());
+                context.startActivity(intent);
+            }
+        });
         eventOrganizations = (TextView) findViewById(R.id.eventOrganization);
         eventOrganizations.setText(getAllOrganizationNames(eventOrganizationsList));
 

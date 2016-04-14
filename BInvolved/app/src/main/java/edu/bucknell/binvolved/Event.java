@@ -150,6 +150,7 @@ public class Event {
      * @param organizations     String of semicolon delimited Organization names
      */
     public void parseOrganizations(String organizations) {
+        //System.out.println("Event: parseOrganizations(): organizations: " + organizations);
         this.organizations = new ArrayList<Organization>();
         while (organizations.contains(";")) {
             // add Organization to List of Organizations
@@ -161,6 +162,7 @@ public class Event {
             Organization.getOrganizationWithName(orgName).addEvent(this);
         }
         this.organizations.add(Organization.getOrganizationWithName(organizations));
+        Organization.getOrganizationWithName(organizations).addEvent(this);
     }
 
     /**
@@ -185,6 +187,7 @@ public class Event {
             Category.getCategoryWithName(catName).addEvent(this);
         }
         this.categories.add(Category.getCategoryWithName(categories));
+        Category.getCategoryWithName(categories).addEvent(this);
     }
 
     /**
