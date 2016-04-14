@@ -86,12 +86,28 @@ public class IndividualEventActivity extends AppCompatActivity {
         eventDate = (TextView) findViewById(R.id.eventDate);
         eventDate.setText(event.getDate());
         eventTime = (TextView) findViewById(R.id.eventTime);
-        eventTime.setText(event.getTime());
+        eventTime.setText(getTimeRange());
         eventLocation = (TextView) findViewById(R.id.eventLocation);
         eventLocation.setText(event.getLocation());
 
         eventTextDescription = (TextView) findViewById(R.id.eventTextDescription);
         eventTextDescription.setText(event.getDescription());
+    }
+
+
+    public String getTimeRange() {
+        String start = event.getStartTime();
+        String end = event.getEndTime();
+
+        System.out.println("start: " + start + " end: " + end);
+
+        if (start.contains("AM") && end.contains("AM")) {
+            return start.substring(0,start.indexOf("AM")) + "-" + end;
+        }
+        if (start.contains("PM") && end.contains("PM")) {
+            return start.substring(0,start.indexOf("PM")) + "-" + end;
+        }
+        return start + "-" + end;
     }
 
 

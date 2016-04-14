@@ -1,6 +1,5 @@
 package edu.bucknell.binvolved;
 
-import java.util.Date;
 import java.util.Calendar;
 import java.util.List;
 import java.util.ArrayList;
@@ -98,8 +97,11 @@ public class Event {
 
         // get hour and minute values
         int hour = Integer.parseInt(startTime.substring(0,startTime.indexOf(":")));
-        if (startTime.contains("PM")) {
+        if (startTime.contains("PM") && hour < 12) {
             hour += 12;
+        }
+        if (startTime.contains("AM") && hour == 12) {
+            hour = 0;
         }
         int minute = Integer.parseInt(startTime.substring(startTime.indexOf(":")+1, startTime.indexOf(" ")));
 
@@ -126,8 +128,11 @@ public class Event {
 
         // get hour and minute values
         int hour = Integer.parseInt(endTime.substring(0,endTime.indexOf(":")));
-        if (endTime.contains("PM")) {
+        if (endTime.contains("PM") && hour < 12) {
             hour += 12;
+        }
+        if (endTime.contains("AM") && hour == 12) {
+            hour = 0;
         }
         int minute = Integer.parseInt(endTime.substring(endTime.indexOf(":")+1, endTime.indexOf(" ")));
 
@@ -218,6 +223,15 @@ public class Event {
     }
 
     /**
+     * Returns the ending Calendar date of the Event object.
+     *
+     * @return      the ending Calendar date
+     */
+    public Calendar getEndCalendar() {
+        return this.end;
+    }
+
+    /**
      * Returns the list of Organizations for the Event object.
      *
      * @return      the list of Organizations
@@ -244,6 +258,10 @@ public class Event {
         return this.description;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDate() {
         Calendar calendar = this.getStartCalendar();
         int day = calendar.get(Calendar.DAY_OF_WEEK);
@@ -253,14 +271,24 @@ public class Event {
         return days[day] + " " + (month+1) + "/" + date;
     }
 
-    public String getTime() {
+    /**
+     *
+     * @return
+     */
+    public String getStartTime() {
         Calendar calendar = this.getStartCalendar();
         int hour = calendar.get(Calendar.HOUR);
         int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
         String extension = "PM";
-        if (hour == hourOfDay) {
+
+        //System.out.println("getStartTime(): hour: " + hour + "hourOfDay: " + hourOfDay);
+
+        if (hour == hourOfDay && hour < 12) {
             extension = "AM";
+        }
+        if ((hour == 0 && hourOfDay == 12) || (hour == 0 && hourOfDay == 0)) {
+            hour = 12;
         }
         if (minute != 0) {
             extension = ":" + minute + extension;
@@ -268,9 +296,38 @@ public class Event {
         return hour + extension;
     }
 
+    /**
+     *
+     * @return
+     */
+    public String getEndTime() {
+        Calendar calendar = this.getEndCalendar();
+        int hour = calendar.get(Calendar.HOUR);
+        int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        String extension = "PM";
+
+        //System.out.println("getEndTime(): hour: " + hour + "hourOfDay: " + hourOfDay);
+
+        if (hour == hourOfDay && hour < 12) {
+            extension = "AM";
+        }
+        if ((hour == 0 && hourOfDay == 12) || (hour == 0 && hourOfDay == 0)) {
+            hour = 12;
+        }
+        if (minute != 0) {
+            extension = ":" + minute + extension;
+        }
+        return hour + extension;
+    }
+
+    /**
+     *
+     * @return
+     */
     public String getDateAndTime() {
 
-        return getDate() + " " + getTime();
+        return getDate() + " " + getStartTime();
     }
 
     /**

@@ -160,8 +160,8 @@ public class IndividualCategoryActivity extends Activity {
         Calendar today = Calendar.getInstance(TimeZone.getDefault());
         Calendar calendarNextWeek = Calendar.getInstance(TimeZone.getDefault());
         calendarNextWeek.add(Calendar.DATE, 7);
-        //System.out.println("today: " + today.getTime());
-        //System.out.println("one week: " + calendarNextWeek.getTime());
+        //System.out.println("today: " + today.getStartTime());
+        //System.out.println("one week: " + calendarNextWeek.getStartTime());
         events1 = new ArrayList<Event>();
 
         /*
