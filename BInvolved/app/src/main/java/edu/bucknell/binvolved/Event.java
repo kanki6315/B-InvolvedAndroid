@@ -30,6 +30,12 @@ public class Event {
     // Long description of the Event
     String description;
 
+
+    String[] days = {"", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+
+
+    public static List<Event> allEvents = new ArrayList<Event>();
+
     /**
      * Constructor for an Event object. If the Event ends in an AM time and starts in a PM time,
      * then the ending date is adjusted to be the next day.
@@ -54,6 +60,9 @@ public class Event {
         parseOrganizations(organizations);
         parseCategories(categories);
         this.description = description;
+
+        // add to static list of all Events
+        Event.allEvents.add(this);
     }
 
     /**
@@ -203,6 +212,78 @@ public class Event {
      */
     public Calendar getStartCalendar() {
         return this.start;
+    }
+
+    /**
+     * Returns the list of Organizations for the Event object.
+     *
+     * @return      the list of Organizations
+     */
+    public List<Organization> getOrganizations() {
+        return this.organizations;
+    }
+
+    /**
+     * Returns the location of the Event object.
+     *
+     * @return      the location String
+     */
+    public String getLocation() {
+        return this.location;
+    }
+
+    /**
+     * Returns the description of the Event object.
+     *
+     * @return      the description String
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    public String getDate() {
+        Calendar calendar = this.getStartCalendar();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        int date = calendar.get(Calendar.DAY_OF_MONTH);
+        return days[day] + " " + (month+1) + "/" + date;
+    }
+
+    public String getTime() {
+        Calendar calendar = this.getStartCalendar();
+        int hour = calendar.get(Calendar.HOUR);
+        int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        String extension = "PM";
+        if (hour == hourOfDay) {
+            extension = "AM";
+        }
+        if (minute != 0) {
+            extension = ":" + minute + extension;
+        }
+        return hour + extension;
+    }
+
+    public String getDateAndTime() {
+
+        return getDate() + " " + getTime();
+    }
+
+    /**
+     *
+     * @param name
+     * @param dateAndTime
+     * @return
+     */
+    public static Event getEventWithNameAndDateAndTime(String name, String dateAndTime) {
+        for (Event event: allEvents) {
+            if (event.getDateAndTime().equals(dateAndTime)) {
+                return event;
+            }
+        }
+        // no Event found: UH OH
+        return null;
     }
 }
 

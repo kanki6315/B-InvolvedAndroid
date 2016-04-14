@@ -12,10 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
+
 
 /**
  * Layout for an individual Category
@@ -53,6 +56,9 @@ public class IndividualCategoryActivity extends Activity {
 
     // Category
     Category category;
+
+
+    final Context context = this;
 
     /**
      * Specifies what to do on creation of the page.
@@ -156,23 +162,27 @@ public class IndividualCategoryActivity extends Activity {
         calendarNextWeek.add(Calendar.DATE, 7);
         events1 = new ArrayList<Event>();
 
+        /*
         events1.add(new Event("name1", "4/7/2016", "7:00 PM", "10:00 PM", "location",
                 R.drawable.ace, "org1", "Free Food;Alcohol(21+)", "description"));
         events1.add(new Event("name2", "4/20/2016", "6:15 PM", "11:30 AM", "location",
                 R.drawable.ace, "org2", "Dance;Music", "description"));
         events1.add(new Event("name3", "4/30/2016", "7:00 PM", "2:00 AM", "location",
                 R.drawable.ace, "org1", "Theater;Social", "description"));
-        /*
+        */
         for (Event event:categoryEvents) {
             if (event.getStartCalendar().before(calendarNextWeek)) {
                 events1.add(event);
             }
         }
         System.out.println("events1 size: " + events1.size());
-        */
+
 
         // TODO: top Events: how to determine a top event
-        events2 = new ArrayList<Event>();
+        //events2 = new ArrayList<Event>();
+        int min2 = Math.min(categoryEvents.size(), 5);
+        events2 = categoryEvents.subList(0,min2);
+        /*
         events2.add(new Event("name1", "4/7/2016", "7:00 PM", "10:00 PM", "location",
                 R.drawable.ace, "org1", "Free Food;Alcohol(21+)", "description"));
         events2.add(new Event("name2", "4/20/2016", "6:15 PM", "11:30 AM", "location",
@@ -183,14 +193,11 @@ public class IndividualCategoryActivity extends Activity {
                 R.drawable.ace, "org1", "Free Food;Alcohol(21+)", "description"));
         events2.add(new Event("name5", "5/10/2016", "10:00 AM", "5:00 PM", "location",
                 R.drawable.ace, "org2", "Free Food", "description"));
+        */
         System.out.println("events2 size: " + events2.size());
 
         // a subset of all Events
-        System.out.println("categoryEvents size: " + categoryEvents.size());
         int min = Math.min(categoryEvents.size(), 10);
-
-        //events3 = new ArrayList<Event>();
-
         events3 = categoryEvents.subList(0,min);
 
         System.out.println("events3 size: " + events3.size());
@@ -201,13 +208,13 @@ public class IndividualCategoryActivity extends Activity {
      * Initializes the adapter for the RecyclerView.
      */
     private void initializeAdapters(){
-        RVEventAdapter adapter1 = new RVEventAdapter(events1);
+        RVEventAdapter adapter1 = new RVEventAdapter(context, events1);
         rv1.setAdapter(adapter1);
 
-        RVEventAdapter adapter2 = new RVEventAdapter(events2);
+        RVEventAdapter adapter2 = new RVEventAdapter(context, events2);
         rv2.setAdapter(adapter2);
 
-        RVEventAdapter adapter3 = new RVEventAdapter(events3);
+        RVEventAdapter adapter3 = new RVEventAdapter(context, events3);
         rv3.setAdapter(adapter3);
     }
 

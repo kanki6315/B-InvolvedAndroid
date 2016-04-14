@@ -13,6 +13,7 @@ public class Organization {
     // Name of the Organization
     String name;
     // Array of ints for the photos for the Organization; has set length of 4
+    // the first image is the logo; the next 3 are images of events
     int[] images;
     // List of Event objects by the Organization
     List<Event> events;

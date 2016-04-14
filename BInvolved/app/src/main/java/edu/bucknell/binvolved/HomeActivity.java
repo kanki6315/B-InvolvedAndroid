@@ -227,7 +227,7 @@ public class HomeActivity extends AppCompatActivity {
         RVCategoryAdapter adapter1 = new RVCategoryAdapter(context, categories);
         rv1.setAdapter(adapter1);
 
-        RVEventAdapter adapter2 = new RVEventAdapter(upcomingEvents);
+        RVEventAdapter adapter2 = new RVEventAdapter(context, upcomingEvents);
         rv2.setAdapter(adapter2);
     }
 

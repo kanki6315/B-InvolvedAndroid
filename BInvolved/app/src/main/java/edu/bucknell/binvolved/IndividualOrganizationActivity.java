@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +54,9 @@ public class IndividualOrganizationActivity extends Activity {
 
     // Organization
     Organization organization;
+
+
+    final Context context = this;
 
 
     /**
@@ -124,7 +129,7 @@ public class IndividualOrganizationActivity extends Activity {
         rv1.setLayoutManager(llm1);
         rv1.setHasFixedSize(true);
 
-        RVEventAdapter adapter1 = new RVEventAdapter(events1);
+        RVEventAdapter adapter1 = new RVEventAdapter(context, events1);
         rv1.setAdapter(adapter1);
     }
 
