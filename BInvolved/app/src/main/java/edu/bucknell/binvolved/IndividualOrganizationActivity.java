@@ -10,8 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.content.Context;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Layout for an individual Organization
@@ -54,6 +58,9 @@ public class IndividualOrganizationActivity extends Activity {
     Organization organization;
 
 
+    final Context context = this;
+
+
     /**
      * Specifies what to do on creation of the page.
      *
@@ -64,23 +71,21 @@ public class IndividualOrganizationActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.individual_organization);
 
-        organization = Organization.getOrganizationWithName(getIntent().getStringExtra("Organization Name"));
+        Bundle inputs = getIntent().getExtras();
+        organization = Organization.getOrganizationWithName(inputs.getString("Organization Name"));
 
-
-        // get elements for Organization
+        // get and set elements for Organization
         organizationName = (TextView) findViewById(R.id.organizationName);
         organizationName.setText(organization.getName());
         organizationDescription = (TextView) findViewById(R.id.organizationDescription);
         organizationDescription.setText(organization.getDescription());
 
-
+        // set up images
         gallery = (Gallery) findViewById(R.id.gallery);
         organizationBannerPhoto = (ImageView) findViewById(R.id.organizationBannerPhoto);
-        organizationBannerPhoto.setImageAlpha(organization.getImages()[1]);
+        organizationBannerPhoto.setImageResource(organization.getImages()[1]);
         organizationLogoPhoto = (ImageView) findViewById(R.id.organizationLogoImage);
         organizationLogoPhoto.setImageResource(organization.getImages()[0]);
-
-
 
         // sets up the button listeners
         addButtonOnClickListeners();
@@ -126,7 +131,7 @@ public class IndividualOrganizationActivity extends Activity {
         rv1.setLayoutManager(llm1);
         rv1.setHasFixedSize(true);
 
-        RVEventAdapter adapter1 = new RVEventAdapter(events1);
+        CardViewEventAdapter adapter1 = new CardViewEventAdapter(context, events1);
         rv1.setAdapter(adapter1);
     }
 
@@ -135,8 +140,22 @@ public class IndividualOrganizationActivity extends Activity {
      */
     private void initializeData() {
         List<Event> organizationEvents = organization.getEvents();
-        int min = Math.min(organizationEvents.size(), 5);
-        events1 = organizationEvents.subList(0,min);
+        events1 = new ArrayList<Event>();
+
+        Calendar today = Calendar.getInstance(TimeZone.getDefault());
+        int min = Math.min(organizationEvents.size(), 10);
+        int count = 0;
+        for (Event event:organizationEvents) {
+            if (event.getStartCalendar().after(today)) {
+                events1.add(event);
+                count += 1;
+            }
+            if (count == min) {
+                break;
+            }
+        }
+
+        System.out.println("ORGANIZATION EVENTS: " + organizationEvents.size());
 
     }
 }

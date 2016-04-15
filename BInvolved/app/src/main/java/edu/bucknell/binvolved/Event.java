@@ -1,17 +1,18 @@
 package edu.bucknell.binvolved;
 
-import java.util.Date;
 import java.util.Calendar;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.TimeZone;
+import android.os.Parcelable;
+import android.os.Parcel;
 
 /**
  * Class for an Event, which are activities created by Organizations.
  *
  * Created by gilbertkim on 4/4/16.
  */
-public class Event {
+public class Event implements Parcelable {
 
     // Name of the Event
     String name;
@@ -29,6 +30,47 @@ public class Event {
     List<Category> categories;
     // Long description of the Event
     String description;
+
+
+    String[] days = {"", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+
+    // Parcelling part
+    public Event(Parcel in) {
+        String[] data = new String[2];
+
+        in.readStringArray(data);
+        Event temp = Event.getEventWithNameAndDateAndTime(data[0],data[1]);
+        this.name = temp.getName();
+        this.start = temp.getStartCalendar();
+        this.end = temp.getEndCalendar();
+        this.location = temp.getLocation();
+        this.photoID = temp.getPhotoID();
+        this.organizations = temp.getOrganizations();
+        this.categories = temp.getCategories();
+        this.description = temp.getDescription();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeStringArray(new String[] {this.name, this.getDateAndTime()});
+    }
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Event createFromParcel(Parcel in) {
+            return new Event(in);
+        }
+
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
+
+
+    public static List<Event> allEvents = new ArrayList<Event>();
 
     /**
      * Constructor for an Event object. If the Event ends in an AM time and starts in a PM time,
@@ -54,6 +96,9 @@ public class Event {
         parseOrganizations(organizations);
         parseCategories(categories);
         this.description = description;
+
+        // add to static list of all Events
+        Event.allEvents.add(this);
     }
 
     /**
@@ -89,8 +134,11 @@ public class Event {
 
         // get hour and minute values
         int hour = Integer.parseInt(startTime.substring(0,startTime.indexOf(":")));
-        if (startTime.contains("PM")) {
+        if (startTime.contains("PM") && hour < 12) {
             hour += 12;
+        }
+        if (startTime.contains("AM") && hour == 12) {
+            hour = 0;
         }
         int minute = Integer.parseInt(startTime.substring(startTime.indexOf(":")+1, startTime.indexOf(" ")));
 
@@ -117,8 +165,11 @@ public class Event {
 
         // get hour and minute values
         int hour = Integer.parseInt(endTime.substring(0,endTime.indexOf(":")));
-        if (endTime.contains("PM")) {
+        if (endTime.contains("PM") && hour < 12) {
             hour += 12;
+        }
+        if (endTime.contains("AM") && hour == 12) {
+            hour = 0;
         }
         int minute = Integer.parseInt(endTime.substring(endTime.indexOf(":")+1, endTime.indexOf(" ")));
 
@@ -141,6 +192,7 @@ public class Event {
      * @param organizations     String of semicolon delimited Organization names
      */
     public void parseOrganizations(String organizations) {
+        //System.out.println("Event: parseOrganizations(): organizations: " + organizations);
         this.organizations = new ArrayList<Organization>();
         while (organizations.contains(";")) {
             // add Organization to List of Organizations
@@ -152,6 +204,7 @@ public class Event {
             Organization.getOrganizationWithName(orgName).addEvent(this);
         }
         this.organizations.add(Organization.getOrganizationWithName(organizations));
+        Organization.getOrganizationWithName(organizations).addEvent(this);
     }
 
     /**
@@ -176,6 +229,7 @@ public class Event {
             Category.getCategoryWithName(catName).addEvent(this);
         }
         this.categories.add(Category.getCategoryWithName(categories));
+        Category.getCategoryWithName(categories).addEvent(this);
     }
 
     /**
@@ -188,12 +242,154 @@ public class Event {
     }
 
     /**
+     * Returns the ID of the Event image.
+     *
+     * @return      the ID attribute
+     */
+    public int getPhotoID() {
+        return this.photoID;
+    }
+
+    /**
      * Returns the starting Calendar date of the Event object.
      *
      * @return      the starting Calendar date
      */
     public Calendar getStartCalendar() {
         return this.start;
+    }
+
+    /**
+     * Returns the ending Calendar date of the Event object.
+     *
+     * @return      the ending Calendar date
+     */
+    public Calendar getEndCalendar() {
+        return this.end;
+    }
+
+    /**
+     * Returns the list of Organizations for the Event object.
+     *
+     * @return      the list of Organizations
+     */
+    public List<Organization> getOrganizations() {
+        return this.organizations;
+    }
+
+    /**
+     * Returns the location of the Event object.
+     *
+     * @return      the location String
+     */
+    public String getLocation() {
+        return this.location;
+    }
+
+    /**
+     * Returns the description of the Event object.
+     *
+     * @return      the description String
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Returns the list of Categories for the Event object.
+     *
+     * @return      the list of Categories
+     */
+    public List<Category> getCategories() {
+        return this.categories;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getDate() {
+        Calendar calendar = this.getStartCalendar();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        int date = calendar.get(Calendar.DAY_OF_MONTH);
+        return days[day] + " " + (month+1) + "/" + date;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getStartTime() {
+        Calendar calendar = this.getStartCalendar();
+        int hour = calendar.get(Calendar.HOUR);
+        int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        String extension = "PM";
+
+        //System.out.println("getStartTime(): hour: " + hour + "hourOfDay: " + hourOfDay);
+
+        if (hour == hourOfDay && hour < 12) {
+            extension = "AM";
+        }
+        if ((hour == 0 && hourOfDay == 12) || (hour == 0 && hourOfDay == 0)) {
+            hour = 12;
+        }
+        if (minute != 0) {
+            extension = ":" + minute + extension;
+        }
+        return hour + extension;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getEndTime() {
+        Calendar calendar = this.getEndCalendar();
+        int hour = calendar.get(Calendar.HOUR);
+        int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        String extension = "PM";
+
+        //System.out.println("getEndTime(): hour: " + hour + "hourOfDay: " + hourOfDay);
+
+        if (hour == hourOfDay && hour < 12) {
+            extension = "AM";
+        }
+        if ((hour == 0 && hourOfDay == 12) || (hour == 0 && hourOfDay == 0)) {
+            hour = 12;
+        }
+        if (minute != 0) {
+            extension = ":" + minute + extension;
+        }
+        return hour + extension;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getDateAndTime() {
+
+        return getDate() + " " + getStartTime();
+    }
+
+    /**
+     *
+     * @param name
+     * @param dateAndTime
+     * @return
+     */
+    public static Event getEventWithNameAndDateAndTime(String name, String dateAndTime) {
+        for (Event event: allEvents) {
+            if (event.getDateAndTime().equals(dateAndTime)) {
+                return event;
+            }
+        }
+        // no Event found: UH OH
+        return null;
     }
 }
 

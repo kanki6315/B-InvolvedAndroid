@@ -9,16 +9,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
+
 
 /**
  * Layout for an individual Category
  *
  * Created by gilbertkim on 3/31/16.
  */
+//public class IndividualCategoryActivity extends AppCompatActivity {
 public class IndividualCategoryActivity extends Activity {
 
     // Category name
@@ -50,6 +54,9 @@ public class IndividualCategoryActivity extends Activity {
     // Category
     Category category;
 
+
+    final Context context = this;
+
     /**
      * Specifies what to do on creation of the page.
      *
@@ -61,15 +68,12 @@ public class IndividualCategoryActivity extends Activity {
         setContentView(R.layout.individual_category);
 
         Bundle inputs = getIntent().getExtras();
-        System.out.println("input from button: " + inputs.getString("Category Name"));
         category = Category.getCategoryWithName(inputs.getString("Category Name"));
 
         // get elements for Category
         categoryName = (TextView) findViewById(R.id.category_name);
         categoryName.setText(category.getName());
         image = (ImageView) findViewById(R.id.category_banner);
-        System.out.println("R.drawable.free_food_banner: " + R.drawable.free_food_banner);
-        System.out.println("banner photo id: " + category.getBannerPhotoID());
         image.setImageResource(category.getBannerPhotoID());
 
         addListenerOnButton();
@@ -150,28 +154,43 @@ public class IndividualCategoryActivity extends Activity {
         System.out.println("categoryEvents: " + categoryEvents);
 
         // get Events within a week of the current date
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        Calendar today = Calendar.getInstance(TimeZone.getDefault());
         Calendar calendarNextWeek = Calendar.getInstance(TimeZone.getDefault());
         calendarNextWeek.add(Calendar.DATE, 7);
+        //System.out.println("today: " + today.getStartTime());
+        //System.out.println("one week: " + calendarNextWeek.getStartTime());
         events1 = new ArrayList<Event>();
 
+        /*
         events1.add(new Event("name1", "4/7/2016", "7:00 PM", "10:00 PM", "location",
                 R.drawable.ace, "org1", "Free Food;Alcohol(21+)", "description"));
         events1.add(new Event("name2", "4/20/2016", "6:15 PM", "11:30 AM", "location",
                 R.drawable.ace, "org2", "Dance;Music", "description"));
         events1.add(new Event("name3", "4/30/2016", "7:00 PM", "2:00 AM", "location",
                 R.drawable.ace, "org1", "Theater;Social", "description"));
-        /*
+        */
         for (Event event:categoryEvents) {
-            if (event.getStartCalendar().before(calendarNextWeek)) {
+            if (event.getStartCalendar().after(today) && event.getStartCalendar().before(calendarNextWeek)) {
                 events1.add(event);
             }
         }
         System.out.println("events1 size: " + events1.size());
-        */
+
 
         // TODO: top Events: how to determine a top event
         events2 = new ArrayList<Event>();
+        int min2 = Math.min(categoryEvents.size(), 5);
+        int count2 = 0;
+        for (Event event:categoryEvents) {
+            if (event.getStartCalendar().after(today)) {
+                events2.add(event);
+                count2 += 1;
+            }
+            if (count2 == min2) {
+                break;
+            }
+        }
+        /*
         events2.add(new Event("name1", "4/7/2016", "7:00 PM", "10:00 PM", "location",
                 R.drawable.ace, "org1", "Free Food;Alcohol(21+)", "description"));
         events2.add(new Event("name2", "4/20/2016", "6:15 PM", "11:30 AM", "location",
@@ -182,15 +201,22 @@ public class IndividualCategoryActivity extends Activity {
                 R.drawable.ace, "org1", "Free Food;Alcohol(21+)", "description"));
         events2.add(new Event("name5", "5/10/2016", "10:00 AM", "5:00 PM", "location",
                 R.drawable.ace, "org2", "Free Food", "description"));
+        */
         System.out.println("events2 size: " + events2.size());
 
         // a subset of all Events
-        System.out.println("categoryEvents size: " + categoryEvents.size());
+        events3 = new ArrayList<Event>();
         int min = Math.min(categoryEvents.size(), 10);
-
-        //events3 = new ArrayList<Event>();
-
-        events3 = categoryEvents.subList(0,min);
+        int count = 0;
+        for (Event event:categoryEvents) {
+            if (event.getStartCalendar().after(today)) {
+                events3.add(event);
+                count += 1;
+            }
+            if (count == min) {
+                break;
+            }
+        }
 
         System.out.println("events3 size: " + events3.size());
 
@@ -200,13 +226,42 @@ public class IndividualCategoryActivity extends Activity {
      * Initializes the adapter for the RecyclerView.
      */
     private void initializeAdapters(){
-        RVEventAdapter adapter1 = new RVEventAdapter(events1);
+        CardViewEventAdapter adapter1 = new CardViewEventAdapter(context, events1);
         rv1.setAdapter(adapter1);
 
-        RVEventAdapter adapter2 = new RVEventAdapter(events2);
+        CardViewEventAdapter adapter2 = new CardViewEventAdapter(context, events2);
         rv2.setAdapter(adapter2);
 
-        RVEventAdapter adapter3 = new RVEventAdapter(events3);
+        CardViewEventAdapter adapter3 = new CardViewEventAdapter(context, events3);
         rv3.setAdapter(adapter3);
     }
+
+
+
+
+
+
+/*
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up buttonFollowCategory, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    */
 }

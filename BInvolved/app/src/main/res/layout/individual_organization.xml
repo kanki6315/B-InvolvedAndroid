@@ -17,8 +17,11 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="@dimen/banner_image_height"
-        android:id="@+id/organizationBannerPhoto"
-        android:src="@drawable/bucknell_student_alumni_virtual_networking_event" />
+        android:id="@+id/organizationBannerPhoto" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
 
     <Gallery
         android:layout_width="wrap_content"
@@ -40,8 +43,8 @@
 
             <ImageView
                 android:id="@+id/organizationLogoImage"
-                android:layout_width="131dp"
-                android:layout_height="178dp"
+                android:layout_width="@dimen/icon_image_width"
+                android:layout_height="@dimen/icon_image_height"
                 android:gravity="center"
                 android:src="@drawable/ace"
                 android:layout_marginStart="@dimen/section_margin_left"
@@ -68,31 +71,37 @@
             </LinearLayout>
         </GridLayout>
 
-        <GridLayout
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:columnCount="2"
-            android:layout_gravity="center">
+            android:orientation="horizontal" >
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/section_margin_left"
                 android:id="@id/follow_update"
-                android:text="@string/follow_updates"
-                android:layout_row="0"
-                android:layout_column="0" />
+                android:text="@string/follow_updates" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/section_margin_right"
                 android:id="@+id/contact_organization"
-                android:text="@string/contact"
-                android:layout_row="0"
-                android:layout_column="1" />
-        </GridLayout>
+                android:text="@string/contact" />
+        </RelativeLayout>
 
     </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -100,6 +109,10 @@
         android:id="@+id/organizationDescription"
         android:layout_marginStart="@dimen/section_margin_left"
         android:layout_marginEnd="@dimen/section_margin_right"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

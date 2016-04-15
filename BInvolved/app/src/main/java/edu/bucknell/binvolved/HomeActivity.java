@@ -10,14 +10,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View.OnClickListener;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Button;
-import android.view.View.OnClickListener;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -62,12 +64,20 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View arg0) {
                 Bundle localBundle = new Bundle();
                 //localBundle.putString("Category Name", "Some event name");
-                Intent localIntent = new Intent(context, IndividualCategoryActivity.class);
-                localIntent.putExtra("Category Name", "Free Food");
+                Intent localIntent = new Intent(context, ListEventActivity.class);
+                ArrayList<Event> events = new ArrayList<Event>();
+                events.add(new Event("name1", "4/7/2016", "7:00 PM", "10:00 PM", "location",
+                        R.drawable.ace, "org1", "Free Food;Alcohol(21+)", "description"));
+                events.add(new Event("name2", "4/20/2016", "6:15 PM", "11:30 AM", "location",
+                        R.drawable.ace, "org2", "Dance;Music", "description"));
+                events.add(new Event("name3", "4/30/2016", "7:00 PM", "2:00 AM", "location",
+                        R.drawable.ace, "org1", "Theater;Social", "description"));
+                localIntent.putParcelableArrayListExtra("Event List", events);
                 startActivity(localIntent);
             }
         });
 
+        /*
         // button to go to individual event page
         button2 = (Button) findViewById(R.id.button2);
         button2.setOnClickListener(new OnClickListener() {
@@ -88,12 +98,14 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Bundle localBundle = new Bundle();
-                localBundle.putString("Organization Name", "Uptown");
+                //localBundle.putString("Organization Name", "Uptown");
                 Intent localIntent = new Intent(context, IndividualOrganizationActivity.class);
-                localIntent.putExtras(localBundle);
+                //localIntent.putExtras(localBundle);
+                localIntent.putExtra("Organization Name", "Uptown");
                 startActivity(localIntent);
             }
         });
+        */
 
         // read in the CSV files
         readInOrganizations();
@@ -103,13 +115,30 @@ public class HomeActivity extends AppCompatActivity {
         // do setup for recycler view
         rv1 =(RecyclerView)findViewById(R.id.recycler_view_1);
         rv2 =(RecyclerView)findViewById(R.id.recycler_view_2);
-        categories = allCategories.subList(0,3);
-        upcomingEvents = allEvents.subList(0,2);
+        int minCategoryDisplay = Math.min(5, allCategories.size());
+        categories = allCategories.subList(0,minCategoryDisplay);
+
+
+        Calendar now = Calendar.getInstance(TimeZone.getDefault());
+
+        int minEventDisplay = Math.min(5,allEvents.size());
+        upcomingEvents = new ArrayList<Event>();
+        int count = 0;
+        for (Event event: allEvents) {
+            if (event.getStartCalendar().getTime().after(now.getTime())) {
+                upcomingEvents.add(event);
+                count += 1;
+            }
+            if (count == minEventDisplay) {
+                break;
+            }
+        }
+        //upcomingEvents = allEvents.subList(0,minEventDisplay);
+
+
         setLayoutManagersAndInitializeAdapters();
-
-
-
     }
+
 
     /**
      * Reads the CSV file of Organizations and creates the Organization objects.
@@ -124,20 +153,20 @@ public class HomeActivity extends AppCompatActivity {
         for (int i = 1; i < scoreList.size(); i++) {
             String[] organizationInfo = (String[]) scoreList.get(i);
 
-
             // inputs to Organization constructor:
             // String name, int logoPhotoID, int photo1ID, int photo2ID, int photo3ID
+
+            // group together description
+            String description = getDescription(5, organizationInfo);
 
             // get all image IDs according to the names
             int logoPhotoID = context.getResources().getIdentifier(organizationInfo[1], "drawable", context.getPackageName());
             int photo1ID = context.getResources().getIdentifier(organizationInfo[2], "drawable", context.getPackageName());
             int photo2ID = context.getResources().getIdentifier(organizationInfo[3], "drawable", context.getPackageName());
             int photo3ID = context.getResources().getIdentifier(organizationInfo[4], "drawable", context.getPackageName());
-            allOrganizations.add(new Organization(organizationInfo[0], logoPhotoID, photo1ID, photo2ID, photo3ID, organizationInfo[5]));
+            allOrganizations.add(new Organization(organizationInfo[0], logoPhotoID, photo1ID, photo2ID, photo3ID, description));
 
-
-
-            System.out.println("organizationInfo: " + organizationInfo[0] + " " + organizationInfo[1] + " " + organizationInfo[2] + " " + organizationInfo[3] + " " + organizationInfo[4]);
+            //System.out.println("organizationInfo: " + organizationInfo[0] + " " + organizationInfo[1] + " " + organizationInfo[2] + " " + organizationInfo[3] + " " + organizationInfo[4]);
         }
     }
 
@@ -162,14 +191,7 @@ public class HomeActivity extends AppCompatActivity {
             int bannerPhotoID = context.getResources().getIdentifier(categoryInfo[2], "drawable", context.getPackageName());
             allCategories.add(new Category(categoryInfo[0],smallPhotoID, bannerPhotoID));
 
-            if (categoryInfo[0].equals("Free Food")) {
-                Category cat = Category.getCategoryWithName("Free Food");
-                System.out.println("bannerPhotoID: " + cat.getBannerPhotoID());
-                System.out.println("drawable name: " + categoryInfo[2]);
-            }
-
-
-            System.out.println("categoryInfo: " + categoryInfo[0] + " " + categoryInfo[1] + " " + categoryInfo[2]);
+            //System.out.println("categoryInfo: " + categoryInfo[0] + " " + categoryInfo[1] + " " + categoryInfo[2]);
         }
     }
 
@@ -186,14 +208,17 @@ public class HomeActivity extends AppCompatActivity {
         for (int i = 1; i < scoreList.size(); i++) {
             String[] eventData = (String[]) scoreList.get(i);
 
+            // group together description
+            String description = getDescription(8, eventData);
+
             // inputs to Event constructor:
             // String name, String date, String startTime, String endTime, String location,
             // int photoID, String organizations, String categories, String description
 
             // get image ID according to its name
-            //int photoID = context.getResources().getIdentifier(eventData[5], "drawable", context.getPackageName());
+            int photoID = context.getResources().getIdentifier(eventData[5], "drawable", context.getPackageName());
             allEvents.add(new Event(eventData[0], eventData[1], eventData[2], eventData[3], eventData[4],
-                    1/*photoID*/, eventData[6], eventData[7], eventData[8]));
+                    photoID, eventData[6], eventData[7], description));
         }
     }
 
@@ -207,11 +232,39 @@ public class HomeActivity extends AppCompatActivity {
         rv2.setHasFixedSize(true);
 
         // adapters
-        RVCategoryAdapter adapter1 = new RVCategoryAdapter(categories);
+        CardViewCategoryAdapter adapter1 = new CardViewCategoryAdapter(context, categories);
         rv1.setAdapter(adapter1);
 
-        RVEventAdapter adapter2 = new RVEventAdapter(upcomingEvents);
+        CardViewEventAdapter adapter2 = new CardViewEventAdapter(context, upcomingEvents);
         rv2.setAdapter(adapter2);
+    }
+
+    /**
+     * Starts the specified integer index and combines the String values
+     * in the array from that point on.
+     *
+     * @param num           index to start at
+     * @param data          array of String values
+     * @return              the combination of String values
+     */
+    private String getDescription(int num, String[] data) {
+        String description = "";
+        boolean removedFirstQuote = false;
+        for (int j = num; j < data.length; j++) {
+            description += data[j];
+            if (j == num && description.charAt(0) == '"') {
+                description = description.substring(1);
+                removedFirstQuote = true;
+            }
+            if (j != data.length - 1) {
+                description += ",";
+            } else {
+                if (removedFirstQuote) {
+                    description = description.substring(0,description.length()-1);
+                }
+            }
+        }
+        return description;
     }
 
     @Override

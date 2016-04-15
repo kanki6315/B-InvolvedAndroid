@@ -8,7 +8,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:src="@drawable/bucknell_student_alumni_virtual_networking_event" />
+        android:id="@+id/event_banner_image" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/mainRelativeLayout"
@@ -27,7 +27,6 @@
                 android:layout_width="100dp"
                 android:layout_height="150dp"
                 android:gravity="center"
-                android:src="@drawable/ace"
                 android:layout_marginLeft="15dp"
                 />
 
@@ -46,13 +45,13 @@
                     android:id="@+id/eventName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Event Name"
                     android:textSize="30dp"
                     android:textStyle="bold"/>
 
                 <GridLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -63,7 +62,6 @@
                         android:id="@+id/eventDate"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Date"
                         android:textSize="20dp" />
                 </GridLayout>
 
@@ -80,7 +78,6 @@
                         android:id="@+id/eventTime"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Time"
                         android:textSize="20dp" />
                 </GridLayout>
 
@@ -97,7 +94,6 @@
                         android:id="@+id/eventLocation"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Location"
                         android:textSize="20dp" />
                 </GridLayout>
 
@@ -114,7 +110,6 @@
                         android:id="@+id/eventOrganization"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Organization Name"
                         android:textSize="20dp" />
                 </GridLayout>
             </LinearLayout>
@@ -159,7 +154,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="This is where the event description will go. This is usually pulled from the CSV with all other data. Most descriptions will be between 2-3 sentences."
             android:id="@+id/eventTextDescription"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.17" />

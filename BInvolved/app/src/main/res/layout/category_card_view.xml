@@ -7,23 +7,34 @@
     android:id="@+id/card_view">
 
     <RelativeLayout
-        android:layout_width="@dimen/card_view_total_width"
-        android:layout_height="@dimen/card_view_total_height" >
+        android:layout_width="@dimen/layout_in_card_view_size"
+        android:layout_height="@dimen/layout_in_card_view_size"
+        android:background="@drawable/back"
+        android:padding="1dip"
+        android:layout_margin="@dimen/layout_in_card_view_margin">
 
         <ImageView
-            android:layout_width="@dimen/card_view_total_width"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/card_view_image_height"
             android:id="@+id/category_photo"
             android:layout_alignParentTop="true"
             android:contentDescription="@string/card_view_image_description"/>
 
         <TextView
-            android:layout_width="@dimen/card_view_total_width"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/category_name"
             android:layout_below="@+id/category_photo"
             android:textSize="@dimen/card_view_text_size"
             android:textAlignment="center" />
+
+        <Button
+            android:layout_width="@dimen/three_dot_option_size"
+            android:layout_height="@dimen/three_dot_option_size"
+            android:id="@+id/category_option_shortcut"
+            android:background="@drawable/ic_more_vert_black_48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/card_view_image_height"/>
 
     </RelativeLayout>
 

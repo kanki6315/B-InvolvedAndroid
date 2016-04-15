@@ -159,23 +159,32 @@
     </string>
 
 
+
+
+
+
     <!-- String for Individual Category -->
     <string name="follow_updates">Follow Updates</string>
     <string name="this_week">This Week</string>
     <string name="top_events">Top Events</string>
     <string name="all_events">All Events</string>
     <string name="more">more</string>
-    <string name="banner_image_description">Banner for Individual Category</string>
+    <string name="banner_image_description">Banner Image</string>
 
     <string name="card_view_image_description">Image for CardView</string>
+
+
+    <string name="list_item_image_description">Image for item in the ListView</string>
 
 
     <!-- String for Individual Organization -->
     <string name="contact">Contact</string>
 
+
     <!-- String for Home Page -->
     <string name="your_top_10"> Your Top 10</string>
     <string name="categories">Categories</string>
     <string name="upcoming_events">Upcoming Events</string>
+
 
 </resources>
