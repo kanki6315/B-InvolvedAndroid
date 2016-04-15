@@ -18,13 +18,13 @@ android:paddingRight="@dimen/activity_horizontal_margin"
     tools:showIn="@layout/activity_home"
     tools:context="edu.bucknell.binvolved.HomeActivity">
     
-    <!--
+
     <Button
         android:id="@+id/button"
         android:layout_width="fill_parent"
         android:layout_height="75dp"
-        android:text="Click me to go to individual category screen"/>
-
+        android:text="Click me to go to list view"/>
+    <!--
     <Button
         android:id="@+id/button2"
         android:layout_width="fill_parent"

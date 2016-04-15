@@ -2,11 +2,8 @@ package edu.bucknell.binvolved;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -229,13 +226,13 @@ public class IndividualCategoryActivity extends Activity {
      * Initializes the adapter for the RecyclerView.
      */
     private void initializeAdapters(){
-        RVEventAdapter adapter1 = new RVEventAdapter(context, events1);
+        CardViewEventAdapter adapter1 = new CardViewEventAdapter(context, events1);
         rv1.setAdapter(adapter1);
 
-        RVEventAdapter adapter2 = new RVEventAdapter(context, events2);
+        CardViewEventAdapter adapter2 = new CardViewEventAdapter(context, events2);
         rv2.setAdapter(adapter2);
 
-        RVEventAdapter adapter3 = new RVEventAdapter(context, events3);
+        CardViewEventAdapter adapter3 = new CardViewEventAdapter(context, events3);
         rv3.setAdapter(adapter3);
     }
 

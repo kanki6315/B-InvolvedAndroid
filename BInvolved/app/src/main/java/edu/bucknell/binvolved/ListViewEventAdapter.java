@@ -1,29 +1,26 @@
 package edu.bucknell.binvolved;
 
-import android.os.Bundle;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Button;
-import android.content.Intent;
-import android.content.Context;
 
-import java.util.Calendar;
 import java.util.List;
 
-public class RVEventAdapter extends RecyclerView.Adapter<RVEventAdapter.PersonViewHolder> {
+public class ListViewEventAdapter extends RecyclerView.Adapter<ListViewEventAdapter.EventViewHolder> {
 
     private Context context;
     private LayoutInflater inflater;
 
-    public static class PersonViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        CardView cv;
+        CardView listItem;
         TextView eventName;
         TextView eventDateTime;
         ImageView eventPhoto;
@@ -31,9 +28,9 @@ public class RVEventAdapter extends RecyclerView.Adapter<RVEventAdapter.PersonVi
 
         private final Context context;
 
-        PersonViewHolder(View itemView) {
+        EventViewHolder(View itemView) {
             super(itemView);
-            cv = (CardView)itemView.findViewById(R.id.card_view);
+            listItem = (CardView)itemView.findViewById(R.id.list_item);
             eventName = (TextView)itemView.findViewById(R.id.event_name);
             eventDateTime = (TextView)itemView.findViewById(R.id.event_date_time);
             eventPhoto = (ImageView)itemView.findViewById(R.id.event_photo);
@@ -42,6 +39,8 @@ public class RVEventAdapter extends RecyclerView.Adapter<RVEventAdapter.PersonVi
             context = itemView.getContext();
             itemView.setClickable(true);
             itemView.setOnClickListener(this);
+
+            System.out.println("Finished EventViewHolder constructor");
         }
 
         @Override
@@ -59,7 +58,7 @@ public class RVEventAdapter extends RecyclerView.Adapter<RVEventAdapter.PersonVi
 
     List<Event> events;
 
-    RVEventAdapter(Context context, List<Event> events) {
+    ListViewEventAdapter(Context context, List<Event> events) {
         this.context = context;
         this.inflater = LayoutInflater.from(this.context);
         this.events = events;
@@ -73,21 +72,24 @@ public class RVEventAdapter extends RecyclerView.Adapter<RVEventAdapter.PersonVi
     }
 
     @Override
-    public PersonViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.event_card_view, viewGroup, false);
-        PersonViewHolder pvh = new PersonViewHolder(v);
-        return pvh;
+    public EventViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.event_list_item, viewGroup, false);
+        EventViewHolder evh = new EventViewHolder(v);
+        return evh;
     }
 
     @Override
-    public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
-        personViewHolder.eventName.setText(events.get(i).getName());
+    public void onBindViewHolder(EventViewHolder eventViewHolder, int i) {
 
-        personViewHolder.eventDateTime.setText(events.get(i).getDateAndTime());
+        System.out.println("GOT IN onBindViewHolder()");
 
-        personViewHolder.eventPhoto.setImageResource(events.get(i).getPhotoID());
+        eventViewHolder.eventName.setText(events.get(i).getName());
 
-        personViewHolder.eventOptionShortcut.setOnClickListener(new View.OnClickListener() {
+        eventViewHolder.eventDateTime.setText(events.get(i).getDateAndTime());
+
+        eventViewHolder.eventPhoto.setImageResource(events.get(i).getPhotoID());
+
+        eventViewHolder.eventOptionShortcut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("event shortcut option pressed");

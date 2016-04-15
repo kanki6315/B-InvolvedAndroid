@@ -4,13 +4,15 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.TimeZone;
+import android.os.Parcelable;
+import android.os.Parcel;
 
 /**
  * Class for an Event, which are activities created by Organizations.
  *
  * Created by gilbertkim on 4/4/16.
  */
-public class Event {
+public class Event implements Parcelable {
 
     // Name of the Event
     String name;
@@ -31,6 +33,41 @@ public class Event {
 
 
     String[] days = {"", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+
+    // Parcelling part
+    public Event(Parcel in) {
+        String[] data = new String[2];
+
+        in.readStringArray(data);
+        Event temp = Event.getEventWithNameAndDateAndTime(data[0],data[1]);
+        this.name = temp.getName();
+        this.start = temp.getStartCalendar();
+        this.end = temp.getEndCalendar();
+        this.location = temp.getLocation();
+        this.photoID = temp.getPhotoID();
+        this.organizations = temp.getOrganizations();
+        this.categories = temp.getCategories();
+        this.description = temp.getDescription();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeStringArray(new String[] {this.name, this.getDateAndTime()});
+    }
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Event createFromParcel(Parcel in) {
+            return new Event(in);
+        }
+
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
 
 
     public static List<Event> allEvents = new ArrayList<Event>();
@@ -256,6 +293,15 @@ public class Event {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Returns the list of Categories for the Event object.
+     *
+     * @return      the list of Categories
+     */
+    public List<Category> getCategories() {
+        return this.categories;
     }
 
     /**

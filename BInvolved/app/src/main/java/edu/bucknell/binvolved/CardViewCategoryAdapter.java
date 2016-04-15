@@ -1,22 +1,19 @@
 package edu.bucknell.binvolved;
 
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Button;
 import android.content.Intent;
 import android.content.Context;
 
-import java.util.Calendar;
 import java.util.List;
 
-public class RVCategoryAdapter extends RecyclerView.Adapter<RVCategoryAdapter.PersonViewHolder> {
+public class CardViewCategoryAdapter extends RecyclerView.Adapter<CardViewCategoryAdapter.PersonViewHolder> {
 
     private Context context;
     private LayoutInflater inflater;
@@ -57,7 +54,7 @@ public class RVCategoryAdapter extends RecyclerView.Adapter<RVCategoryAdapter.Pe
 
     List<Category> categories;
 
-    RVCategoryAdapter(Context context, List<Category> categories){
+    CardViewCategoryAdapter(Context context, List<Category> categories){
         this.context = context;
         this.inflater = LayoutInflater.from(this.context);
         this.categories = categories;

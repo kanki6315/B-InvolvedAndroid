@@ -24,6 +24,13 @@
     <dimen name="layout_in_card_view_margin">3dp</dimen>
 
 
+    <dimen name="list_item_image_height">75dp</dimen>
+    <dimen name="list_item_image_width">75dp</dimen>
+    <dimen name="list_item_total_height">100dp</dimen>
+
+    <dimen name="list_view_text_size">20sp</dimen>
+
+
     <dimen name="more_button_height">20dp</dimen>
     <dimen name="options_button_height">30dp</dimen>
     <dimen name="three_dot_option_size">15dp</dimen>

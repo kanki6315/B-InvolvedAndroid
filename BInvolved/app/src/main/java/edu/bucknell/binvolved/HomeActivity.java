@@ -10,10 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View.OnClickListener;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Button;
-import android.view.View.OnClickListener;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        /*
+
         // button to go to individual category page
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new OnClickListener() {
@@ -64,12 +64,20 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View arg0) {
                 Bundle localBundle = new Bundle();
                 //localBundle.putString("Category Name", "Some event name");
-                Intent localIntent = new Intent(context, IndividualCategoryActivity.class);
-                localIntent.putExtra("Category Name", "Free Food");
+                Intent localIntent = new Intent(context, ListEventActivity.class);
+                ArrayList<Event> events = new ArrayList<Event>();
+                events.add(new Event("name1", "4/7/2016", "7:00 PM", "10:00 PM", "location",
+                        R.drawable.ace, "org1", "Free Food;Alcohol(21+)", "description"));
+                events.add(new Event("name2", "4/20/2016", "6:15 PM", "11:30 AM", "location",
+                        R.drawable.ace, "org2", "Dance;Music", "description"));
+                events.add(new Event("name3", "4/30/2016", "7:00 PM", "2:00 AM", "location",
+                        R.drawable.ace, "org1", "Theater;Social", "description"));
+                localIntent.putParcelableArrayListExtra("Event List", events);
                 startActivity(localIntent);
             }
         });
 
+        /*
         // button to go to individual event page
         button2 = (Button) findViewById(R.id.button2);
         button2.setOnClickListener(new OnClickListener() {
@@ -224,10 +232,10 @@ public class HomeActivity extends AppCompatActivity {
         rv2.setHasFixedSize(true);
 
         // adapters
-        RVCategoryAdapter adapter1 = new RVCategoryAdapter(context, categories);
+        CardViewCategoryAdapter adapter1 = new CardViewCategoryAdapter(context, categories);
         rv1.setAdapter(adapter1);
 
-        RVEventAdapter adapter2 = new RVEventAdapter(context, upcomingEvents);
+        CardViewEventAdapter adapter2 = new CardViewEventAdapter(context, upcomingEvents);
         rv2.setAdapter(adapter2);
     }
 

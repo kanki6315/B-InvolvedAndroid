@@ -131,7 +131,7 @@ public class IndividualOrganizationActivity extends Activity {
         rv1.setLayoutManager(llm1);
         rv1.setHasFixedSize(true);
 
-        RVEventAdapter adapter1 = new RVEventAdapter(context, events1);
+        CardViewEventAdapter adapter1 = new CardViewEventAdapter(context, events1);
         rv1.setAdapter(adapter1);
     }
 
