@@ -6,23 +6,44 @@ import java.util.ArrayList;
 import java.util.TimeZone;
 import android.os.Parcelable;
 import android.os.Parcel;
+import android.support.annotation.Nullable;
 
 /**
- * Class for an Event, which are activities created by Organizations.
+ * Class for an Event, which represents an activity created by Organizations.
+ * The Event class implements Parcelable so that I can pass lists of Event objects
+ * between activities.
+ *
+ * An Event object has:
+ *      name: String
+ *      starting date and time: Calendar
+ *      ending date and time: Calendar
+ *      location: String
+ *      photo ID in drawable directory: int
+ *      list of Organizations hosting the event: List<Organization>
+ *      list of Categories that the Event is under: List<Category>
+ *      description: String
+ *
+ * NOTE: This class only works for Events that happen in one day or go PM to AM.
+ *
  *
  * Created by gilbertkim on 4/4/16.
  */
 public class Event implements Parcelable {
 
+    // array of the names of the days of the week
+    final String[] days = {"", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+    // static list of all Event objects that are created
+    public static List<Event> allEvents = new ArrayList<Event>();
+
     // Name of the Event
     String name;
-    // Start date and time of the Event
+    // Starting date and time of the Event
     Calendar start;
-    // End date and time of the Event
+    // Ending date and time of the Event
     Calendar end;
     // Location of the Event
     String location;
-    // Photo for the Event
+    // Photo ID for the Event
     int photoID;
     // List of Organizations that are hosting the Event
     List<Organization> organizations;
@@ -32,48 +53,8 @@ public class Event implements Parcelable {
     String description;
 
 
-    String[] days = {"", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
-
-    // Parcelling part
-    public Event(Parcel in) {
-        String[] data = new String[2];
-
-        in.readStringArray(data);
-        Event temp = Event.getEventWithNameAndDateAndTime(data[0],data[1]);
-        this.name = temp.getName();
-        this.start = temp.getStartCalendar();
-        this.end = temp.getEndCalendar();
-        this.location = temp.getLocation();
-        this.photoID = temp.getPhotoID();
-        this.organizations = temp.getOrganizations();
-        this.categories = temp.getCategories();
-        this.description = temp.getDescription();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringArray(new String[] {this.name, this.getDateAndTime()});
-    }
-    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
-        public Event createFromParcel(Parcel in) {
-            return new Event(in);
-        }
-
-        public Event[] newArray(int size) {
-            return new Event[size];
-        }
-    };
-
-
-    public static List<Event> allEvents = new ArrayList<Event>();
-
     /**
-     * Constructor for an Event object. If the Event ends in an AM time and starts in a PM time,
+     * Constructor for an Event object. If the Event starts in a PM time and ends in an AM time,
      * then the ending date is adjusted to be the next day.
      *
      * @param name              the name of the Event
@@ -100,6 +81,63 @@ public class Event implements Parcelable {
         // add to static list of all Events
         Event.allEvents.add(this);
     }
+
+    /**
+     * Constructor for an Event object following Parcelable. This is used to pass
+     * instances of Events between activities on the app.
+     *
+     * @param in        Parcel object
+     */
+    public Event(Parcel in) {
+        String[] data = new String[2];
+
+        in.readStringArray(data);
+        Event temp = Event.getEventWithNameAndDateAndTime(data[0],data[1]);
+        this.name = temp.getName();
+        this.start = temp.getStartCalendar();
+        this.end = temp.getEndCalendar();
+        this.location = temp.getLocation();
+        this.photoID = temp.getPhotoID();
+        this.organizations = temp.getOrganizations();
+        this.categories = temp.getCategories();
+        this.description = temp.getDescription();
+    }
+
+    /**
+     * TODO: I don't know what this method is for. Give it a description.
+     * It is meant as part of the Parcelable part.
+     *
+     * @return      int describing the contents
+     */
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    /**
+     * Prepares the Parcel to have the correct information so that a specific
+     * Event can be attained with that information.
+     *
+     * @param dest      Parcel destination
+     * @param flags     int flags
+     */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeStringArray(new String[] {this.getName(), this.getDateAndTime()});
+    }
+
+    /**
+     * TODO: I have no idea what this does. Needs a description.
+     * It is part of the Parcelable part.
+     */
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Event createFromParcel(Parcel in) {
+            return new Event(in);
+        }
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
 
     /**
      * Returns the Event object as a String. Used only for debugging purposes.
@@ -134,6 +172,7 @@ public class Event implements Parcelable {
 
         // get hour and minute values
         int hour = Integer.parseInt(startTime.substring(0,startTime.indexOf(":")));
+        // special case for 12 PM and 12 AM
         if (startTime.contains("PM") && hour < 12) {
             hour += 12;
         }
@@ -144,7 +183,6 @@ public class Event implements Parcelable {
 
         // set the starting date and time of the Event
         this.start = Calendar.getInstance(TimeZone.getDefault());
-        //this.start.clear();
         this.start.set(year, month-1, day, hour, minute);
     }
 
@@ -165,6 +203,7 @@ public class Event implements Parcelable {
 
         // get hour and minute values
         int hour = Integer.parseInt(endTime.substring(0,endTime.indexOf(":")));
+        // special case for 12 PM and 12 AM
         if (endTime.contains("PM") && hour < 12) {
             hour += 12;
         }
@@ -175,7 +214,6 @@ public class Event implements Parcelable {
 
         // set the ending date and time of the Event
         this.end = Calendar.getInstance(TimeZone.getDefault());
-        //this.end.clear();
         this.end.set(year, month-1, day, hour, minute);
         // adjust if the event goes past midnight
         if (endTime.contains("AM") && startTime.contains("PM")) {
@@ -200,9 +238,10 @@ public class Event implements Parcelable {
             this.organizations.add(Organization.getOrganizationWithName(orgName));
             organizations = organizations.substring(organizations.indexOf(";")+1);
 
-            // update Organization's List of events
+            // update Organization's static List of Events
             Organization.getOrganizationWithName(orgName).addEvent(this);
         }
+        // add last one
         this.organizations.add(Organization.getOrganizationWithName(organizations));
         Organization.getOrganizationWithName(organizations).addEvent(this);
     }
@@ -215,6 +254,7 @@ public class Event implements Parcelable {
      * @param categories        String of semicolon delimited Category names
      */
     public void parseCategories(String categories) {
+        //System.out.println("Event: parseCategories(): categories: " + categories);
         this.categories = new ArrayList<Category>();
         while (categories.contains(";")) {
             // add Category to List of Categories
@@ -222,12 +262,10 @@ public class Event implements Parcelable {
             this.categories.add(Category.getCategoryWithName(catName));
             categories = categories.substring(categories.indexOf(";")+1);
 
-            // update Category's List of events
-            if (catName.equals("Free Food")) {
-                System.out.println("Adding additional event to Category Free Food");
-            }
+            // update Category's static List of Events
             Category.getCategoryWithName(catName).addEvent(this);
         }
+        // add last one
         this.categories.add(Category.getCategoryWithName(categories));
         Category.getCategoryWithName(categories).addEvent(this);
     }
@@ -305,8 +343,9 @@ public class Event implements Parcelable {
     }
 
     /**
+     * Returns the day and date of the Event as "DAY MM/DD".
      *
-     * @return
+     * @return      String expressing the day and date of the Event
      */
     public String getDate() {
         Calendar calendar = this.getStartCalendar();
@@ -318,8 +357,9 @@ public class Event implements Parcelable {
     }
 
     /**
+     * Returns the starting time of the Event as "HH:MM AM/PM"
      *
-     * @return
+     * @return      String expressing the starting time of the Event
      */
     public String getStartTime() {
         Calendar calendar = this.getStartCalendar();
@@ -328,11 +368,10 @@ public class Event implements Parcelable {
         int minute = calendar.get(Calendar.MINUTE);
         String extension = "PM";
 
-        //System.out.println("getStartTime(): hour: " + hour + "hourOfDay: " + hourOfDay);
-
         if (hour == hourOfDay && hour < 12) {
             extension = "AM";
         }
+        // special case for 12AM and 12PM
         if ((hour == 0 && hourOfDay == 12) || (hour == 0 && hourOfDay == 0)) {
             hour = 12;
         }
@@ -343,8 +382,9 @@ public class Event implements Parcelable {
     }
 
     /**
+     * Returns the ending time of the Event as "HH:MM AM/PM"
      *
-     * @return
+     * @return      String expressing the ending time of the Event
      */
     public String getEndTime() {
         Calendar calendar = this.getEndCalendar();
@@ -353,11 +393,10 @@ public class Event implements Parcelable {
         int minute = calendar.get(Calendar.MINUTE);
         String extension = "PM";
 
-        //System.out.println("getEndTime(): hour: " + hour + "hourOfDay: " + hourOfDay);
-
         if (hour == hourOfDay && hour < 12) {
             extension = "AM";
         }
+        // special case for 12AM and 12PM
         if ((hour == 0 && hourOfDay == 12) || (hour == 0 && hourOfDay == 0)) {
             hour = 12;
         }
@@ -368,27 +407,32 @@ public class Event implements Parcelable {
     }
 
     /**
+     * Returns the day, date, and starting time of the Event as "DAY MM/DD HH:MM AM/PM"
      *
-     * @return
+     * @return      String expressing the day, date, and starting time of the Event
      */
     public String getDateAndTime() {
-
         return getDate() + " " + getStartTime();
     }
 
     /**
+     * Returns the Event object with the specified name, date, and starting time.
+     * This is a static method.
      *
-     * @param name
-     * @param dateAndTime
-     * @return
+     * @param name              name of the Event
+     * @param dateAndTime       String result of getDateAndTime() method
+     * @return                  the Event object
      */
+    @Nullable
     public static Event getEventWithNameAndDateAndTime(String name, String dateAndTime) {
         for (Event event: allEvents) {
             if (event.getDateAndTime().equals(dateAndTime)) {
                 return event;
             }
         }
-        // no Event found: UH OH
+
+        // Event not found so return null. Bad if this happens
+        System.out.println("Event: getEventWithNameAndDateAndTime(): Did not find an Event. This should never print.");
         return null;
     }
 }
