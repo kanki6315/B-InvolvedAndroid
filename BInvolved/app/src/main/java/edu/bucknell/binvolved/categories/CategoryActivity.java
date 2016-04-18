@@ -20,6 +20,11 @@ public class CategoryActivity extends AppCompatActivity{
     private List<Category> categoryList= new ArrayList<Category>();
 
     /** Called when the activity is first created. */
+
+    public List<Category> getArrayList() {
+        
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +34,7 @@ public class CategoryActivity extends AppCompatActivity{
         setTitle("TestIconizedListView");
 
         // Create Parser for raw/countries.xml
+        /*
         CategoryParser categoryParser = new CategoryParser();
         InputStream inputStream = getResources().openRawResource(
                 R.raw.countries);
@@ -38,8 +44,8 @@ public class CategoryActivity extends AppCompatActivity{
 
         // Get Countries
         List<Category> categoryList = categoryParser.getList();
-
-
+        */
+        List<Category> categoryList = getArrayList();
         // Create a customized ArrayAdapter
         CategoryArrayAdapter adapter = new CategoryArrayAdapter(
                 getApplicationContext(), R.layout.country_listitem, categoryList);
