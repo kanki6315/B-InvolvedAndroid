@@ -1,48 +1,32 @@
 package edu.bucknell.binvolved;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.support.design.widget.TabLayout;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
- * Layout for the list view of Categories.
+ * Layout for the list view of Organizations.
  *
- * Created by gilbertkim on 4/15/16.
+ * Created by gilbertkim on 4/19/16.
  */
-public class ListCategoryActivity extends Activity {
+public class ListOrganizationActivity extends AppCompatActivity {
 
-    /*
-    // parts for the list item view
-    ImageView categoryImage;
-    TextView categoryName;
-    */
-
-    private List<Category> followingCategories;
-    private List<Category> allCategories;
+    private ArrayList<Organization> followingOrganizations;
+    private ArrayList<Organization> allOrganizations;
     private RecyclerView rv1;
 
     final Context context = this;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_view);
-
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
-
-        /*
-        // get elements for card view
-        categoryImage = (ImageView) findViewById(R.id.event_photo);
-        categoryName = (TextView) findViewById(R.id.event_name);
-        */
 
         // get elements for recycler views
         rv1 =(RecyclerView)findViewById(R.id.recycler_view_1);
@@ -50,10 +34,10 @@ public class ListCategoryActivity extends Activity {
         // initialize stuff
         setLayoutManagers();
 
-        followingCategories = getIntent().getParcelableArrayListExtra("Following Categories");
-        allCategories = getIntent().getParcelableArrayListExtra("All Categories");
+        followingOrganizations = getIntent().getParcelableArrayListExtra("Following Organizations");
+        allOrganizations = getIntent().getParcelableArrayListExtra("All Organizations");
 
-        ListViewCategoryAdapter adapter1 = new ListViewCategoryAdapter(context, followingCategories);
+        ListViewOrganizationAdapter adapter1 = new ListViewOrganizationAdapter(context, followingOrganizations);
         rv1.setAdapter(adapter1);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -63,15 +47,16 @@ public class ListCategoryActivity extends Activity {
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                //viewPager.setCurrentItem(tab.getPosition());
                 System.out.println("TAB SELECTED: " + tab.getPosition());
                 // following tab
                 if (tab.getPosition() == 0) {
-                    ListViewCategoryAdapter blah = new ListViewCategoryAdapter(context, followingCategories);
+                    ListViewOrganizationAdapter blah = new ListViewOrganizationAdapter(context, followingOrganizations);
                     rv1.swapAdapter(blah, false);
                 }
                 // all tab
                 if (tab.getPosition() == 1) {
-                    ListViewCategoryAdapter blah = new ListViewCategoryAdapter(context, allCategories);
+                    ListViewOrganizationAdapter blah = new ListViewOrganizationAdapter(context, allOrganizations);
                     rv1.swapAdapter(blah, false);
                 }
             }

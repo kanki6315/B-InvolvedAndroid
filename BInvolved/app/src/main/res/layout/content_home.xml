@@ -23,20 +23,20 @@ android:paddingRight="@dimen/activity_horizontal_margin"
         android:id="@+id/button"
         android:layout_width="fill_parent"
         android:layout_height="75dp"
-        android:text="Click me to go to list view"/>
-    <!--
+        android:text="Click me to go to EVENT list view"/>
+
     <Button
         android:id="@+id/button2"
         android:layout_width="fill_parent"
         android:layout_height="75dp"
-        android:text="Click me to go to individual event screen"/>
+        android:text="Click me to go to ORGANIZATION list view"/>
 
     <Button
         android:id="@+id/button3"
         android:layout_width="fill_parent"
         android:layout_height="75dp"
-        android:text="Click me to go to individual organization screen"/>
-    -->
+        android:text="Click me to go to CATEGORY list view"/>
+
 
     <ImageView
         android:layout_width="match_parent"

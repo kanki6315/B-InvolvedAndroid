@@ -52,7 +52,7 @@ public class IndividualEventActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_individual_event);
+        setContentView(R.layout.individual_event);
 
         //getActionBar().setDisplayHomeAsUpEnabled(true);
 

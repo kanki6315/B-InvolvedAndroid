@@ -2,13 +2,17 @@ package edu.bucknell.binvolved;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.os.Parcelable;
+import android.os.Parcel;
 
 /**
  * Class for an Organization, which creates Events.
+ * The Event class implements Parcelable so that I can pass lists of Event objects
+ * between activities.
  *
  * Created by gilbertkim on 4/4/16.
  */
-public class Organization {
+public class Organization implements Parcelable {
 
     // Name of the Organization
     String name;
@@ -38,8 +42,11 @@ public class Organization {
     public Organization(String name, int logoPhotoID, int photo1ID, int photo2ID, int photo3ID, String description) {
         // first check to see if the Organization name already exists
         if (allOrganizationNames.contains(name)) {
-            // got a duplicate Organization name
-            //this = allOrganizations.get(allOrganizationNames.indexOf(name));
+            Organization temp = Organization.getOrganizationWithName(name);
+            this.name = temp.getName();
+            this.images = temp.getImages();
+            this.events = temp.getEvents();
+            this.description = temp.getDescription();
             return;
         }
 
@@ -57,6 +64,59 @@ public class Organization {
         allOrganizations.add(this);
         allOrganizationNames.add(name);
     }
+
+    /**
+     * Constructor for an Organization object following Parcelable. This is used to pass
+     * instances of Organizations between activities on the app.
+     *
+     * @param in        Parcel object
+     */
+    public Organization(Parcel in) {
+        String[] data = new String[1];
+
+        in.readStringArray(data);
+        Organization temp = Organization.getOrganizationWithName(data[0]);
+        this.name = temp.getName();
+        this.images = temp.getImages();
+        this.events = temp.getEvents();
+        this.description = temp.getDescription();
+    }
+
+    /**
+     * TODO: I don't know what this method is for. Give it a description.
+     * It is meant as part of the Parcelable part.
+     *
+     * @return      int describing the contents
+     */
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    /**
+     * Prepares the Parcel to have the correct information so that a specific
+     * Organization can be attained with that information.
+     *
+     * @param dest      Parcel destination
+     * @param flags     int flags
+     */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeStringArray(new String[] {this.getName()});
+    }
+
+    /**
+     * TODO: I have no idea what this does. Needs a description.
+     * It is part of the Parcelable part.
+     */
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Organization createFromParcel(Parcel in) {
+            return new Organization(in);
+        }
+        public Organization[] newArray(int size) {
+            return new Organization[size];
+        }
+    };
 
     /**
      * Returns the Organization object as a String. Used only for debugging purposes.

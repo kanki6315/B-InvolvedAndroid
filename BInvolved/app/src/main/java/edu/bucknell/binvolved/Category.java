@@ -100,11 +100,11 @@ public class Category implements Parcelable{
      * It is part of the Parcelable part.
      */
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
-        public Event createFromParcel(Parcel in) {
-            return new Event(in);
+        public Category createFromParcel(Parcel in) {
+            return new Category(in);
         }
-        public Event[] newArray(int size) {
-            return new Event[size];
+        public Category[] newArray(int size) {
+            return new Category[size];
         }
     };
 

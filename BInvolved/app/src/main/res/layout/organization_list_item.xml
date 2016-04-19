@@ -15,7 +15,7 @@
         <ImageView
             android:layout_width="@dimen/list_item_image_width"
             android:layout_height="@dimen/list_item_image_height"
-            android:id="@+id/category_photo"
+            android:id="@+id/organization_photo"
             android:layout_alignParentStart="true"
             android:layout_marginEnd="16dp"
             android:layout_gravity="center_vertical"
@@ -24,17 +24,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/category_name"
-            android:layout_toEndOf="@+id/category_photo"
+            android:id="@+id/organization_name"
+            android:layout_toEndOf="@+id/organization_photo"
             android:layout_alignParentTop="true"
             android:textSize="@dimen/list_view_text_size"
             android:layout_marginTop="10dp"
-            android:layout_toStartOf="@+id/category_option_shortcut"/>
+            android:layout_toStartOf="@+id/organization_option_shortcut"/>
 
         <Button
             android:layout_width="@dimen/three_dot_option_size"
             android:layout_height="@dimen/three_dot_option_size"
-            android:id="@+id/category_option_shortcut"
+            android:id="@+id/organization_option_shortcut"
             android:background="@drawable/ic_more_vert_black_48dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"

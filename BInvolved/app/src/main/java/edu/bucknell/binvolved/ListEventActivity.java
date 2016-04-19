@@ -1,40 +1,36 @@
 package edu.bucknell.binvolved;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 /**
  * Layout for the list view of Events.
  *
- * Created by gilbertkim.
+ * Created by gilbertkim on 4/15/16.
  */
 public class ListEventActivity extends AppCompatActivity {
 
+    /*
     // parts for the list item view
     ImageView eventImage;
-    TextView eventName;
+    TextView organizationName;
     TextView eventDateTime;
+    */
 
-    // parts for recycler view 1: This Week
-    private List<Event> events1;
+    private ArrayList<Event> followingEvents;
+    private ArrayList<Event> allEvents;
     private RecyclerView rv1;
+
 
     final Context context = this;
 
@@ -46,10 +42,12 @@ public class ListEventActivity extends AppCompatActivity {
 
         //getActionBar().setDisplayHomeAsUpEnabled(true);
 
+        /*
         // get elements for card view
         eventImage = (ImageView) findViewById(R.id.event_photo);
         eventName = (TextView) findViewById(R.id.event_name);
         eventDateTime = (TextView) findViewById(R.id.event_date_time);
+        */
 
         // get elements for recycler views
         rv1 =(RecyclerView)findViewById(R.id.recycler_view_1);
@@ -57,38 +55,52 @@ public class ListEventActivity extends AppCompatActivity {
         // initialize stuff
         setLayoutManagers();
 
-        events1 = getIntent().getParcelableArrayListExtra("Event List");
+        followingEvents = getIntent().getParcelableArrayListExtra("Following Events");
+        allEvents = getIntent().getParcelableArrayListExtra("All Events");
 
-        initializeAdapters();
-
+        ListViewEventAdapter adapter1 = new ListViewEventAdapter(context, followingEvents);
+        rv1.setAdapter(adapter1);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Following"));
         tabLayout.addTab(tabLayout.newTab().setText("All"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final TabPagerAdapter adapter = new TabPagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        //final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        //final TabPagerAdapter adapter = new TabPagerAdapter
+        //        (getSupportFragmentManager(), tabLayout.getTabCount(), followingEvents, allEvents);
+        //viewPager.setAdapter(adapter);
+        //viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
+                //viewPager.setCurrentItem(tab.getPosition());
+                System.out.println("TAB SELECTED: " + tab.getPosition());
+                // following tab
+                if (tab.getPosition() == 0) {
+                    ListViewEventAdapter blah = new ListViewEventAdapter(context, followingEvents);
+                    rv1.swapAdapter(blah, false);
+                }
+                // all tab
+                if (tab.getPosition() == 1) {
+                    ListViewEventAdapter blah = new ListViewEventAdapter(context, allEvents);
+                    rv1.swapAdapter(blah, false);
+                }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+                System.out.println("TAB UNSELECTED");
 
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                System.out.println("TAB RESELECTED");
             }
         });
     }
+
 
     /**
      * Sets the layout managers for the recycler views.
@@ -97,14 +109,5 @@ public class ListEventActivity extends AppCompatActivity {
         LinearLayoutManager llm1 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rv1.setLayoutManager(llm1);
         rv1.setHasFixedSize(true);
-    }
-
-
-    /**
-     * Initializes the adapter for the RecyclerView.
-     */
-    private void initializeAdapters() {
-        ListViewEventAdapter adapter1 = new ListViewEventAdapter(context, events1);
-        rv1.setAdapter(adapter1);
     }
 }

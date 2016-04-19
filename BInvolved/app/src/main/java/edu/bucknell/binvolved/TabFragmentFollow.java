@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by gilbertkim on 4/15/16.
@@ -19,6 +20,15 @@ import java.util.List;
 public class TabFragmentFollow extends Fragment{
 //public class TabFragmentFollow extends AppCompatActivity{
 
+    /*
+    private List<Event> followingEvents;
+    private RecyclerView rv1;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        followingEvents = getArguments().getParcelableArrayList("Following Events");
+    }
+    */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -6,13 +6,13 @@
         android:allowBackup="true"
         android:icon="@drawable/bucknell_logo"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".HomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,47 +24,48 @@
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".IndividualEventActivity"
-            android:label="@string/title_activity_individual_event" >
-        </activity>
+            android:label="@string/title_activity_individual_event"></activity>
         <activity
             android:name=".IndividualCategoryActivity"
             android:label="@string/title_activity_individual_category"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".IndividualOrganizationActivity"
+        <activity
+            android:name=".IndividualOrganizationActivity"
             android:label="@string/title_activity_individual_organization"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListEventActivity"
+        <activity
+            android:name=".ListEventActivity"
             android:label="@string/title_activity_individual_organization"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListCategoryActivity"
+        <activity
+            android:name=".ListCategoryActivity"
             android:label="@string/title_activity_individual_organization"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".ListOrganizationActivity"></activity>
     </application>
 
 </manifest>

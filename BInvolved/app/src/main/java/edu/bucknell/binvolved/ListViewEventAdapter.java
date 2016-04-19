@@ -66,6 +66,16 @@ public class ListViewEventAdapter extends RecyclerView.Adapter<ListViewEventAdap
         this.events = events;
     }
 
+    /**
+     *
+     * @param newEvents
+     */
+    public void swap(List<Event> newEvents) {
+        events.clear();
+        events.addAll(newEvents);
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
@@ -76,7 +86,7 @@ public class ListViewEventAdapter extends RecyclerView.Adapter<ListViewEventAdap
      *
      * @param viewGroup     the ViewGroup instance
      * @param i             index
-     * @return              EventViewHolder object
+     * @return              OrganizationViewHolder object
      */
     @Override
     public EventViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {

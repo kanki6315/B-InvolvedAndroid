@@ -57,13 +57,18 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
+        // read in the CSV files
+        readInOrganizations();
+        readInCategories();
+        readInEvents();
+
+
+
         // button to go to individual category page
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Bundle localBundle = new Bundle();
-                //localBundle.putString("Category Name", "Some event name");
                 Intent localIntent = new Intent(context, ListEventActivity.class);
                 ArrayList<Event> events = new ArrayList<Event>();
                 events.add(new Event("name1", "4/7/2016", "7:00 PM", "10:00 PM", "location",
@@ -72,45 +77,54 @@ public class HomeActivity extends AppCompatActivity {
                         R.drawable.ace, "org2", "Dance;Music", "description"));
                 events.add(new Event("name3", "4/30/2016", "7:00 PM", "2:00 AM", "location",
                         R.drawable.ace, "org1", "Theater;Social", "description"));
-                localIntent.putParcelableArrayListExtra("Event List", events);
+                localIntent.putParcelableArrayListExtra("Following Events", events);
+
+                ArrayList<Event> events2 = new ArrayList<Event>();
+                events2.add(new Event("name10", "5/7/2016", "7:00 PM", "10:00 PM", "location",
+                        R.drawable.ace, "org10", "Free Food;Alcohol(21+)", "description"));
+                events2.add(new Event("name20", "5/20/2016", "6:15 PM", "11:30 AM", "location",
+                        R.drawable.ace, "org20", "Dance;Music", "description"));
+                events2.add(new Event("name30", "5/30/2016", "7:00 PM", "2:00 AM", "location",
+                        R.drawable.ace, "org10", "Theater;Social", "description"));
+                localIntent.putParcelableArrayListExtra("All Events", events2);
+
                 startActivity(localIntent);
             }
         });
 
-        /*
-        // button to go to individual event page
         button2 = (Button) findViewById(R.id.button2);
         button2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Bundle localBundle = new Bundle();
-                //localBundle.putString("Event Name", "Free Food");
-                Intent localIntent = new Intent(context, IndividualEventActivity.class);
-                //localIntent.putExtras(localBundle);
-                localIntent.putExtra("Event Name", "Some Event Name");
+                Intent localIntent = new Intent(context, ListOrganizationActivity.class);
+                //localIntent.putExtra("Event Name", "Some Event Name");
+                ArrayList<Organization> organizations = new ArrayList<>();
+                organizations.addAll(allOrganizations.subList(0,10));
+                localIntent.putParcelableArrayListExtra("All Organizations", organizations);
+                ArrayList<Organization> organizations2 = new ArrayList<>();
+                organizations2.addAll(allOrganizations.subList(0,5));
+                localIntent.putParcelableArrayListExtra("Following Organizations", organizations2);
                 startActivity(localIntent);
             }
         });
 
-        // button to go to individual organization page
         button3 = (Button) findViewById(R.id.button3);
         button3.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Bundle localBundle = new Bundle();
-                //localBundle.putString("Organization Name", "Uptown");
-                Intent localIntent = new Intent(context, IndividualOrganizationActivity.class);
-                //localIntent.putExtras(localBundle);
-                localIntent.putExtra("Organization Name", "Uptown");
+                Intent localIntent = new Intent(context, ListCategoryActivity.class);
+                //localIntent.putExtra("Organization Name", "Uptown");
+                ArrayList<Category> categories = new ArrayList<>();
+                categories.addAll(allCategories.subList(0,10));
+                localIntent.putParcelableArrayListExtra("All Categories", categories);
+                ArrayList<Category> categories2 = new ArrayList<>();
+                categories2.addAll(allCategories.subList(0,5));
+                localIntent.putParcelableArrayListExtra("Following Categories", categories2);
                 startActivity(localIntent);
             }
         });
-        */
 
-        // read in the CSV files
-        readInOrganizations();
-        readInCategories();
-        readInEvents();
+
 
         // do setup for recycler view
         rv1 =(RecyclerView)findViewById(R.id.recycler_view_1);
@@ -133,8 +147,6 @@ public class HomeActivity extends AppCompatActivity {
                 break;
             }
         }
-        //upcomingEvents = allEvents.subList(0,minEventDisplay);
-
 
         setLayoutManagersAndInitializeAdapters();
     }
