@@ -53,24 +53,11 @@ public class ListOrganizationActivity extends AppCompatActivity {
                 new ArrayList<Event>(), followingOrganizations, new ArrayList<Category>());
         viewPager.setAdapter(adapter);
 
-        // set the list and selected tab
-        ListViewOrganizationAdapter adapter1;
-        TabLayout.Tab tab;
-        if (onTab.equals("Following")) {
-            adapter1 = new ListViewOrganizationAdapter(context, followingOrganizations);
-            tab = tabLayout.getTabAt(0);
-        } else {
-            adapter1 = new ListViewOrganizationAdapter(context, allOrganizations);
-            tab = tabLayout.getTabAt(1);
-        }
-        rv1.setAdapter(adapter1);
-        tab.select();
-
         // set listener for the tab layout
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                //viewPager.setCurrentItem(tab.getPosition());
+                viewPager.setCurrentItem(tab.getPosition());
                 System.out.println("TAB SELECTED: " + tab.getPosition());
                 // following tab
                 if (tab.getPosition() == 0) {
@@ -95,6 +82,21 @@ public class ListOrganizationActivity extends AppCompatActivity {
                 System.out.println("TAB RESELECTED");
             }
         });
+
+        // set the list and selected tab
+        //ListViewOrganizationAdapter adapter1;
+        TabLayout.Tab tab;
+        if (onTab.equals("Following")) {
+            //adapter1 = new ListViewOrganizationAdapter(context, followingOrganizations);
+            tab = tabLayout.getTabAt(0);
+        } else {
+            //adapter1 = new ListViewOrganizationAdapter(context, allOrganizations);
+            tab = tabLayout.getTabAt(1);
+        }
+        //rv1.setAdapter(adapter1);
+        tab.select();
+
+
     }
 
     /**
