@@ -123,9 +123,9 @@ android:paddingRight="@dimen/activity_horizontal_margin"
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="@dimen/section_title_height"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="@dimen/section_margin_left"
                 android:textStyle="bold"
                 android:text="@string/upcoming_events"/>
 
@@ -135,7 +135,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                 android:layout_height="@dimen/more_button_height"
                 android:layout_gravity="end"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="@dimen/section_margin_right"
                 android:text="@string/more"
                 android:textColor="@color/white"
                 android:background="@color/midnightBlue" />

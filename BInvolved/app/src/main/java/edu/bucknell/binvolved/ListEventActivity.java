@@ -56,6 +56,7 @@ public class ListEventActivity extends AppCompatActivity {
         final TabPagerAdapter adapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(),
                 followingEvents, new ArrayList<Organization>(), new ArrayList<Category>());
         viewPager.setAdapter(adapter);
+        //viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         // set the list and selected tab
         ListViewEventAdapter adapter1;

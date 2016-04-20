@@ -18,17 +18,6 @@ import java.util.ArrayList;
  * Created by gilbertkim on 4/15/16.
  */
 public class TabFragmentFollow extends Fragment{
-//public class TabFragmentFollow extends AppCompatActivity{
-
-    /*
-    private List<Event> followingEvents;
-    private RecyclerView rv1;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        followingEvents = getArguments().getParcelableArrayList("Following Events");
-    }
-    */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,9 +29,10 @@ public class TabFragmentFollow extends Fragment{
         int followingOrganizations = getArguments().getInt("Following Organizations", 0);
         int followingCategories = getArguments().getInt("Following Categories", 0);
 
-        System.out.println("IN TabFragmentFollow: " + followingCategories + followingEvents + followingOrganizations);
         if (followingCategories + followingEvents + followingOrganizations == 0) {
             following.setText(R.string.following_nothing);
+        } else {
+            following.setText("");
         }
 
         return view;

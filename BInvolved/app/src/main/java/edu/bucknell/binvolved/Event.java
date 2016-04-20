@@ -519,6 +519,44 @@ public class Event implements Parcelable {
         }
         return events;
     }
+
+    /**
+     * Returns an ArrayList of Events under the Organization with the specified name
+     *
+     * @param name          the Organization name
+     * @return              the ArrayList of Events
+     */
+    public static ArrayList<Event> getAllEventsForOrganization(String name) {
+        ArrayList<Event> events = new ArrayList<Event>();
+        for (Event event: allEvents) {
+            List<Organization> organizations = event.getOrganizations();
+            for (Organization organization: organizations) {
+                if (organization.getName().equals(name)) {
+                    events.add(event);
+                }
+            }
+        }
+        return events;
+    }
+
+    /**
+     * Returns an ArrayList of following Events under the Organization with the specified name
+     *
+     * @param name          the Organization name
+     * @return              the ArrayList of Events
+     */
+    public static ArrayList<Event> getFollowingEventsForOrganization(String name) {
+        ArrayList<Event> events = new ArrayList<Event>();
+        for (Event event: followingEvents) {
+            List<Organization> organizations = event.getOrganizations();
+            for (Organization organization: organizations) {
+                if (organization.getName().equals(name)) {
+                    events.add(event);
+                }
+            }
+        }
+        return events;
+    }
 }
 
 

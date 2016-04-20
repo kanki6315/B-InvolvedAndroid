@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -26,7 +27,13 @@ public class TabFragmentAll extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.tab_fragment_all, container, false);
+
+        View view = inflater.inflate(R.layout.tab_fragment_follow, container, false);
+
+        TextView following = (TextView) view.findViewById(R.id.following);
+        following.setText("");
+
+        return view;
     }
 
 }

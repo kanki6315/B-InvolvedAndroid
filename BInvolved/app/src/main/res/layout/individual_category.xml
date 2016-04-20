@@ -1,166 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</ScrollView>
--->
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <Toolbar
-        android:id="@+id/main_toolbar"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/midnightBlue"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        android:layout_height="match_parent">
+
+        <Toolbar
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/midnightBlue"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            android:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
 
-    <ImageView
-        android:id="@+id/category_banner"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/banner_image_height"
-        android:contentDescription="@string/banner_image_description"/>
-
-    <RelativeLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/category_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="@dimen/section_margin_left"
-            android:textStyle="bold"
-            android:textSize="@dimen/page_title_text_size"
-            android:textAlignment="textStart" />
-
-        <Button
-            android:id="@+id/follow_update"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/options_button_height"
-            android:layout_gravity="end"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/section_margin_right"
-            android:text="@string/follow_updates"
-            android:background="@color/vermilionOrange" />
-    </RelativeLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/section_title_height"
-            android:layout_marginStart="@dimen/section_margin_left"
-            android:textStyle="bold"
-            android:text="@string/this_week"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/card_view_total_height"
-            android:orientation="horizontal" >
-
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/recycler_view_1" >
-            </android.support.v7.widget.RecyclerView>
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/section_title_height"
-            android:layout_marginStart="@dimen/section_margin_left"
-            android:textStyle="bold"
-            android:text="@string/top_events"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/card_view_total_height"
-            android:orientation="horizontal" >
-
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/recycler_view_2" >
-            </android.support.v7.widget.RecyclerView>
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/category_banner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/banner_image_height"
+            android:contentDescription="@string/banner_image_description"/>
 
         <RelativeLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/category_name"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/section_title_height"
+                android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="@dimen/section_margin_left"
                 android:textStyle="bold"
-                android:text="@string/all_events"/>
+                android:textSize="@dimen/page_title_text_size"
+                android:textAlignment="textStart" />
 
             <Button
-                android:id="@+id/all_events_more"
+                android:id="@+id/follow_update"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/more_button_height"
+                android:layout_height="@dimen/options_button_height"
                 android:layout_gravity="end"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/section_margin_right"
-                android:text="@string/more"
-                android:textColor="@color/white"
-                android:background="@color/midnightBlue" />
-
+                android:text="@string/follow_updates"
+                android:background="@color/vermilionOrange" />
         </RelativeLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/card_view_total_height"
-            android:orientation="horizontal" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/recycler_view_3" >
-            </android.support.v7.widget.RecyclerView>
+                android:layout_height="@dimen/section_title_height"
+                android:layout_marginStart="@dimen/section_margin_left"
+                android:textStyle="bold"
+                android:text="@string/this_week"/>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/card_view_total_height"
+                android:orientation="horizontal" >
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recycler_view_1" >
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
         </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/section_title_height"
+                android:layout_marginStart="@dimen/section_margin_left"
+                android:textStyle="bold"
+                android:text="@string/top_events"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/card_view_total_height"
+                android:orientation="horizontal" >
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recycler_view_2" >
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/section_title_height"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="@dimen/section_margin_left"
+                    android:textStyle="bold"
+                    android:text="@string/all_events"/>
+
+                <Button
+                    android:id="@+id/all_events_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/more_button_height"
+                    android:layout_gravity="end"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/section_margin_right"
+                    android:text="@string/more"
+                    android:textColor="@color/white"
+                    android:background="@color/midnightBlue" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/card_view_total_height"
+                android:orientation="horizontal" >
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recycler_view_3" >
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

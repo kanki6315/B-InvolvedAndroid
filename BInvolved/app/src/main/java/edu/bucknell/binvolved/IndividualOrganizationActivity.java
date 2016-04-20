@@ -1,6 +1,7 @@
 package edu.bucknell.binvolved;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -56,6 +57,8 @@ public class IndividualOrganizationActivity extends Activity {
 
     // Organization
     Organization organization;
+
+    Button moreOrganizationEvents;
 
 
     final Context context = this;
@@ -119,6 +122,19 @@ public class IndividualOrganizationActivity extends Activity {
             @Override
             public void onClick(View v) {
                 System.out.println("Do something");
+            }
+        });
+
+
+        moreOrganizationEvents = (Button) findViewById(R.id.more_organization_events);
+        moreOrganizationEvents.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent localIntent = new Intent(context, ListEventActivity.class);
+                localIntent.putExtra("On Tab", "All");
+                localIntent.putParcelableArrayListExtra("All Events", Event.getAllEventsForOrganization(organization.getName()));
+                localIntent.putParcelableArrayListExtra("Following Events", Event.getFollowingEventsForOrganization(organization.getName()));
+                startActivity(localIntent);
             }
         });
     }
