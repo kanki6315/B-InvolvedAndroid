@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="@dimen/section_margin_left"
-                android:id="@id/follow_update"
+                android:id="@+id/follow_organization"
                 android:text="@string/follow_updates" />
 
             <Button

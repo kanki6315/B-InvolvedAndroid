@@ -1,10 +1,12 @@
 package edu.bucknell.binvolved;
 
+import java.lang.reflect.Array;
 import java.util.List;
 import java.util.ArrayList;
 import android.os.Parcelable;
 import android.os.Parcel;
 import android.support.annotation.Nullable;
+import android.support.v4.util.CircularArray;
 
 /**
  * Class for a Category, which is a way to group similar types of Events.
@@ -26,6 +28,8 @@ public class Category implements Parcelable{
     public static List<Category> allCategories = new ArrayList<Category>();
     // static List to keep track of all Category names
     public static List<String> allCategoryNames = new ArrayList<String>();
+    // static List to keep track of following Categories
+    public static List<Category> followingCategories = new ArrayList<Category>();
 
     // Name of the Category
     String name;
@@ -193,5 +197,39 @@ public class Category implements Parcelable{
         allCategories.add(newCat);
         allCategoryNames.add(catName);
         return newCat;
+    }
+
+    /**
+     * Returns an ArrayList of all Category objects.
+     * This is a static method.
+     *
+     * @return              the ArrayList of Categories
+     */
+    public static ArrayList<Category> getAllCategories() {
+        ArrayList<Category> allCategories = new ArrayList<Category>();
+        allCategories.addAll(Category.allCategories);
+        return allCategories;
+    }
+
+    /**
+     * Returns an ArrayList of all following Category objects.
+     * This is a static method.
+     *
+     * @return              the ArrayList of Categories
+     */
+    public static ArrayList<Category> getFollowingCategories() {
+        ArrayList<Category> followingCategories = new ArrayList<Category>();
+        followingCategories.addAll(Category.followingCategories);
+        return followingCategories;
+    }
+
+    /**
+     * Adds the Category with the specified name to the list
+     * of following Categories
+     *
+     * @param name          the name of the Category
+     */
+    public static void addToFollowingCategories(String name) {
+        Category.followingCategories.add(Category.getCategoryWithName(name));
     }
 }

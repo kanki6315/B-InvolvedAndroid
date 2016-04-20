@@ -15,13 +15,16 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
     ArrayList<Event> followingEvents;
-    ArrayList<Event> allEvents;
+    ArrayList<Organization> followingOrganizations;
+    ArrayList<Category> followingCategories;
 
-    public TabPagerAdapter(FragmentManager fm, int NumOfTabs, ArrayList<Event> followingEvents, ArrayList<Event> allEvents) {
+    public TabPagerAdapter(FragmentManager fm, int NumOfTabs, ArrayList<Event> followingEvents,
+                           ArrayList<Organization> followingOrganizations, ArrayList<Category> followingCategories) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
         this.followingEvents = followingEvents;
-        this.allEvents = allEvents;
+        this.followingOrganizations = followingOrganizations;
+        this.followingCategories = followingCategories;
     }
 
     @Override
@@ -30,17 +33,16 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 Bundle args = new Bundle();
-                args.putParcelableArrayList("Following Events", followingEvents);
+                args.putInt("Following Events", followingEvents.size());
+                args.putInt("Following Organizations", followingOrganizations.size());
+                args.putInt("Following Categories", followingCategories.size());
                 TabFragmentFollow tabFollow = new TabFragmentFollow();
                 tabFollow.setArguments(args);
-                System.out.println("TabPagerAdapter: tabFollow tapped");
                 return tabFollow;
             case 1:
                 Bundle args2 = new Bundle();
-                args2.putParcelableArrayList("All Events", allEvents);
                 TabFragmentAll tabAll = new TabFragmentAll();
                 tabAll.setArguments(args2);
-                System.out.println("TabPagerAdapter: tabAll tapped");
                 return tabAll;
             default:
                 return null;

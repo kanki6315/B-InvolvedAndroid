@@ -27,6 +27,9 @@ public class HomeActivity extends AppCompatActivity {
     Button button2;
     Button button3;
 
+    Button moreCategories;
+    Button moreUpcomingEvents;
+
     List<Event> allEvents;
     List<Organization> allOrganizations;
     List<Category> allCategories;
@@ -63,7 +66,7 @@ public class HomeActivity extends AppCompatActivity {
         readInEvents();
 
 
-
+        /*
         // button to go to individual category page
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new OnClickListener() {
@@ -123,7 +126,32 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(localIntent);
             }
         });
+        */
 
+
+        moreCategories = (Button) findViewById(R.id.more_categories);
+        moreCategories.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent localIntent = new Intent(context, ListCategoryActivity.class);
+                localIntent.putExtra("On Tab", "All");
+                localIntent.putParcelableArrayListExtra("All Categories", Category.getAllCategories());
+                localIntent.putParcelableArrayListExtra("Following Categories", Category.getFollowingCategories());
+                startActivity(localIntent);
+            }
+        });
+
+        moreUpcomingEvents = (Button) findViewById(R.id.more_upcoming_events);
+        moreUpcomingEvents.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent localIntent = new Intent(context, ListEventActivity.class);
+                localIntent.putExtra("On Tab", "All");
+                localIntent.putParcelableArrayListExtra("All Events", Event.getAllEvents());
+                localIntent.putParcelableArrayListExtra("Following Events", Event.getFollowingEvents());
+                startActivity(localIntent);
+            }
+        });
 
 
         // do setup for recycler view

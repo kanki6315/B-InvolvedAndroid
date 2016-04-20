@@ -106,11 +106,11 @@ public class IndividualOrganizationActivity extends Activity {
      * Sets up the onClickListener for the follow and contact buttons.
      */
     public void addButtonOnClickListeners() {
-        buttonFollowOrganization = (Button) findViewById(R.id.follow_update);
+        buttonFollowOrganization = (Button) findViewById(R.id.follow_organization);
         buttonFollowOrganization.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Do something");
+                Organization.addToFollowingOrganizations(organization.getName());
             }
         });
 

@@ -24,6 +24,7 @@ import android.support.annotation.Nullable;
  *      description: String
  *
  * NOTE: This class only works for Events that happen in one day or go PM to AM.
+ * NOTE: The static list of all events only contains Events in the future.
  *
  *
  * Created by gilbertkim on 4/4/16.
@@ -32,8 +33,14 @@ public class Event implements Parcelable {
 
     // array of the names of the days of the week
     final String[] days = {"", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+    // now as a Calendar object
+    final Calendar now = Calendar.getInstance(TimeZone.getDefault());
+
     // static list of all Event objects that are created
     public static List<Event> allEvents = new ArrayList<Event>();
+    // static List to keep track of following Events
+    public static List<Event> followingEvents = new ArrayList<Event>();
+
 
     // Name of the Event
     String name;
@@ -51,6 +58,7 @@ public class Event implements Parcelable {
     List<Category> categories;
     // Long description of the Event
     String description;
+
 
 
     /**
@@ -79,7 +87,10 @@ public class Event implements Parcelable {
         this.description = description;
 
         // add to static list of all Events
-        Event.allEvents.add(this);
+        // but don't include Events in the past
+        if (this.getStartCalendar().getTime().after(now.getTime())) {
+            Event.allEvents.add(this);
+        }
     }
 
     /**
@@ -434,6 +445,79 @@ public class Event implements Parcelable {
         // Event not found so return null. Bad if this happens
         System.out.println("Event: getEventWithNameAndDateAndTime(): Did not find an Event. This should never print.");
         return null;
+    }
+
+    /**
+     * Returns an ArrayList of all Event objects.
+     * This is a static method.
+     *
+     * @return              the ArrayList of Events
+     */
+    public static ArrayList<Event> getAllEvents() {
+        ArrayList<Event> allEvents = new ArrayList<Event>();
+        allEvents.addAll(Event.allEvents);
+        return allEvents;
+    }
+
+    /**
+     * Returns an ArrayList of all following Event objects.
+     * This is a static method.
+     *
+     * @return              the ArrayList of Events
+     */
+    public static ArrayList<Event> getFollowingEvents() {
+        ArrayList<Event> followingEvents = new ArrayList<Event>();
+        followingEvents.addAll(Event.followingEvents);
+        return followingEvents;
+    }
+
+    /**
+     * Adds the Event with the specified name and start date and time
+     * to the list of following Events
+     *
+     * @param name          the name of the Event
+     * @param dateAndTime   the starting date and time of the Event
+     */
+    public static void addToFollowingEvents(String name, String dateAndTime) {
+        Event.followingEvents.add(Event.getEventWithNameAndDateAndTime(name, dateAndTime));
+    }
+
+    /**
+     * Returns an ArrayList of Events under the Category with the specified name
+     *
+     * @param name          the Category name
+     * @return              the ArrayList of Events
+     */
+    public static ArrayList<Event> getAllEventsForCategory(String name) {
+        ArrayList<Event> events = new ArrayList<Event>();
+        for (Event event: allEvents) {
+            List<Category> categories = event.getCategories();
+            for (Category category: categories) {
+                if (category.getName().equals(name)) {
+                    events.add(event);
+                }
+            }
+        }
+        return events;
+    }
+
+    /**
+     * Returns an ArrayList of following Events under the Category with the specified name
+     *
+     * @param name          the Category name
+     * @return              the ArrayList of Events
+     */
+    public static ArrayList<Event> getFollowingEventsForCategory(String name) {
+        ArrayList<Event> events = new ArrayList<Event>();
+        for (Event event: followingEvents) {
+            List<Category> categories = event.getCategories();
+            for (Category category: categories) {
+                if (category.getName().equals(name)) {
+                    events.add(event);
+                }
+            }
+        }
+        return events;
     }
 }
 

@@ -1,6 +1,7 @@
 package edu.bucknell.binvolved;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -103,8 +104,7 @@ public class IndividualCategoryActivity extends Activity {
         buttonFollowCategory.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                //do something
-                System.out.println("The follow update button got pressed.");
+                Category.addToFollowingCategories(category.getName());
             }
         });
 
@@ -112,8 +112,11 @@ public class IndividualCategoryActivity extends Activity {
         buttonAllEvents.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                //do something
-                System.out.println("The more event button got pressed.");
+                Intent localIntent = new Intent(context, ListEventActivity.class);
+                localIntent.putExtra("On Tab", "All");
+                localIntent.putParcelableArrayListExtra("All Events", Event.getAllEventsForCategory(category.getName()));
+                localIntent.putParcelableArrayListExtra("Following Events", Event.getFollowingEventsForCategory(category.getName()));
+                startActivity(localIntent);
             }
         });
     }

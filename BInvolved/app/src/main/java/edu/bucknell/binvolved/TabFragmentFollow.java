@@ -33,7 +33,19 @@ public class TabFragmentFollow extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.tab_fragment_follow, container, false);
+        View view = inflater.inflate(R.layout.tab_fragment_follow, container, false);
+
+        TextView following = (TextView) view.findViewById(R.id.following);
+        int followingEvents = getArguments().getInt("Following Events", 0);
+        int followingOrganizations = getArguments().getInt("Following Organizations", 0);
+        int followingCategories = getArguments().getInt("Following Categories", 0);
+
+        System.out.println("IN TabFragmentFollow: " + followingCategories + followingEvents + followingOrganizations);
+        if (followingCategories + followingEvents + followingOrganizations == 0) {
+            following.setText(R.string.following_nothing);
+        }
+
+        return view;
 
     }
 

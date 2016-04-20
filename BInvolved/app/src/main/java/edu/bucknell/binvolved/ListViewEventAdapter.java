@@ -13,6 +13,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
+/**
+ * Adapter Class to populate the list view of Events.
+ *
+ * Created by gilbertkim on 4/15/16.
+ */
 public class ListViewEventAdapter extends RecyclerView.Adapter<ListViewEventAdapter.EventViewHolder> {
 
     public static class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

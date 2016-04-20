@@ -14,6 +14,8 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
+ * Adapter Class to populate the list view of Organizations.
+ *
  * Created by gilbertkim on 4/19/16.
  */
 public class ListViewOrganizationAdapter extends RecyclerView.Adapter<ListViewOrganizationAdapter.OrganizationViewHolder> {

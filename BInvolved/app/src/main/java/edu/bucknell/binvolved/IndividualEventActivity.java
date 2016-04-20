@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Button;
 import android.content.Intent;
 import android.content.Context;
 
@@ -41,7 +42,8 @@ public class IndividualEventActivity extends AppCompatActivity {
     // Event description
     TextView eventTextDescription;
 
-
+    // Button to follow an Event
+    Button followEvent;
 
     // Event
     Event event;
@@ -92,6 +94,14 @@ public class IndividualEventActivity extends AppCompatActivity {
 
         eventTextDescription = (TextView) findViewById(R.id.eventTextDescription);
         eventTextDescription.setText(event.getDescription());
+
+        followEvent = (Button) findViewById(R.id.follow_event);
+        followEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Event.addToFollowingEvents(event.getName(), event.getDateAndTime());
+            }
+        });
     }
 
 

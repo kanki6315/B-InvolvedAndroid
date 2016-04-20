@@ -18,7 +18,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
     tools:showIn="@layout/activity_home"
     tools:context="edu.bucknell.binvolved.HomeActivity">
     
-
+<!--
     <Button
         android:id="@+id/button"
         android:layout_width="fill_parent"
@@ -36,7 +36,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
         android:layout_width="fill_parent"
         android:layout_height="75dp"
         android:text="Click me to go to CATEGORY list view"/>
-
+-->
 
     <ImageView
         android:layout_width="match_parent"
@@ -81,7 +81,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                 android:text="@string/categories"/>
 
             <Button
-                android:id="@+id/all_categories"
+                android:id="@+id/more_categories"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/more_button_height"
                 android:layout_gravity="end"
@@ -130,7 +130,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                 android:text="@string/upcoming_events"/>
 
             <Button
-                android:id="@+id/upcoming_events"
+                android:id="@+id/more_upcoming_events"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/more_button_height"
                 android:layout_gravity="end"

@@ -20,20 +20,12 @@ import java.util.ArrayList;
  */
 public class ListEventActivity extends AppCompatActivity {
 
-    /*
-    // parts for the list item view
-    ImageView eventImage;
-    TextView organizationName;
-    TextView eventDateTime;
-    */
-
+    private String onTab;
     private ArrayList<Event> followingEvents;
     private ArrayList<Event> allEvents;
     private RecyclerView rv1;
 
-
     final Context context = this;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,35 +34,43 @@ public class ListEventActivity extends AppCompatActivity {
 
         //getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        /*
-        // get elements for card view
-        eventImage = (ImageView) findViewById(R.id.event_photo);
-        eventName = (TextView) findViewById(R.id.event_name);
-        eventDateTime = (TextView) findViewById(R.id.event_date_time);
-        */
-
         // get elements for recycler views
         rv1 =(RecyclerView)findViewById(R.id.recycler_view_1);
 
         // initialize stuff
         setLayoutManagers();
 
+        // get the intent inputs
+        onTab = getIntent().getStringExtra("On Tab");
         followingEvents = getIntent().getParcelableArrayListExtra("Following Events");
         allEvents = getIntent().getParcelableArrayListExtra("All Events");
 
-        ListViewEventAdapter adapter1 = new ListViewEventAdapter(context, followingEvents);
-        rv1.setAdapter(adapter1);
-
+        // set the tab layout
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Following"));
         tabLayout.addTab(tabLayout.newTab().setText("All"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        //final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        //final TabPagerAdapter adapter = new TabPagerAdapter
-        //        (getSupportFragmentManager(), tabLayout.getTabCount(), followingEvents, allEvents);
-        //viewPager.setAdapter(adapter);
-        //viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        // set layout for possible text when no following objects
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final TabPagerAdapter adapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(),
+                followingEvents, new ArrayList<Organization>(), new ArrayList<Category>());
+        viewPager.setAdapter(adapter);
+
+        // set the list and selected tab
+        ListViewEventAdapter adapter1;
+        TabLayout.Tab tab;
+        if (onTab.equals("Following")) {
+            adapter1 = new ListViewEventAdapter(context, followingEvents);
+            tab = tabLayout.getTabAt(0);
+        } else {
+            adapter1 = new ListViewEventAdapter(context, allEvents);
+            tab = tabLayout.getTabAt(1);
+        }
+        rv1.setAdapter(adapter1);
+        tab.select();
+
+        // set listener for the tab layout
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

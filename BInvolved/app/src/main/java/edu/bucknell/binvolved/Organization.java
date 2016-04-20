@@ -28,6 +28,8 @@ public class Organization implements Parcelable {
     public static List<Organization> allOrganizations = new ArrayList<Organization>();
     // static list of all Organization names used
     public static List<String> allOrganizationNames = new ArrayList<String>();
+    // static list to keep track of following Organizations
+    public static List<Organization> followingOrganizations = new ArrayList<Organization>();
 
     /**
      * Constructor for an Organization object.
@@ -202,5 +204,39 @@ public class Organization implements Parcelable {
         allOrganizations.add(newOrg);
         allOrganizationNames.add(orgName);
         return newOrg;
+    }
+
+    /**
+     * Returns an ArrayList of all Organization objects.
+     * This is a static method.
+     *
+     * @return              the ArrayList of Organizations
+     */
+    public static ArrayList<Organization> getAllOrganizations() {
+        ArrayList<Organization> allOrganizations = new ArrayList<Organization>();
+        allOrganizations.addAll(Organization.allOrganizations);
+        return allOrganizations;
+    }
+
+    /**
+     * Returns an ArrayList of all following Organization objects.
+     * This is a static method.
+     *
+     * @return              the ArrayList of Organizations
+     */
+    public static ArrayList<Organization> getFollowingOrganizations() {
+        ArrayList<Organization> followingOrganizations = new ArrayList<Organization>();
+        followingOrganizations.addAll(Organization.followingOrganizations);
+        return followingOrganizations;
+    }
+
+    /**
+     * Adds the Organization with the specified name to the list
+     * of following Organizations
+     *
+     * @param name          the name of the Organization
+     */
+    public static void addToFollowingOrganizations(String name) {
+        Organization.followingOrganizations.add(Organization.getOrganizationWithName(name));
     }
 }
