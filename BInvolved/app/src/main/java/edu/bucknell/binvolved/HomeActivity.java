@@ -14,6 +14,16 @@ import android.view.View.OnClickListener;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -134,6 +144,45 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
         //upcomingEvents = allEvents.subList(0,minEventDisplay);
+
+        // create drawer and build for each screen
+        //new DrawerBuilder().withActivity(this).build();
+        final PrimaryDrawerItem home = new PrimaryDrawerItem().withName(R.string.drawer_item_home);
+        final PrimaryDrawerItem yourEvents = new PrimaryDrawerItem().withName(R.string.drawer_item_your_events);
+        final PrimaryDrawerItem allEvents = new PrimaryDrawerItem().withName(R.string.drawer_item_all_events);
+        final PrimaryDrawerItem organizations = new PrimaryDrawerItem().withName(R.string.drawer_item_organizations);
+        final PrimaryDrawerItem categories = new PrimaryDrawerItem().withName(R.string.drawer_item_categories);
+        final PrimaryDrawerItem settings = new PrimaryDrawerItem().withName(R.string.drawer_item_settings);
+        final PrimaryDrawerItem help = new PrimaryDrawerItem().withName(R.string.drawer_item_help);
+
+        AccountHeader headerResult = new AccountHeaderBuilder()
+                .withActivity(this)
+                .withHeaderBackground(R.drawable.header)
+                .addProfiles(
+                        new ProfileDrawerItem().withName("B-Involved").withIcon(R.drawable.bucknell_logo)
+                )
+                .build();
+
+        Drawer resultDrawer = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withAccountHeader(headerResult)
+                .addDrawerItems(home, yourEvents, allEvents, organizations, categories, settings, help)
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        // clicked item
+                        if(drawerItem.equals(home.getIdentifier())) {
+                            // GILBERT OVER HERE
+                            Toast.makeText(HomeActivity.this, "Home Hamburger Menu", Toast.LENGTH_LONG).show();
+                        }
+                        else if(drawerItem.equals(yourEvents.getIdentifier())) {
+
+                        }
+                        return true;
+                    }
+                })
+                .build();
 
 
         setLayoutManagersAndInitializeAdapters();
@@ -282,7 +331,7 @@ public class HomeActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.home_search) {
             return true;
         }
 
