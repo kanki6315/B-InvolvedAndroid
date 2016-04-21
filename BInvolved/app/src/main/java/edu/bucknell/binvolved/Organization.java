@@ -215,7 +215,7 @@ public class Organization implements Parcelable {
     public static ArrayList<Organization> getAllOrganizations() {
         ArrayList<Organization> allOrganizations = new ArrayList<Organization>();
         allOrganizations.addAll(Organization.allOrganizations);
-        return allOrganizations;
+        return Organization.sortOrganizationsAlphabetically(allOrganizations);
     }
 
     /**
@@ -227,7 +227,7 @@ public class Organization implements Parcelable {
     public static ArrayList<Organization> getFollowingOrganizations() {
         ArrayList<Organization> followingOrganizations = new ArrayList<Organization>();
         followingOrganizations.addAll(Organization.followingOrganizations);
-        return followingOrganizations;
+        return Organization.sortOrganizationsAlphabetically(followingOrganizations);
     }
 
     /**

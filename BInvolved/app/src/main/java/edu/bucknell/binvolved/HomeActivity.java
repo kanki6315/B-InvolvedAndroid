@@ -29,6 +29,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.TimeZone;
 
 public class HomeActivity extends AppCompatActivity {
@@ -40,9 +41,9 @@ public class HomeActivity extends AppCompatActivity {
     Button moreCategories;
     Button moreUpcomingEvents;
 
-    List<Event> allEvents;
-    List<Organization> allOrganizations;
-    List<Category> allCategories;
+    ArrayList<Event> allEvents;
+    ArrayList<Organization> allOrganizations;
+    ArrayList<Category> allCategories;
 
     final Context context = this;
 
@@ -63,9 +64,11 @@ public class HomeActivity extends AppCompatActivity {
 
         // read in the CSV files
         readInOrganizations();
+        allOrganizations = Organization.sortOrganizationsAlphabetically(allOrganizations);
         readInCategories();
+        allCategories = Category.sortCategoriesAlphabetically(allCategories);
         readInEvents();
-
+        allEvents = Event.sortEventsByStartDate(allEvents);
 
         /*
         // button to go to individual category page
@@ -196,7 +199,7 @@ public class HomeActivity extends AppCompatActivity {
                 )
                 .build();
 
-        Drawer resultDrawer = new DrawerBuilder()
+        final Drawer resultDrawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withAccountHeader(headerResult)
@@ -206,12 +209,8 @@ public class HomeActivity extends AppCompatActivity {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // clicked item
                         if(drawerItem.equals(home.getIdentifier())) {
-                            Intent localIntent = new Intent(context, HomeActivity.class);
-                            //localIntent.putExtra("On Tab", "All");
-                            //localIntent.putParcelableArrayListExtra("All Categories", Category.getAllCategories());
-                            //localIntent.putParcelableArrayListExtra("Following Categories", Category.getFollowingCategories());
-                            startActivity(localIntent);
-                            //Toast.makeText(HomeActivity.this, "Home Hamburger Menu", Toast.LENGTH_LONG).show();
+                            // don't do intent to HomeActivity because will double the data
+                            return false;
                         }
                         if(drawerItem.equals(yourEvents.getIdentifier())) {
                             Intent localIntent = new Intent(context, ListEventActivity.class);
@@ -230,14 +229,14 @@ public class HomeActivity extends AppCompatActivity {
                         if (drawerItem.equals(organizations.getIdentifier())) {
                             Intent localIntent = new Intent(context, ListOrganizationActivity.class);
                             localIntent.putExtra("On Tab", "All");
-                            localIntent.putParcelableArrayListExtra("All Organizations", Organization.sortOrganizationsAlphabetically(Organization.getAllOrganizations()));
+                            localIntent.putParcelableArrayListExtra("All Organizations", Organization.getAllOrganizations());
                             localIntent.putParcelableArrayListExtra("Following Organizations", Organization.getFollowingOrganizations());
                             startActivity(localIntent);
                         }
                         if (drawerItem.equals(categories.getIdentifier())) {
                             Intent localIntent = new Intent(context, ListCategoryActivity.class);
                             localIntent.putExtra("On Tab", "All");
-                            localIntent.putParcelableArrayListExtra("All Categories", Category.sortCategoriesAlphabetically(Category.getAllCategories()));
+                            localIntent.putParcelableArrayListExtra("All Categories", Category.getAllCategories());
                             localIntent.putParcelableArrayListExtra("Following Categories", Category.getFollowingCategories());
                             startActivity(localIntent);
                         }

@@ -11,7 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ImageView;
-import android.widget.BaseAdapter;
 import android.view.View.OnClickListener;
 
 /**
@@ -99,7 +98,7 @@ public class ListViewEventAdapter extends BaseAdapter {
             holder = new ViewHolder();
             switch (rowType) {
                 case TYPE_ITEM:
-                    convertView = mInflater.inflate(R.layout.list_item, null);
+                    convertView = mInflater.inflate(R.layout.event_list_item, null);
                     holder.name = (TextView) convertView.findViewById(R.id.event_name);
                     holder.time = (TextView) convertView.findViewById(R.id.event_time);
                     holder.location = (TextView) convertView.findViewById(R.id.event_location);

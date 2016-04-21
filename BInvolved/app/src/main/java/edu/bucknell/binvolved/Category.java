@@ -208,7 +208,7 @@ public class Category implements Parcelable{
     public static ArrayList<Category> getAllCategories() {
         ArrayList<Category> allCategories = new ArrayList<Category>();
         allCategories.addAll(Category.allCategories);
-        return allCategories;
+        return Category.sortCategoriesAlphabetically(allCategories);
     }
 
     /**
@@ -220,7 +220,7 @@ public class Category implements Parcelable{
     public static ArrayList<Category> getFollowingCategories() {
         ArrayList<Category> followingCategories = new ArrayList<Category>();
         followingCategories.addAll(Category.followingCategories);
-        return followingCategories;
+        return Category.sortCategoriesAlphabetically(followingCategories);
     }
 
     /**

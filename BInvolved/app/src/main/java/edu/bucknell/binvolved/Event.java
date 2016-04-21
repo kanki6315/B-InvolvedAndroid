@@ -498,7 +498,7 @@ public class Event implements Parcelable {
                 }
             }
         }
-        return events;
+        return Event.sortEventsByStartDate(events);
     }
 
     /**
@@ -517,7 +517,7 @@ public class Event implements Parcelable {
                 }
             }
         }
-        return events;
+        return Event.sortEventsByStartDate(events);
     }
 
     /**
@@ -536,7 +536,7 @@ public class Event implements Parcelable {
                 }
             }
         }
-        return events;
+        return Event.sortEventsByStartDate(events);
     }
 
     /**
@@ -555,7 +555,7 @@ public class Event implements Parcelable {
                 }
             }
         }
-        return events;
+        return Event.sortEventsByStartDate(events);
     }
 
     /**

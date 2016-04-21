@@ -87,7 +87,7 @@ public class ListViewEventAdapter2 extends RecyclerView.Adapter<ListViewEventAda
     }
 
     /**
-     * Sets the layout to be event_list_item.
+     * Sets the layout to be event_list_item2.
      *
      * @param viewGroup     the ViewGroup instance
      * @param i             index
@@ -95,7 +95,7 @@ public class ListViewEventAdapter2 extends RecyclerView.Adapter<ListViewEventAda
      */
     @Override
     public EventViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.event_list_item, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.event_list_item2, viewGroup, false);
         return new EventViewHolder(v);
     }
 
