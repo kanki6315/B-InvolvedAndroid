@@ -13,12 +13,13 @@ import android.content.Context;
 
 import java.util.List;
 
-public class CardViewCategoryAdapter extends RecyclerView.Adapter<CardViewCategoryAdapter.PersonViewHolder> {
+public class CardViewCategoryAdapter extends RecyclerView.Adapter<CardViewCategoryAdapter.CategoryViewHolder> {
 
-    private Context context;
-    private LayoutInflater inflater;
+    //private Context context;
+    //private LayoutInflater inflater;
+    List<Category> categories;
 
-    public static class PersonViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         CardView cv;
         TextView categoryName;
@@ -27,7 +28,7 @@ public class CardViewCategoryAdapter extends RecyclerView.Adapter<CardViewCatego
 
         private final Context context;
 
-        PersonViewHolder(View itemView) {
+        CategoryViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.card_view);
             categoryName = (TextView)itemView.findViewById(R.id.category_name);
@@ -52,11 +53,9 @@ public class CardViewCategoryAdapter extends RecyclerView.Adapter<CardViewCatego
         }
     }
 
-    List<Category> categories;
-
     CardViewCategoryAdapter(Context context, List<Category> categories){
-        this.context = context;
-        this.inflater = LayoutInflater.from(this.context);
+        //this.context = context;
+        //this.inflater = LayoutInflater.from(this.context);
         this.categories = categories;
     }
 
@@ -66,35 +65,21 @@ public class CardViewCategoryAdapter extends RecyclerView.Adapter<CardViewCatego
     }
 
     @Override
-    public PersonViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public CategoryViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.category_card_view, viewGroup, false);
-        PersonViewHolder pvh = new PersonViewHolder(v);
-        return pvh;
+        return new CategoryViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(final PersonViewHolder personViewHolder, int i) {
-        personViewHolder.categoryName.setText(categories.get(i).getName());
-        personViewHolder.categoryPhoto.setImageResource(categories.get(i).getSmallPhotoID());
-        personViewHolder.categoryOptionShortcut.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(final CategoryViewHolder categoryViewHolder, int i) {
+        categoryViewHolder.categoryName.setText(categories.get(i).getName());
+        categoryViewHolder.categoryPhoto.setImageResource(categories.get(i).getSmallPhotoID());
+        categoryViewHolder.categoryOptionShortcut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("CardViewCategoryAdapter: category shortcut option pressed");
             }
         });
-
-        /*
-        personViewHolder.cv.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("GOT HERE!!!");
-                Bundle localBundle = new Bundle();
-                //Intent localIntent = new Intent(personViewHolder.context, IndividualCategoryActivity.class);
-                //localIntent.putExtra("Category Name", personViewHolder.categoryName.getText().toString());
-                //personViewHolder.context.startActivity(localIntent);
-            }
-        });
-        */
     }
 
     @Override

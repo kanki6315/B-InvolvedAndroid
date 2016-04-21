@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,11 +46,11 @@ public class ListViewEventAdapter extends BaseAdapter {
     /**
      * Adds all of the necessary information to display and unique identify the Event.
      *
-     * @param name
-     * @param time
-     * @param location
-     * @param photo
-     * @param dateAndTime
+     * @param name              the Event name
+     * @param time              the Event starting time
+     * @param location          the Event location
+     * @param photo             the Event photo
+     * @param dateAndTime       the Event starting date and time
      */
     public void addItem(String name, String time, String location, int photo, String dateAndTime) {
         String[] values = {name, time, location, Integer.toString(photo), dateAndTime};

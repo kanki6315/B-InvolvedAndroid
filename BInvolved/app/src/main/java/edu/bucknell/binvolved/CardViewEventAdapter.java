@@ -13,12 +13,13 @@ import android.content.Context;
 
 import java.util.List;
 
-public class CardViewEventAdapter extends RecyclerView.Adapter<CardViewEventAdapter.PersonViewHolder> {
+public class CardViewEventAdapter extends RecyclerView.Adapter<CardViewEventAdapter.EventViewHolder> {
 
-    private Context context;
-    private LayoutInflater inflater;
+    //private Context context;
+    //private LayoutInflater inflater;
+    List<Event> events;
 
-    public static class PersonViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         CardView cv;
         TextView eventName;
@@ -28,7 +29,7 @@ public class CardViewEventAdapter extends RecyclerView.Adapter<CardViewEventAdap
 
         private final Context context;
 
-        PersonViewHolder(View itemView) {
+        EventViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.card_view);
             eventName = (TextView)itemView.findViewById(R.id.event_name);
@@ -54,15 +55,11 @@ public class CardViewEventAdapter extends RecyclerView.Adapter<CardViewEventAdap
         }
     }
 
-    List<Event> events;
-
     CardViewEventAdapter(Context context, List<Event> events) {
-        this.context = context;
-        this.inflater = LayoutInflater.from(this.context);
+        //this.context = context;
+        //this.inflater = LayoutInflater.from(this.context);
         this.events = events;
     }
-
-
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
@@ -70,21 +67,17 @@ public class CardViewEventAdapter extends RecyclerView.Adapter<CardViewEventAdap
     }
 
     @Override
-    public PersonViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public EventViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.event_card_view, viewGroup, false);
-        PersonViewHolder pvh = new PersonViewHolder(v);
-        return pvh;
+        return new EventViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
-        personViewHolder.eventName.setText(events.get(i).getName());
-
-        personViewHolder.eventDateTime.setText(events.get(i).getDateAndTime());
-
-        personViewHolder.eventPhoto.setImageResource(events.get(i).getPhotoID());
-
-        personViewHolder.eventOptionShortcut.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(EventViewHolder eventViewHolder, int i) {
+        eventViewHolder.eventName.setText(events.get(i).getName());
+        eventViewHolder.eventDateTime.setText(events.get(i).getDateAndTime());
+        eventViewHolder.eventPhoto.setImageResource(events.get(i).getPhotoID());
+        eventViewHolder.eventOptionShortcut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("CardViewEventAdapter: event shortcut option pressed");
