@@ -65,7 +65,7 @@ public class ListCategoryActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                System.out.println("TAB SELECTED: " + tab.getPosition());
+                //System.out.println("TAB SELECTED: " + tab.getPosition());
                 // following tab
                 if (tab.getPosition() == 0) {
                     ListViewCategoryAdapter blah = new ListViewCategoryAdapter(context, followingCategories);
@@ -80,7 +80,7 @@ public class ListCategoryActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                System.out.println("TAB UNSELECTED");
+                //System.out.println("TAB UNSELECTED");
 
             }
 

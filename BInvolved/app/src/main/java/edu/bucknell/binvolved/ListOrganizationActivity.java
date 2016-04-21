@@ -58,7 +58,7 @@ public class ListOrganizationActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                System.out.println("TAB SELECTED: " + tab.getPosition());
+                //System.out.println("TAB SELECTED: " + tab.getPosition());
                 // following tab
                 if (tab.getPosition() == 0) {
                     ListViewOrganizationAdapter blah = new ListViewOrganizationAdapter(context, followingOrganizations);
@@ -73,7 +73,7 @@ public class ListOrganizationActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                System.out.println("TAB UNSELECTED");
+                //System.out.println("TAB UNSELECTED");
 
             }
 

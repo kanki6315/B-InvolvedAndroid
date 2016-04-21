@@ -79,7 +79,7 @@ public class CardViewCategoryAdapter extends RecyclerView.Adapter<CardViewCatego
         personViewHolder.categoryOptionShortcut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("category shortcut option pressed");
+                System.out.println("CardViewCategoryAdapter: category shortcut option pressed");
             }
         });
 

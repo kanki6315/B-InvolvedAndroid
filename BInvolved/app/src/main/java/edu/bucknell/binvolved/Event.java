@@ -557,6 +557,25 @@ public class Event implements Parcelable {
         }
         return events;
     }
+
+    /**
+     * Sorts the ArrayList of Events to be in chronological order according to the starting date.
+     *
+     * @param events            the ArrayList of Events
+     * @return                  the sorted ArrayList
+     */
+    public static ArrayList<Event> sortEventsByStartDate(ArrayList<Event> events) {
+        for (int i = 0; i < events.size(); i++) {
+            for (int j = 0; j < events.size(); j++) {
+                if (!events.get(i).getStartCalendar().getTime().after(events.get(j).getStartCalendar().getTime())) {
+                    Event temp = events.get(j);
+                    events.set(j, events.get(i));
+                    events.set(i, temp);
+                }
+            }
+        }
+        return events;
+    }
 }
 
 

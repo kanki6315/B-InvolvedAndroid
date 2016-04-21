@@ -87,7 +87,7 @@ public class CardViewEventAdapter extends RecyclerView.Adapter<CardViewEventAdap
         personViewHolder.eventOptionShortcut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("event shortcut option pressed");
+                System.out.println("CardViewEventAdapter: event shortcut option pressed");
             }
         });
     }
