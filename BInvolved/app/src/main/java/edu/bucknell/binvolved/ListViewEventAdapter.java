@@ -1,126 +1,148 @@
 package edu.bucknell.binvolved;
 
+import java.util.ArrayList;
+import java.util.TreeSet;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.List;
+import android.widget.ImageView;
+import android.widget.BaseAdapter;
+import android.view.View.OnClickListener;
 
 /**
- * Adapter Class to populate the list view of Events.
+ * Adapter for the List View of Events.
  *
- * Created by gilbertkim on 4/15/16.
+ * Created by gilbertkim on 4/20/16.
  */
-public class ListViewEventAdapter extends RecyclerView.Adapter<ListViewEventAdapter.EventViewHolder> {
+public class ListViewEventAdapter extends BaseAdapter {
 
-    public static class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        CardView listItem;
-        TextView eventName;
-        TextView eventDateTime;
-        ImageView eventPhoto;
-        Button eventOptionShortcut;
-
-        private final Context context;
-
-        EventViewHolder(View itemView) {
-            super(itemView);
-            listItem = (CardView)itemView.findViewById(R.id.list_item);
-            eventName = (TextView)itemView.findViewById(R.id.event_name);
-            eventDateTime = (TextView)itemView.findViewById(R.id.event_date_time);
-            eventPhoto = (ImageView)itemView.findViewById(R.id.event_photo);
-            eventOptionShortcut = (Button)itemView.findViewById(R.id.event_option_shortcut);
-
-            context = itemView.getContext();
-            itemView.setClickable(true);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            System.out.println("GOT TO onClick() in ListViewEventAdapter");
-            Intent intent = new Intent(context, IndividualEventActivity.class);
-            intent.putExtra("Event Name", this.eventName.getText().toString());
-            intent.putExtra("Event Date", this.eventDateTime.getText().toString());
-            context.startActivity(intent);
-        }
+    public static class ViewHolder{
+        public TextView name;
+        public TextView time;
+        public TextView location;
+        public ImageView image;
+        public Button eventOptionShortcut;
+        public String eventDateTime;
     }
 
-    private Context context;
-    private LayoutInflater inflater;
+    private static final int TYPE_ITEM = 0;
+    private static final int TYPE_SEPARATOR = 1;
 
-    // list of all Events to display
-    List<Event> events;
+    private ArrayList<String[]> mData = new ArrayList<String[]>();
+    private TreeSet<Integer> sectionHeader = new TreeSet<Integer>();
 
-    /**
-     * Constructor for the adapter.
-     *
-     * @param context       Context
-     * @param events        list of Events
-     */
-    ListViewEventAdapter(Context context, List<Event> events) {
-        this.context = context;
-        this.inflater = LayoutInflater.from(this.context);
-        this.events = events;
+    private LayoutInflater mInflater;
+
+    public ListViewEventAdapter(Context context) {
+        mInflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     /**
+     * Adds all of the necessary information to display and unique identify the Event.
      *
-     * @param newEvents
+     * @param name
+     * @param time
+     * @param location
+     * @param photo
+     * @param dateAndTime
      */
-    public void swap(List<Event> newEvents) {
-        events.clear();
-        events.addAll(newEvents);
+    public void addItem(String name, String time, String location, int photo, String dateAndTime) {
+        String[] values = {name, time, location, Integer.toString(photo), dateAndTime};
+        mData.add(values);
+        notifyDataSetChanged();
+    }
+
+    public void addSectionHeaderItem(String item) {
+        String[] values = {item};
+        mData.add(values);
+        sectionHeader.add(mData.size() - 1);
         notifyDataSetChanged();
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
+    public int getItemViewType(int position) {
+        return sectionHeader.contains(position) ? TYPE_SEPARATOR : TYPE_ITEM;
     }
 
-    /**
-     * Sets the layout to be event_list_item.
-     *
-     * @param viewGroup     the ViewGroup instance
-     * @param i             index
-     * @return              OrganizationViewHolder object
-     */
     @Override
-    public EventViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.event_list_item, viewGroup, false);
-        return new EventViewHolder(v);
+    public int getViewTypeCount() {
+        return 2;
     }
 
-    /**
-     * Configures the layout to display the correct values.
-     *
-     * @param eventViewHolder       EventViewHolder object
-     * @param i                     index
-     */
     @Override
-    public void onBindViewHolder(EventViewHolder eventViewHolder, int i) {
-        eventViewHolder.eventName.setText(events.get(i).getName());
-        eventViewHolder.eventDateTime.setText(events.get(i).getDateAndTime());
-        eventViewHolder.eventPhoto.setImageResource(events.get(i).getPhotoID());
+    public int getCount() {
+        return mData.size();
+    }
 
-        eventViewHolder.eventOptionShortcut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("event shortcut option pressed");
+    @Override
+    public String[] getItem(int position) {
+        return mData.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        ViewHolder holder = null;
+        int rowType = getItemViewType(position);
+
+        if (convertView == null) {
+            holder = new ViewHolder();
+            switch (rowType) {
+                case TYPE_ITEM:
+                    convertView = mInflater.inflate(R.layout.list_item, null);
+                    holder.name = (TextView) convertView.findViewById(R.id.event_name);
+                    holder.time = (TextView) convertView.findViewById(R.id.event_time);
+                    holder.location = (TextView) convertView.findViewById(R.id.event_location);
+                    holder.image = (ImageView) convertView.findViewById(R.id.event_photo);
+                    holder.eventOptionShortcut = (Button) convertView.findViewById(R.id.event_option_shortcut);
+                    break;
+                case TYPE_SEPARATOR:
+                    convertView = mInflater.inflate(R.layout.list_section_title, null);
+                    holder.name = (TextView) convertView.findViewById(R.id.list_section_title);
+                    break;
             }
-        });
-    }
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+        String [] values = mData.get(position);
+        holder.name.setText(values[0]);
+        // if not a section title, add more information
+        if (values.length > 1) {
+            holder.time.setText(values[1]);
+            holder.location.setText(values[2]);
+            holder.image.setImageResource(Integer.parseInt(values[3]));
+            holder.eventDateTime = values[4];
 
-    @Override
-    public int getItemCount() {
-        return events.size();
+            holder.eventOptionShortcut.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    System.out.println("event shortcut option pressed");
+                }
+            });
+
+            convertView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    System.out.println("GOT HERE!!!");
+                    Intent intent = new Intent(v.getContext(), IndividualEventActivity.class);
+                    intent.putExtra("Event Name", mData.get(position)[0]);
+                    intent.putExtra("Event Date", mData.get(position)[4]);
+                    v.getContext().startActivity(intent);
+                }
+            });
+        }
+        return convertView;
     }
 }

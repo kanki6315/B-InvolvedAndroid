@@ -239,4 +239,23 @@ public class Organization implements Parcelable {
     public static void addToFollowingOrganizations(String name) {
         Organization.followingOrganizations.add(Organization.getOrganizationWithName(name));
     }
+
+    /**
+     * Sorts the ArrayList of Organizations to be in alphabetical order according to the name.
+     *
+     * @param organizations     the ArrayList of Organizations
+     * @return                  the sorted ArrayList
+     */
+    public static ArrayList<Organization> sortOrganizationsAlphabetically(ArrayList<Organization> organizations) {
+        for (int i = 0; i < organizations.size(); i++) {
+            for (int j = 0; j < organizations.size(); j++) {
+                if (organizations.get(i).getName().compareTo(organizations.get(j).getName()) < 0) {
+                    Organization temp = organizations.get(j);
+                    organizations.set(j, organizations.get(i));
+                    organizations.set(i, temp);
+                }
+            }
+        }
+        return organizations;
+    }
 }

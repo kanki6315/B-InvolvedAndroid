@@ -232,4 +232,23 @@ public class Category implements Parcelable{
     public static void addToFollowingCategories(String name) {
         Category.followingCategories.add(Category.getCategoryWithName(name));
     }
+
+    /**
+     * Sorts the ArrayList of Categories to be in alphabetical order according to the name.
+     *
+     * @param categories        the ArrayList of Categories
+     * @return                  the sorted ArrayList
+     */
+    public static ArrayList<Category> sortCategoriesAlphabetically(ArrayList<Category> categories) {
+        for (int i = 0; i < categories.size(); i++) {
+            for (int j = 0; j < categories.size(); j++) {
+                if (categories.get(i).getName().compareTo(categories.get(j).getName()) < 0) {
+                    Category temp = categories.get(j);
+                    categories.set(j, categories.get(i));
+                    categories.set(i, temp);
+                }
+            }
+        }
+        return categories;
+    }
 }

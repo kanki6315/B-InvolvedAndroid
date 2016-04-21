@@ -57,7 +57,7 @@ public class ListCategoryActivity extends AppCompatActivity {
         // set layout for possible text when no following objects
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final TabPagerAdapter adapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(),
-                new ArrayList<Event>(), new ArrayList<Organization>(), followingCategories);
+                new ArrayList<Event>(), new ArrayList<Organization>(), followingCategories, new ArrayList<Event>());
         viewPager.setAdapter(adapter);
 
         // set listener for the tab layout
