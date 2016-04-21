@@ -56,16 +56,7 @@ public class HomeActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
+        getSupportActionBar().setTitle("Home");
 
         // button to go to individual category page
         button = (Button) findViewById(R.id.button);
@@ -175,6 +166,7 @@ public class HomeActivity extends AppCompatActivity {
                         if(drawerItem.equals(home.getIdentifier())) {
                             // GILBERT OVER HERE
                             Toast.makeText(HomeActivity.this, "Home Hamburger Menu", Toast.LENGTH_LONG).show();
+                            return false; // closes menu
                         }
                         else if(drawerItem.equals(yourEvents.getIdentifier())) {
 
@@ -183,7 +175,7 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 })
                 .build();
-
+        resultDrawer.setSelection(home); // set appropriatley for screen
 
         setLayoutManagersAndInitializeAdapters();
     }
