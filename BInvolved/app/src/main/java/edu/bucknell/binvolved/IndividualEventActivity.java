@@ -2,6 +2,7 @@ package edu.bucknell.binvolved;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,9 +54,14 @@ public class IndividualEventActivity extends AppCompatActivity {
 
     // Button to follow an Event
     Button followEvent;
+    Button shareEvent;
 
     // Event
     Event event;
+
+    // Things for organization thingy
+    TextView organizationText;
+    ImageView organizationPhoto;
 
     final Context context = this;
 
@@ -109,6 +115,18 @@ public class IndividualEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Event.addToFollowingEvents(event.getName(), event.getDateAndTime());
+            }
+        });
+        shareEvent = (Button) findViewById(R.id.share);
+        shareEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                String sendString = "Hey! I found " + event.getName() + " using the B-Involved app. Want to go?";
+                sendIntent.putExtra(Intent.EXTRA_TEXT, sendString);
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, "Send to"));
             }
         });
         // set toolbar
@@ -188,6 +206,12 @@ public class IndividualEventActivity extends AppCompatActivity {
                 .build();
 
         //resultDrawer.setSelection(allEvents);
+
+        organizationPhoto = (ImageView) findViewById(R.id.category_photo);
+        organizationText = (TextView) findViewById(R.id.category_name);
+        organizationText.setText(getAllOrganizationNames(eventOrganizationsList));
+        organizationPhoto.setImageResource(eventOrganizationsList.get(0).getImages()[0]);
+
         }
 
 

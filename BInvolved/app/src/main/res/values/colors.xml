@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="midnightBlue">#002D72</color>
+    <color name="darkerBlue">#0c0072</color>
     <color name="vermilionOrange">#FC4C02</color>
     <color name="hitGray">#A2AAAD</color>
     <color name="tennOrange">#D45D00</color>
