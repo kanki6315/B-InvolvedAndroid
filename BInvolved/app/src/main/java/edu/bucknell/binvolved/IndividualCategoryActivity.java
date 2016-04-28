@@ -1,8 +1,10 @@
 package edu.bucknell.binvolved;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,6 +46,8 @@ public class IndividualCategoryActivity extends AppCompatActivity {
     Button buttonFollowCategory;
     // more button for all Events
     Button buttonAllEvents;
+
+    boolean following = false;
 
     // parts for the card view
     ImageView eventImage;
@@ -190,10 +194,44 @@ public class IndividualCategoryActivity extends AppCompatActivity {
      */
     public void addListenerOnButton() {
         buttonFollowCategory = (Button) findViewById(R.id.follow_update);
+        if (category.getFollowingCategories().contains(Category.getCategoryWithName(category.getName()))) {
+            following = true;
+            buttonFollowCategory.setText(R.string.unfollow);
+        } else {
+            following = false;
+            buttonFollowCategory.setText(R.string.follow_updates);
+        }
         buttonFollowCategory.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Category.addToFollowingCategories(category.getName());
+                // clicked to unfollow
+                if (following) {
+                    following = false;
+                    Category.removeFromFollowingCategories(category.getName());
+                    new AlertDialog.Builder(context)
+                            .setTitle("No longer following " + category.getName())
+                            //.setMessage("Now following " + category.getName())
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+                    buttonFollowCategory.setText(R.string.follow_updates);
+                } else {
+                    following = true;
+                    Category.addToFollowingCategories(category.getName());
+                    new AlertDialog.Builder(context)
+                            .setTitle("Now following " + category.getName())
+                            //.setMessage("Now following " + category.getName())
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+                    buttonFollowCategory.setText(R.string.unfollow);
+                }
             }
         });
 

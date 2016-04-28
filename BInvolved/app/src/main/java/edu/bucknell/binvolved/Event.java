@@ -483,6 +483,17 @@ public class Event implements Parcelable {
     }
 
     /**
+     * Removes the Event with the specified name and start date and time
+     * from the list of following Events
+     *
+     * @param name          the name of the Event
+     * @param dateAndTime   the starting date and time of the Event
+     */
+    public static void removeFromFollowingEvents(String name, String dateAndTime) {
+        Event.followingEvents.remove(Event.getEventWithNameAndDateAndTime(name, dateAndTime));
+    }
+
+    /**
      * Returns an ArrayList of Events under the Category with the specified name
      *
      * @param name          the Category name

@@ -241,6 +241,16 @@ public class Organization implements Parcelable {
     }
 
     /**
+     * Removes the Organization with the specified name from the list
+     * of following Organizations
+     *
+     * @param name          the name of the Organization
+     */
+    public static void removeFromFollowingOrganizations(String name) {
+        Organization.followingOrganizations.remove(Organization.getOrganizationWithName(name));
+    }
+
+    /**
      * Sorts the ArrayList of Organizations to be in alphabetical order according to the name.
      *
      * @param organizations     the ArrayList of Organizations

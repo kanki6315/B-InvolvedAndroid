@@ -31,7 +31,10 @@
             android:layout_alignParentTop="true"
             android:textSize="@dimen/list_view_text_size"
             android:layout_marginTop="10dp"
-            android:layout_toStartOf="@+id/organization_option_shortcut"/>
+            android:layout_toStartOf="@+id/organization_option_shortcut"
+            android:lines="1"
+            android:scrollHorizontally="true"
+            android:ellipsize="end"/>
 
         <Button
             android:layout_width="@dimen/three_dot_option_size"

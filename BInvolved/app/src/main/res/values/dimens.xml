@@ -34,6 +34,8 @@
     <dimen name="list_view_text_size">20sp</dimen>
 
 
+
+
     <dimen name="more_button_height">20dp</dimen>
     <dimen name="options_button_height">30dp</dimen>
     <dimen name="three_dot_option_size">20dp</dimen>
@@ -45,5 +47,6 @@
 
 
     <dimen name="page_title_text_size">30sp</dimen>
+    <dimen name="event_section_text_size">20sp</dimen>
 
 </resources>
