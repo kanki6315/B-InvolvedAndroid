@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Button;
 import android.content.Intent;
 import android.content.Context;
+import android.widget.Toast;
 
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -127,30 +128,22 @@ public class IndividualEventActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // clicked to unfollow
                 if (following) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "You have unfollowed " + event.getName();
+                    int duration = Toast.LENGTH_LONG;
+                    Toast.makeText(context, text, duration).show();
+
                     following = false;
                     Event.removeFromFollowingEvents(event.getName(), event.getDateAndTime());
-                    new AlertDialog.Builder(context)
-                            .setTitle("No longer following " + event.getName())
-                            //.setMessage("Now following " + event.getName())
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            })
-                            .show();
                     followEvent.setText(R.string.follow_updates);
                 } else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "You have followed " + event.getName();
+                    int duration = Toast.LENGTH_LONG;
+                    Toast.makeText(context, text, duration).show();
+
                     following = true;
                     Event.addToFollowingEvents(event.getName(), event.getDateAndTime());
-                    new AlertDialog.Builder(context)
-                            .setTitle("Now following " + event.getName())
-                            //.setMessage("Now following " + event.getName())
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            })
-                            .show();
                     followEvent.setText(R.string.unfollow);
                 }
             }

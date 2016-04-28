@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.content.Context;
+import android.widget.Toast;
 
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -206,30 +207,22 @@ public class IndividualCategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // clicked to unfollow
                 if (following) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "You have unfollowed " + category.getName();
+                    int duration = Toast.LENGTH_LONG;
+                    Toast.makeText(context, text, duration).show();
+
                     following = false;
                     Category.removeFromFollowingCategories(category.getName());
-                    new AlertDialog.Builder(context)
-                            .setTitle("No longer following " + category.getName())
-                            //.setMessage("Now following " + category.getName())
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            })
-                            .show();
                     buttonFollowCategory.setText(R.string.follow_updates);
                 } else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "You have followed " + category.getName();
+                    int duration = Toast.LENGTH_LONG;
+                    Toast.makeText(context, text, duration).show();
+
                     following = true;
                     Category.addToFollowingCategories(category.getName());
-                    new AlertDialog.Builder(context)
-                            .setTitle("Now following " + category.getName())
-                            //.setMessage("Now following " + category.getName())
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            })
-                            .show();
                     buttonFollowCategory.setText(R.string.unfollow);
                 }
             }

@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.MotionEvent;
 import android.content.Context;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -320,30 +321,22 @@ public class IndividualOrganizationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // clicked to unfollow
                 if (following) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "You have unfollowed " + organization.getName();
+                    int duration = Toast.LENGTH_LONG;
+                    Toast.makeText(context, text, duration).show();
+
                     following = false;
                     Organization.removeFromFollowingOrganizations(organization.getName());
-                    new AlertDialog.Builder(context)
-                            .setTitle("No longer following " + organization.getName())
-                            //.setMessage("Now following " + organization.getName())
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            })
-                            .show();
                     buttonFollowOrganization.setText(R.string.follow_updates);
                 } else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "You have followed " + organization.getName();
+                    int duration = Toast.LENGTH_LONG;
+                    Toast.makeText(context, text, duration).show();
+
                     following = true;
                     Organization.addToFollowingOrganizations(organization.getName());
-                    new AlertDialog.Builder(context)
-                            .setTitle("Now following " + organization.getName())
-                            //.setMessage("Now following " + organization.getName())
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            })
-                            .show();
                     buttonFollowOrganization.setText(R.string.unfollow);
                 }
             }
