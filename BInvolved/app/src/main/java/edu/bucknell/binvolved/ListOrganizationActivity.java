@@ -145,8 +145,7 @@ public class ListOrganizationActivity extends AppCompatActivity {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // clicked item
                         if(drawerItem.equals(home.getIdentifier())) {
-                            Intent localIntent = new Intent(context, HomeActivity.class);
-                            startActivity(localIntent);
+                            finish();
                         }
                         if(drawerItem.equals(yourEvents.getIdentifier())) {
                             Intent localIntent = new Intent(context, ListEventActivity.class);
@@ -163,11 +162,7 @@ public class ListOrganizationActivity extends AppCompatActivity {
                             startActivity(localIntent);
                         }
                         if (drawerItem.equals(organizations.getIdentifier())) {
-                            Intent localIntent = new Intent(context, ListOrganizationActivity.class);
-                            localIntent.putExtra("On Tab", "All");
-                            localIntent.putParcelableArrayListExtra("All Organizations", Organization.getAllOrganizations());
-                            localIntent.putParcelableArrayListExtra("Following Organizations", Organization.getFollowingOrganizations());
-                            startActivity(localIntent);
+                            return false;
                         }
                         if (drawerItem.equals(categories.getIdentifier())) {
                             Intent localIntent = new Intent(context, ListCategoryActivity.class);
@@ -180,6 +175,11 @@ public class ListOrganizationActivity extends AppCompatActivity {
                             Intent localIntent = new Intent(context, SettingsActivity.class);
                             //localIntent.putExtra("On Tab", "Following");
                             startActivity(localIntent);
+                        }
+                        else{
+                            if(!drawerItem.equals(organizations.getIdentifier())) {
+                                finish();
+                            }
                         }
                         return true;
                     }

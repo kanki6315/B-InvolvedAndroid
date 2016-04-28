@@ -139,22 +139,13 @@ public class ListEventActivity extends AppCompatActivity/*FragmentActivity*/ {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // clicked item
                         if(drawerItem.equals(home.getIdentifier())) {
-                            Intent localIntent = new Intent(context, HomeActivity.class);
-                            startActivity(localIntent);
+                            finish();
                         }
                         if(drawerItem.equals(yourEvents.getIdentifier())) {
-                            Intent localIntent = new Intent(context, ListEventActivity.class);
-                            localIntent.putExtra("On Tab", "Following");
-                            localIntent.putParcelableArrayListExtra("All Events", Event.getAllEvents());
-                            localIntent.putParcelableArrayListExtra("Following Events", Event.getFollowingEvents());
-                            startActivity(localIntent);
+                            return false;
                         }
                         if (drawerItem.equals(allEvents.getIdentifier())) {
-                            Intent localIntent = new Intent(context, ListEventActivity.class);
-                            localIntent.putExtra("On Tab", "All");
-                            localIntent.putParcelableArrayListExtra("All Events", Event.getAllEvents());
-                            localIntent.putParcelableArrayListExtra("Following Events", Event.getFollowingEvents());
-                            startActivity(localIntent);
+                            return false;
                         }
                         if (drawerItem.equals(organizations.getIdentifier())) {
                             Intent localIntent = new Intent(context, ListOrganizationActivity.class);
@@ -170,12 +161,18 @@ public class ListEventActivity extends AppCompatActivity/*FragmentActivity*/ {
                             localIntent.putParcelableArrayListExtra("Following Categories", Category.getFollowingCategories());
                             startActivity(localIntent);
                         }
+
                         if (drawerItem.equals(settings.getIdentifier())) {
                             Intent localIntent = new Intent(context, SettingsActivity.class);
                             //localIntent.putExtra("On Tab", "Following");
                             startActivity(localIntent);
                         }
-                        return true;
+                        else {
+                            if(!drawerItem.equals(allEvents.getIdentifier()) || !drawerItem.equals(yourEvents.getIdentifier())) {
+                                finish();
+                            }
+                        }
+                        return false;
                     }
                 })
                 .build();

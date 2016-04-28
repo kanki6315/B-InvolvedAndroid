@@ -151,8 +151,7 @@ public class ListCategoryActivity extends AppCompatActivity {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // clicked item
                         if(drawerItem.equals(home.getIdentifier())) {
-                            Intent localIntent = new Intent(context, HomeActivity.class);
-                            startActivity(localIntent);
+                            finish();
                         }
                         if(drawerItem.equals(yourEvents.getIdentifier())) {
                             Intent localIntent = new Intent(context, ListEventActivity.class);
@@ -176,18 +175,21 @@ public class ListCategoryActivity extends AppCompatActivity {
                             startActivity(localIntent);
                         }
                         if (drawerItem.equals(categories.getIdentifier())) {
-                            Intent localIntent = new Intent(context, ListCategoryActivity.class);
-                            localIntent.putExtra("On Tab", "All");
-                            localIntent.putParcelableArrayListExtra("All Categories", Category.getAllCategories());
-                            localIntent.putParcelableArrayListExtra("Following Categories", Category.getFollowingCategories());
-                            startActivity(localIntent);
+                            return false;
                         }
+
                         if (drawerItem.equals(settings.getIdentifier())) {
                             Intent localIntent = new Intent(context, SettingsActivity.class);
                             //localIntent.putExtra("On Tab", "Following");
                             startActivity(localIntent);
                         }
-                        return true;
+                        else {
+                            if(!drawerItem.equals(categories.getIdentifier())) {
+                                finish();
+                            }
+                        }
+
+                        return false;
                     }
                 })
                 .build();

@@ -40,7 +40,7 @@ public class TabFragmentAll extends Fragment{
 
         // if nothing to display, then set the TextView text
         if (allCategories + allEvents + allOrganizations == 0) {
-            all.setText(R.string.no_events);
+            //all.setText(R.string.no_events);
         } else {
             all.setText("");
         }

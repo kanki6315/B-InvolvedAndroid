@@ -71,9 +71,10 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/section_title_height"
+                android:layout_height="@dimen/section_title_size"
                 android:layout_marginStart="@dimen/section_margin_left"
                 android:textStyle="bold"
+                android:textSize="20dp"
                 android:text="@string/this_week"/>
 
             <LinearLayout
@@ -101,9 +102,10 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/section_title_height"
+                android:layout_height="@dimen/section_title_size"
                 android:layout_marginStart="@dimen/section_margin_left"
                 android:textStyle="bold"
+                android:textSize="@dimen/section_title_text_size"
                 android:text="@string/top_events"/>
 
             <LinearLayout
@@ -131,14 +133,15 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/section_title_size">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/section_title_height"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="@dimen/section_margin_left"
                     android:textStyle="bold"
+                    android:textSize="@dimen/section_title_text_size"
                     android:text="@string/all_events"/>
 
                 <Button

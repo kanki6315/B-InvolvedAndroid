@@ -72,8 +72,7 @@ public class SettingsActivity extends PreferenceActivity {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // clicked item
                         if(drawerItem.equals(home.getIdentifier())) {
-                            Intent localIntent = new Intent(context, HomeActivity.class);
-                            startActivity(localIntent);
+                            //
                         }
                         if(drawerItem.equals(yourEvents.getIdentifier())) {
                             Intent localIntent = new Intent(context, ListEventActivity.class);
@@ -104,11 +103,10 @@ public class SettingsActivity extends PreferenceActivity {
                             startActivity(localIntent);
                         }
                         if (drawerItem.equals(settings.getIdentifier())) {
-                            Intent localIntent = new Intent(context, SettingsActivity.class);
-                            //localIntent.putExtra("On Tab", "Following");
-                            startActivity(localIntent);
+                            return false;
                         }
-                        return true;
+                        finish();
+                        return false;
                     }
                 })
                 .build();

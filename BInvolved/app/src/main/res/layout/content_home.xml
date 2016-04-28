@@ -80,12 +80,13 @@ android:paddingRight="@dimen/activity_horizontal_margin"
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/section_title_height"
+        android:layout_height="60dp"
         android:textAlignment="center"
-        android:textColor="@color/midnightBlue"
+        android:textColor="@color/md_black_1000"
         android:text="@string/your_top_10"
         android:textStyle="bold"
-        android:background="@drawable/back"
+        android:textSize="30dp"
+        android:background="@drawable/back_orange"
         android:gravity="center"
         android:paddingTop="1dip"
         android:paddingBottom="1dip"/>
@@ -103,14 +104,15 @@ android:paddingRight="@dimen/activity_horizontal_margin"
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/section_title_size">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="5dp"
                 android:textStyle="bold"
+                android:textSize="20dp"
                 android:text="@string/categories"/>
 
             <Button
@@ -119,7 +121,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                 android:layout_height="@dimen/more_button_height"
                 android:layout_gravity="end"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="5dp"
                 android:text="@string/more"
                 android:textColor="@color/white"
                 android:background="@color/midnightBlue" />
@@ -152,14 +154,15 @@ android:paddingRight="@dimen/activity_horizontal_margin"
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="35dp">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/section_title_height"
+                android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="@dimen/section_margin_left"
+                android:layout_marginStart="5dp"
                 android:textStyle="bold"
+                android:textSize="20dp"
                 android:text="@string/upcoming_events"/>
 
             <Button
@@ -168,7 +171,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                 android:layout_height="@dimen/more_button_height"
                 android:layout_gravity="end"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="@dimen/section_margin_right"
+                android:layout_marginEnd="5dp"
                 android:text="@string/more"
                 android:textColor="@color/white"
                 android:background="@color/midnightBlue" />

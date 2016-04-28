@@ -197,8 +197,7 @@ public class IndividualEventActivity extends AppCompatActivity {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // clicked item
                         if(drawerItem.equals(home.getIdentifier())) {
-                            Intent localIntent = new Intent(context, HomeActivity.class);
-                            startActivity(localIntent);
+                            finish();
                         }
                         if(drawerItem.equals(yourEvents.getIdentifier())) {
                             Intent localIntent = new Intent(context, ListEventActivity.class);
@@ -233,7 +232,8 @@ public class IndividualEventActivity extends AppCompatActivity {
                             //localIntent.putExtra("On Tab", "Following");
                             startActivity(localIntent);
                         }
-                        return true;
+                        finish();
+                        return false;
                     }
                 })
                 .build();

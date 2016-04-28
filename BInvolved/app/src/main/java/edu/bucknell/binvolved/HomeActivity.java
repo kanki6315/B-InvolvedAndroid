@@ -302,7 +302,7 @@ public class HomeActivity extends AppCompatActivity {
                             //localIntent.putExtra("On Tab", "Following");
                             startActivity(localIntent);
                         }
-                        return true;
+                        return false;
                     }
                 })
                 .build();
