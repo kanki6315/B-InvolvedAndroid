@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.PopupMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -126,7 +128,11 @@ public class ListViewEventAdapter extends BaseAdapter {
             holder.eventOptionShortcut.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println("event shortcut option pressed");
+                    PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
+                    MenuInflater menuInflater = popupMenu.getMenuInflater();
+                    menuInflater.inflate(R.menu.popup_event, popupMenu.getMenu());
+                    popupMenu.show();
+                    //System.out.println("event shortcut option pressed");
                 }
             });
 

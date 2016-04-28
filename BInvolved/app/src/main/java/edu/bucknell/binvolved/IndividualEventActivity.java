@@ -140,6 +140,7 @@ public class IndividualEventActivity extends AppCompatActivity {
                 .withToolbar(toolbar)
                 .withAccountHeader(headerResult)
                 .addDrawerItems(home, yourEvents, allEvents, organizations, categories, settings, help)
+                .withSelectedItemByPosition(3)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {

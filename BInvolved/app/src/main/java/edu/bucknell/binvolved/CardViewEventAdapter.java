@@ -1,8 +1,10 @@
 package edu.bucknell.binvolved;
 
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -80,6 +82,10 @@ public class CardViewEventAdapter extends RecyclerView.Adapter<CardViewEventAdap
         eventViewHolder.eventOptionShortcut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
+                MenuInflater menuInflater = popupMenu.getMenuInflater();
+                menuInflater.inflate(R.menu.popup_event, popupMenu.getMenu());
+                popupMenu.show();
                 System.out.println("CardViewEventAdapter: event shortcut option pressed");
             }
         });
