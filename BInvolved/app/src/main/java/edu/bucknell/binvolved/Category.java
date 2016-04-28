@@ -234,6 +234,16 @@ public class Category implements Parcelable{
     }
 
     /**
+     * Removes the Category with the specified name from the list
+     * of following Categories
+     *
+     * @param name          the name of the Category
+     */
+    public static void removeFromFollowingCategories(String name) {
+        Category.followingCategories.remove(Category.getCategoryWithName(name));
+    }
+
+    /**
      * Sorts the ArrayList of Categories to be in alphabetical order according to the name.
      *
      * @param categories        the ArrayList of Categories

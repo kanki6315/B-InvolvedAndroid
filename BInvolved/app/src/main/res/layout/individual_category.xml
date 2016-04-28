@@ -44,7 +44,10 @@
                 android:layout_marginStart="@dimen/section_margin_left"
                 android:textStyle="bold"
                 android:textSize="@dimen/page_title_text_size"
-                android:textAlignment="textStart" />
+                android:textAlignment="textStart"
+                android:lines="2"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"/>
 
             <Button
                 android:id="@+id/follow_update"

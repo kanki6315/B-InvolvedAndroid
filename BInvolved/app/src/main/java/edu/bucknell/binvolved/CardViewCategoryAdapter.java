@@ -10,6 +10,9 @@ import android.widget.TextView;
 import android.widget.Button;
 import android.content.Intent;
 import android.content.Context;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View.OnClickListener;
 
 import java.util.List;
 
@@ -72,15 +75,35 @@ public class CardViewCategoryAdapter extends RecyclerView.Adapter<CardViewCatego
 
     @Override
     public void onBindViewHolder(final CategoryViewHolder categoryViewHolder, int i) {
+        final int copyI = i;
         categoryViewHolder.categoryName.setText(categories.get(i).getName());
         categoryViewHolder.categoryPhoto.setImageResource(categories.get(i).getSmallPhotoID());
         categoryViewHolder.categoryOptionShortcut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("CardViewCategoryAdapter: category shortcut option pressed");
+                // show unfollow option
+                if (Category.getFollowingCategories().contains(Category.getCategoryWithName(categories.get(copyI).getName()))) {
+
+                } else {
+                    //show follow option
+
+                }
             }
         });
     }
+
+    /*
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return true;
+    }
+    */
 
     @Override
     public int getItemCount() {

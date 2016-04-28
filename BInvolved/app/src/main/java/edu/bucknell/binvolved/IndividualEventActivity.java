@@ -1,6 +1,8 @@
 package edu.bucknell.binvolved;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -53,6 +55,7 @@ public class IndividualEventActivity extends AppCompatActivity {
 
     // Button to follow an Event
     Button followEvent;
+    boolean following = false;
 
     // Event
     Event event;
@@ -105,12 +108,48 @@ public class IndividualEventActivity extends AppCompatActivity {
         eventTextDescription.setText(event.getDescription());
 
         followEvent = (Button) findViewById(R.id.follow_event);
+        if (Event.getFollowingEvents().contains(Event.getEventWithNameAndDateAndTime(event.getName(), event.getDateAndTime()))) {
+            following = true;
+            followEvent.setText(R.string.unfollow);
+        } else {
+            following = false;
+            followEvent.setText(R.string.follow_updates);
+        }
         followEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Event.addToFollowingEvents(event.getName(), event.getDateAndTime());
+                // clicked to unfollow
+                if (following) {
+                    following = false;
+                    Event.removeFromFollowingEvents(event.getName(), event.getDateAndTime());
+                    new AlertDialog.Builder(context)
+                            .setTitle("No longer following " + event.getName())
+                            //.setMessage("Now following " + event.getName())
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+                    followEvent.setText(R.string.follow_updates);
+                } else {
+                    following = true;
+                    Event.addToFollowingEvents(event.getName(), event.getDateAndTime());
+                    new AlertDialog.Builder(context)
+                            .setTitle("Now following " + event.getName())
+                            //.setMessage("Now following " + event.getName())
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+                    followEvent.setText(R.string.unfollow);
+                }
             }
         });
+
+
         // set toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

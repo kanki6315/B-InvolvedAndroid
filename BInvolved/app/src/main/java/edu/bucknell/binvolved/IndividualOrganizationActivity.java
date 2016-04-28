@@ -1,9 +1,11 @@
 package edu.bucknell.binvolved;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -58,6 +60,7 @@ public class IndividualOrganizationActivity extends AppCompatActivity {
 
     // follow update button
     Button buttonFollowOrganization;
+    boolean following = false;
     // contact button
     Button contact;
 
@@ -304,10 +307,44 @@ public class IndividualOrganizationActivity extends AppCompatActivity {
      */
     public void addButtonOnClickListeners() {
         buttonFollowOrganization = (Button) findViewById(R.id.follow_organization);
+        if (Organization.getFollowingOrganizations().contains(Organization.getOrganizationWithName(organization.getName()))) {
+            following = true;
+            buttonFollowOrganization.setText(R.string.unfollow);
+        } else {
+            following = false;
+            buttonFollowOrganization.setText(R.string.follow_updates);
+        }
         buttonFollowOrganization.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Organization.addToFollowingOrganizations(organization.getName());
+                // clicked to unfollow
+                if (following) {
+                    following = false;
+                    Organization.removeFromFollowingOrganizations(organization.getName());
+                    new AlertDialog.Builder(context)
+                            .setTitle("No longer following " + organization.getName())
+                            //.setMessage("Now following " + organization.getName())
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+                    buttonFollowOrganization.setText(R.string.follow_updates);
+                } else {
+                    following = true;
+                    Organization.addToFollowingOrganizations(organization.getName());
+                    new AlertDialog.Builder(context)
+                            .setTitle("Now following " + organization.getName())
+                            //.setMessage("Now following " + organization.getName())
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+                    buttonFollowOrganization.setText(R.string.unfollow);
+                }
             }
         });
 

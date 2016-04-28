@@ -46,15 +46,15 @@
                 android:layout_width="100dp"
                 android:layout_height="150dp"
                 android:gravity="center"
-                android:layout_marginLeft="15dp"
-                />
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"/>
 
             <LinearLayout
                 android:id="@+id/textDetailLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="10dp" >
+                android:layout_marginStart="10dp" >
 
                 <Space
                     android:layout_width="match_parent"
@@ -64,8 +64,11 @@
                     android:id="@+id/eventName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="30dp"
-                    android:textStyle="bold"/>
+                    android:textSize="@dimen/page_title_text_size"
+                    android:textStyle="bold"
+                    android:lines="2"
+                    android:scrollHorizontally="true"
+                    android:ellipsize="end"/>
 
                 <GridLayout
                     android:layout_width="wrap_content"
@@ -75,13 +78,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="Date: "
-                        android:textSize="20dp"
+                        android:textSize="@dimen/event_section_text_size"
                         android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/eventDate"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textSize="20dp" />
+                        android:textSize="@dimen/event_section_text_size" />
                 </GridLayout>
 
                 <GridLayout
@@ -91,13 +94,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="Time: "
-                        android:textSize="20dp"
+                        android:textSize="@dimen/event_section_text_size"
                         android:textStyle="bold" />
                     <TextView
                         android:id="@+id/eventTime"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textSize="20dp" />
+                        android:textSize="@dimen/event_section_text_size" />
                 </GridLayout>
 
                 <GridLayout
@@ -107,13 +110,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="Location: "
-                        android:textSize="20dp"
+                        android:textSize="@dimen/event_section_text_size"
                         android:textStyle="bold" />
                     <TextView
                         android:id="@+id/eventLocation"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textSize="20dp" />
+                        android:textSize="@dimen/event_section_text_size" />
                 </GridLayout>
 
                 <GridLayout
@@ -129,7 +132,10 @@
                         android:id="@+id/eventOrganization"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textSize="20dp" />
+                        android:textSize="20dp"
+                        android:lines="2"
+                        android:scrollHorizontally="true"
+                        android:ellipsize="end"/>
                 </GridLayout>
             </LinearLayout>
         </GridLayout>
@@ -172,18 +178,11 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/eventTextDescription"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.17" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-        </HorizontalScrollView>
 
     </LinearLayout>
 </LinearLayout>
