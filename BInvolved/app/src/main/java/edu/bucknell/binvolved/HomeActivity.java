@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,7 +15,10 @@ import android.view.View.OnClickListener;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -33,6 +37,8 @@ import java.util.ArrayList;
 import java.util.TimeZone;
 
 public class HomeActivity extends AppCompatActivity {
+
+    public static boolean appStarted = false;
 
     Button button;
     Button button2;
@@ -53,10 +59,74 @@ public class HomeActivity extends AppCompatActivity {
     private List<Event> upcomingEvents;
     private RecyclerView rv2;
 
+
+
+    ViewFlipper viewFlipper;
+    // banner photos
+    ImageView bannerPhoto_1;
+    ImageView bannerPhoto_2;
+    ImageView bannerPhoto_3;
+    ImageView bannerPhoto_4;
+    ImageView bannerPhoto_5;
+    ImageView bannerPhoto_6;
+
+
+    float x1 = 0;
+    float x2 = 0;
+    float y1 = 0;
+    float y2 = 0;
+    int imageDisplay = 0;
+
+
+    final int NUM_IMAGES = 6;
+    List<ImageView> dots;
+    public void addDots() {
+        dots = new ArrayList<>();
+        LinearLayout dotsLayout = (LinearLayout) findViewById(R.id.dots);
+
+        for(int i = 0; i < NUM_IMAGES; i++) {
+            ImageView dot = new ImageView(this);
+            dot.setImageResource(R.drawable.pager_dot_not_selected);
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            params.setMargins(4,0,4,0);
+
+            dotsLayout.addView(dot, params);
+
+            dots.add(dot);
+        }
+    }
+
+    public void selectDot(int idx) {
+        for(int i = 0; i < NUM_IMAGES; i++) {
+            if (i ==idx) {
+                System.out.println("selected: " + i);
+                dots.get(i).setImageResource(R.drawable.pager_dot_selected);
+            } else {
+                System.out.println("not selected: " + i);
+                dots.get(i).setImageResource(R.drawable.pager_dot_not_selected);
+                //dots.get(i).
+            }
+        }
+    }
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        // if already loaded, don't redo data
+        if (HomeActivity.appStarted == true) {
+            return;
+        }
+        HomeActivity.appStarted = true;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -179,6 +249,72 @@ public class HomeActivity extends AppCompatActivity {
                 break;
             }
         }
+
+
+
+        addDots();
+        selectDot(0);
+
+
+        viewFlipper = (ViewFlipper) findViewById(R.id.view_flipper);
+        bannerPhoto_1 = (ImageView) findViewById(R.id.bannerPhoto_1);
+        bannerPhoto_1.setBackgroundResource(allEvents.get(1).getPhotoID());
+        bannerPhoto_2 = (ImageView) findViewById(R.id.bannerPhoto_2);
+        bannerPhoto_2.setBackgroundResource(allEvents.get(2).getPhotoID());
+        bannerPhoto_3 = (ImageView) findViewById(R.id.bannerPhoto_3);
+        bannerPhoto_3.setBackgroundResource(allEvents.get(3).getPhotoID());
+        bannerPhoto_4 = (ImageView) findViewById(R.id.bannerPhoto_4);
+        bannerPhoto_4.setBackgroundResource(allEvents.get(4).getPhotoID());
+        bannerPhoto_5 = (ImageView) findViewById(R.id.bannerPhoto_5);
+        bannerPhoto_5.setBackgroundResource(allEvents.get(5).getPhotoID());
+        bannerPhoto_6 = (ImageView) findViewById(R.id.bannerPhoto_6);
+        bannerPhoto_6.setBackgroundResource(allEvents.get(6).getPhotoID());
+
+
+        // change the banner photo
+        viewFlipper.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent e) {
+                switch (e.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        x1=e.getX();
+                        y1=e.getY();
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        x2=e.getX();
+                        y2=e.getY();
+
+                        // left to right sweep
+                        if (x1<x2) {
+                            //if (viewFlipper.getDisplayedChild() == 0) {
+                            //    break;
+                            //}
+                            imageDisplay -= 1;
+                            viewFlipper.setInAnimation(context,R.anim.slide_in_from_left);
+                            viewFlipper.setOutAnimation(context, R.anim.slide_out_to_right);
+                            viewFlipper.showNext();
+                            selectDot(Math.abs(imageDisplay)%NUM_IMAGES);
+                        }
+
+                        // right to left sweep
+                        if (x1>x2) {
+                            //if (viewFlipper.getDisplayedChild() == 3) {
+                            //    break;
+                            //}
+                            imageDisplay += 1;
+                            viewFlipper.setInAnimation(context,R.anim.slide_in_from_right);
+                            viewFlipper.setOutAnimation(context, R.anim.slide_out_to_left);
+                            viewFlipper.showPrevious();
+                            selectDot(Math.abs(imageDisplay)%NUM_IMAGES);
+                        }
+                    }
+                }
+                return true;
+            }
+        });
+
+
+
 
 
         // create drawer and build for each screen

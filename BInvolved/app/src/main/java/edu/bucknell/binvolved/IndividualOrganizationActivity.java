@@ -7,13 +7,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
 import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.MotionEvent;
 import android.content.Context;
+import android.widget.ViewFlipper;
 
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -28,6 +32,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
+
 /**
  * Layout for an individual Organization
  *
@@ -41,11 +46,11 @@ public class IndividualOrganizationActivity extends AppCompatActivity {
     TextView organizationDescription;
 
 
-
-    // images for Organization
-    Gallery gallery;
+    ViewFlipper viewFlipper;
     // banner photo
-    ImageView organizationBannerPhoto;
+    ImageView organizationBannerPhoto_1;
+    ImageView organizationBannerPhoto_2;
+    ImageView organizationBannerPhoto_3;
     // logo
     ImageView organizationLogoPhoto;
 
@@ -73,6 +78,50 @@ public class IndividualOrganizationActivity extends AppCompatActivity {
 
     final Context context = this;
 
+    float x1 = 0;
+    float x2 = 0;
+    float y1 = 0;
+    float y2 = 0;
+    int imageDisplay = 0;
+
+
+    final int NUM_IMAGES = 3;
+    List<ImageView> dots;
+    public void addDots() {
+        dots = new ArrayList<>();
+        LinearLayout dotsLayout = (LinearLayout) findViewById(R.id.dots);
+
+        for(int i = 0; i < NUM_IMAGES; i++) {
+            ImageView dot = new ImageView(this);
+            dot.setImageResource(R.drawable.pager_dot_not_selected);
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            params.setMargins(4,0,4,0);
+
+            dotsLayout.addView(dot, params);
+
+            dots.add(dot);
+        }
+    }
+
+    public void selectDot(int idx) {
+        for(int i = 0; i < NUM_IMAGES; i++) {
+            if (i ==idx) {
+                System.out.println("selected: " + i);
+                dots.get(i).setImageResource(R.drawable.pager_dot_selected);
+            } else {
+                System.out.println("not selected: " + i);
+                dots.get(i).setImageResource(R.drawable.pager_dot_not_selected);
+                //dots.get(i).
+            }
+        }
+    }
+
+
+
 
     /**
      * Specifies what to do on creation of the page.
@@ -84,6 +133,9 @@ public class IndividualOrganizationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.individual_organization);
 
+        addDots();
+        selectDot(0);
+
         Bundle inputs = getIntent().getExtras();
         organization = Organization.getOrganizationWithName(inputs.getString("Organization Name"));
 
@@ -94,11 +146,66 @@ public class IndividualOrganizationActivity extends AppCompatActivity {
         organizationDescription.setText(organization.getDescription());
 
         // set up images
-        gallery = (Gallery) findViewById(R.id.gallery);
-        organizationBannerPhoto = (ImageView) findViewById(R.id.organizationBannerPhoto);
-        organizationBannerPhoto.setImageResource(organization.getImages()[1]);
+        viewFlipper = (ViewFlipper) findViewById(R.id.view_flipper);
+        //organizationBannerPhoto = (ImageView) findViewById(R.id.organizationBannerPhoto);
+        //organizationBannerPhoto.setImageResource(organization.getImages()[1]);
+        //organizationBannerPhoto.setBackgroundResource(organization.getImages()[1]);
         organizationLogoPhoto = (ImageView) findViewById(R.id.organizationLogoImage);
         organizationLogoPhoto.setImageResource(organization.getImages()[0]);
+
+
+        organizationBannerPhoto_1 = (ImageView) findViewById(R.id.organizationBannerPhoto_1);
+        organizationBannerPhoto_1.setBackgroundResource(organization.getImages()[1]);
+        organizationBannerPhoto_2 = (ImageView) findViewById(R.id.organizationBannerPhoto_2);
+        organizationBannerPhoto_2.setBackgroundResource(organization.getImages()[2]);
+        organizationBannerPhoto_3 = (ImageView) findViewById(R.id.organizationBannerPhoto_3);
+        organizationBannerPhoto_3.setBackgroundResource(organization.getImages()[3]);
+
+
+
+        // change the banner photo
+        viewFlipper.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent e) {
+                switch (e.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        x1=e.getX();
+                        y1=e.getY();
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        x2=e.getX();
+                        y2=e.getY();
+
+                        // left to right sweep
+                        if (x1<x2) {
+                            //if (viewFlipper.getDisplayedChild() == 0) {
+                            //    break;
+                            //}
+                            imageDisplay -= 1;
+                            viewFlipper.setInAnimation(context,R.anim.slide_in_from_left);
+                            viewFlipper.setOutAnimation(context, R.anim.slide_out_to_right);
+                            viewFlipper.showNext();
+                            selectDot(Math.abs(imageDisplay)%NUM_IMAGES);
+                        }
+
+                        // right to left sweep
+                        if (x1>x2) {
+                            //if (viewFlipper.getDisplayedChild() == 3) {
+                            //    break;
+                            //}
+                            imageDisplay += 1;
+                            viewFlipper.setInAnimation(context,R.anim.slide_in_from_right);
+                            viewFlipper.setOutAnimation(context, R.anim.slide_out_to_left);
+                            viewFlipper.showPrevious();
+                            selectDot(Math.abs(imageDisplay)%NUM_IMAGES);
+                        }
+                    }
+                }
+                return true;
+            }
+        });
+
+
 
         // sets up the button listeners
         addButtonOnClickListeners();
@@ -142,9 +249,8 @@ public class IndividualOrganizationActivity extends AppCompatActivity {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // clicked item
                         if(drawerItem.equals(home.getIdentifier())) {
-                            // don't do intent to HomeActivity because will double the data
-                            //  TODO finish this
-                            return false;
+                            Intent localIntent = new Intent(context, HomeActivity.class);
+                            startActivity(localIntent);
                         }
                         if(drawerItem.equals(yourEvents.getIdentifier())) {
                             Intent localIntent = new Intent(context, ListEventActivity.class);
@@ -184,7 +290,7 @@ public class IndividualOrganizationActivity extends AppCompatActivity {
                 })
                 .build();
 
-        resultDrawer.setSelection(organizations);
+        //resultDrawer.setSelection(organizations);
 
         // get elements for recycler views
         rv1 =(RecyclerView)findViewById(R.id.recycler_view_1);

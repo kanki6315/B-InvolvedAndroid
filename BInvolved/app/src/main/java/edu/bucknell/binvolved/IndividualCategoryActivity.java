@@ -85,7 +85,8 @@ public class IndividualCategoryActivity extends AppCompatActivity {
         categoryName = (TextView) findViewById(R.id.category_name);
         categoryName.setText(category.getName());
         image = (ImageView) findViewById(R.id.category_banner);
-        image.setImageResource(category.getBannerPhotoID());
+        //image.setImageResource(category.getBannerPhotoID());
+        image.setBackgroundResource(category.getBannerPhotoID());
 
         addListenerOnButton();
 
@@ -133,9 +134,8 @@ public class IndividualCategoryActivity extends AppCompatActivity {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // clicked item
                         if(drawerItem.equals(home.getIdentifier())) {
-                            // don't do intent to HomeActivity because will double the data
-                            //  TODO finish this
-                            return false;
+                            Intent localIntent = new Intent(context, HomeActivity.class);
+                            startActivity(localIntent);
                         }
                         if(drawerItem.equals(yourEvents.getIdentifier())) {
                             Intent localIntent = new Intent(context, ListEventActivity.class);
@@ -175,7 +175,7 @@ public class IndividualCategoryActivity extends AppCompatActivity {
                 })
                 .build();
 
-        resultDrawer.setSelection(categories);
+        //resultDrawer.setSelection(categories);
 
         // initialize stuff
         setLayoutManagers();

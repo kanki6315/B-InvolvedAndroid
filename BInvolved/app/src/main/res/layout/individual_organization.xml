@@ -6,167 +6,201 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-        <android.support.design.widget.AppBarLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-        </android.support.design.widget.AppBarLayout>
-
-    <ImageView
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/banner_image_height"
-        android:id="@+id/organizationBannerPhoto" />
+        android:layout_height="wrap_content">
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
-
-    <Gallery
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/gallery"
-        android:layout_gravity="center_horizontal" />
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/mainRelativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/mainDetailLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:id="@+id/organizationLogoImage"
-                android:layout_width="@dimen/icon_image_width"
-                android:layout_height="@dimen/icon_image_height"
-                android:gravity="center"
-                android:src="@drawable/ace"
-                android:layout_marginStart="@dimen/section_margin_left"
-                />
-
-            <LinearLayout
-                android:id="@+id/textDetailLayout"
-                android:layout_width="wrap_content"
+            <android.support.design.widget.AppBarLayout
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="@dimen/section_margin_left" >
+                android:layout_width="match_parent"
+                android:theme="@style/AppTheme.AppBarOverlay">
 
-                <Space
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp" />
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-                <TextView
-                    android:id="@+id/organizationName"
+            </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ViewFlipper
+                android:id="@+id/view_flipper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/banner_image_height"
+                    android:id="@+id/organizationBannerPhoto_1" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/banner_image_height"
+                    android:id="@+id/organizationBannerPhoto_2" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/banner_image_height"
+                    android:id="@+id/organizationBannerPhoto_3" />
+            </ViewFlipper>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginTop="130dp"
+                android:layout_gravity="center_horizontal">
+
+                <LinearLayout
+                    android:id="@+id/dots"
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/page_title_text_size"
-                    android:textStyle="bold"/>
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical|center_horizontal" />
 
-            </LinearLayout>
-        </GridLayout>
+            </RelativeLayout>
+
+
+        </FrameLayout>
+
+
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 
-        <RelativeLayout
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/mainRelativeLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="@dimen/section_margin_left"
-                android:id="@+id/follow_organization"
-                android:text="@string/follow_updates" />
+            <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/mainDetailLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="@dimen/section_margin_right"
-                android:id="@+id/contact_organization"
-                android:text="@string/contact" />
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/organizationLogoImage"
+                    android:layout_width="@dimen/icon_image_width"
+                    android:layout_height="@dimen/icon_image_height"
+                    android:gravity="center"
+                    android:src="@drawable/ace"
+                    android:layout_marginStart="@dimen/section_margin_left"
+                    />
 
-    </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/textDetailLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/section_margin_left" >
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/organizationDescription"
-        android:layout_marginStart="@dimen/section_margin_left"
-        android:layout_marginEnd="@dimen/section_margin_right"/>
+                    <TextView
+                        android:id="@+id/organizationName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/page_title_text_size"
+                        android:textStyle="bold"/>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
+                </LinearLayout>
+            </GridLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/section_title_height"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="@dimen/section_margin_left"
-                android:textStyle="bold"
-                android:text="@string/upcoming_events"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="@dimen/section_margin_left"
+                    android:id="@+id/follow_organization"
+                    android:text="@string/follow_updates" />
 
-            <Button
-                android:id="@+id/more_organization_events"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/more_button_height"
-                android:layout_gravity="end"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="@dimen/section_margin_right"
-                android:text="@string/more"
-                android:textColor="@color/white"
-                android:background="@color/midnightBlue" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/card_view_total_height"
-            android:orientation="horizontal" >
-
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/recycler_view_1" >
-            </android.support.v7.widget.RecyclerView>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/section_margin_right"
+                    android:id="@+id/contact_organization"
+                    android:text="@string/contact" />
+            </RelativeLayout>
 
         </LinearLayout>
-    </LinearLayout>
 
-</LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/organizationDescription"
+            android:layout_marginStart="@dimen/section_margin_left"
+            android:layout_marginEnd="@dimen/section_margin_right"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/section_title_height"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="@dimen/section_margin_left"
+                    android:textStyle="bold"
+                    android:text="@string/upcoming_events"/>
+
+                <Button
+                    android:id="@+id/more_organization_events"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/more_button_height"
+                    android:layout_gravity="end"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/section_margin_right"
+                    android:text="@string/more"
+                    android:textColor="@color/white"
+                    android:background="@color/midnightBlue" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/card_view_total_height"
+                android:orientation="horizontal" >
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recycler_view_1" >
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
 
 </ScrollView>

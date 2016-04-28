@@ -38,11 +38,58 @@ android:paddingRight="@dimen/activity_horizontal_margin"
         android:text="Click me to go to CATEGORY list view"/>
 -->
 
-    <ImageView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/banner_image_height"
-        android:src="@drawable/ace"
-        android:contentDescription="@string/banner_image_description"/>
+        android:layout_height="@dimen/banner_image_height">
+
+        <ViewFlipper
+            android:id="@+id/view_flipper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/banner_image_height"
+                android:id="@+id/bannerPhoto_1" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/banner_image_height"
+                android:id="@+id/bannerPhoto_2" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/banner_image_height"
+                android:id="@+id/bannerPhoto_3" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/banner_image_height"
+                android:id="@+id/bannerPhoto_4" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/banner_image_height"
+                android:id="@+id/bannerPhoto_5" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/banner_image_height"
+                android:id="@+id/bannerPhoto_6" />
+        </ViewFlipper>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="130dp"
+            android:layout_gravity="center_horizontal">
+
+            <LinearLayout
+                android:id="@+id/dots"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_vertical|center_horizontal" />
+
+        </RelativeLayout>
+    </FrameLayout>
 
 
     <TextView

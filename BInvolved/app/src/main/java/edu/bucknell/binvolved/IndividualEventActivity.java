@@ -72,7 +72,8 @@ public class IndividualEventActivity extends AppCompatActivity {
         event = Event.getEventWithNameAndDateAndTime(inputs.getString("Event Name"), inputs.getString("Event Date"));
 
         eventBannerImage = (ImageView) findViewById(R.id.event_banner_image);
-        eventBannerImage.setImageResource(event.getPhotoID());
+        //eventBannerImage.setImageResource(event.getPhotoID());
+        eventBannerImage.setBackgroundResource(event.getPhotoID());
 
         eventOrganizationsList = event.getOrganizations();
         // get logo for first organization
@@ -145,9 +146,8 @@ public class IndividualEventActivity extends AppCompatActivity {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // clicked item
                         if(drawerItem.equals(home.getIdentifier())) {
-                            // don't do intent to HomeActivity because will double the data
-                            //  TODO finish this
-                            return false;
+                            Intent localIntent = new Intent(context, HomeActivity.class);
+                            startActivity(localIntent);
                         }
                         if(drawerItem.equals(yourEvents.getIdentifier())) {
                             Intent localIntent = new Intent(context, ListEventActivity.class);
@@ -187,7 +187,7 @@ public class IndividualEventActivity extends AppCompatActivity {
                 })
                 .build();
 
-        resultDrawer.setSelection(allEvents);
+        //resultDrawer.setSelection(allEvents);
         }
 
 
