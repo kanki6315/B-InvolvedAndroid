@@ -33,7 +33,7 @@
 
     <dimen name="more_button_height">20dp</dimen>
     <dimen name="options_button_height">30dp</dimen>
-    <dimen name="three_dot_option_size">15dp</dimen>
+    <dimen name="three_dot_option_size">20dp</dimen>
 
 
     <dimen name="section_title_height">30dp</dimen>

@@ -67,7 +67,6 @@ public class IndividualEventActivity extends AppCompatActivity {
 
         //getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //TODO: need more than just a name to uniquely identify an event
         Bundle inputs = getIntent().getExtras();
         event = Event.getEventWithNameAndDateAndTime(inputs.getString("Event Name"), inputs.getString("Event Date"));
 

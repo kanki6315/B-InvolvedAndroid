@@ -99,7 +99,7 @@ public class IndividualOrganizationActivity extends AppCompatActivity {
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
-            params.setMargins(4,0,4,0);
+            params.setMargins(6,0,6,0);
 
             dotsLayout.addView(dot, params);
 

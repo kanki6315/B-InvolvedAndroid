@@ -92,7 +92,7 @@ public class HomeActivity extends AppCompatActivity {
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
-            params.setMargins(4,0,4,0);
+            params.setMargins(6,0,6,0);
 
             dotsLayout.addView(dot, params);
 
@@ -123,22 +123,29 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         // if already loaded, don't redo data
-        if (HomeActivity.appStarted == true) {
-            return;
-        }
-        HomeActivity.appStarted = true;
+        //if (HomeActivity.appStarted == true) {
+        //
+        //    return;
+        //}
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Home");
 
-        // read in the CSV files
-        readInOrganizations();
-        allOrganizations = Organization.sortOrganizationsAlphabetically(allOrganizations);
-        readInCategories();
-        allCategories = Category.sortCategoriesAlphabetically(allCategories);
-        readInEvents();
-        allEvents = Event.sortEventsByStartDate(allEvents);
+        if (HomeActivity.appStarted == false) {
+            // read in the CSV files
+            readInOrganizations();
+            allOrganizations = Organization.sortOrganizationsAlphabetically(allOrganizations);
+            readInCategories();
+            allCategories = Category.sortCategoriesAlphabetically(allCategories);
+            readInEvents();
+            allEvents = Event.sortEventsByStartDate(allEvents);
+        } else {
+            allOrganizations = Organization.getAllOrganizations();
+            allCategories = Category.getAllCategories();
+            allEvents = Event.getAllEvents();
+        }
 
         /*
         // button to go to individual category page
@@ -257,18 +264,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
         viewFlipper = (ViewFlipper) findViewById(R.id.view_flipper);
-        bannerPhoto_1 = (ImageView) findViewById(R.id.bannerPhoto_1);
-        bannerPhoto_1.setBackgroundResource(allEvents.get(1).getPhotoID());
-        bannerPhoto_2 = (ImageView) findViewById(R.id.bannerPhoto_2);
-        bannerPhoto_2.setBackgroundResource(allEvents.get(2).getPhotoID());
-        bannerPhoto_3 = (ImageView) findViewById(R.id.bannerPhoto_3);
-        bannerPhoto_3.setBackgroundResource(allEvents.get(3).getPhotoID());
-        bannerPhoto_4 = (ImageView) findViewById(R.id.bannerPhoto_4);
-        bannerPhoto_4.setBackgroundResource(allEvents.get(4).getPhotoID());
-        bannerPhoto_5 = (ImageView) findViewById(R.id.bannerPhoto_5);
-        bannerPhoto_5.setBackgroundResource(allEvents.get(5).getPhotoID());
-        bannerPhoto_6 = (ImageView) findViewById(R.id.bannerPhoto_6);
-        bannerPhoto_6.setBackgroundResource(allEvents.get(6).getPhotoID());
+        setupBannerPhotos();
 
 
         // change the banner photo
@@ -284,29 +280,30 @@ public class HomeActivity extends AppCompatActivity {
                         x2=e.getX();
                         y2=e.getY();
 
+                        System.out.println("x1: " + x1 + " x2: " + x2);
+
                         // left to right sweep
-                        if (x1<x2) {
-                            //if (viewFlipper.getDisplayedChild() == 0) {
-                            //    break;
-                            //}
+                        if (x1<(x2-50)) {
                             imageDisplay -= 1;
-                            viewFlipper.setInAnimation(context,R.anim.slide_in_from_left);
+                            viewFlipper.setInAnimation(context, R.anim.slide_in_from_left);
                             viewFlipper.setOutAnimation(context, R.anim.slide_out_to_right);
                             viewFlipper.showNext();
-                            selectDot(Math.abs(imageDisplay)%NUM_IMAGES);
+                            selectDot(Math.abs(imageDisplay) % NUM_IMAGES);
+                        } else {
+                            // right to left sweep
+                            if (x1 > (x2 + 50)) {
+                                imageDisplay += 1;
+                                viewFlipper.setInAnimation(context, R.anim.slide_in_from_right);
+                                viewFlipper.setOutAnimation(context, R.anim.slide_out_to_left);
+                                viewFlipper.showPrevious();
+                                selectDot(Math.abs(imageDisplay) % NUM_IMAGES);
+                            } else {
+                                //System.out.println("GOING TO EVENT: " + Math.abs(imageDisplay) % NUM_IMAGES);
+                                //goToEvent(Math.abs(imageDisplay) % NUM_IMAGES);
+                            }
                         }
-
-                        // right to left sweep
-                        if (x1>x2) {
-                            //if (viewFlipper.getDisplayedChild() == 3) {
-                            //    break;
-                            //}
-                            imageDisplay += 1;
-                            viewFlipper.setInAnimation(context,R.anim.slide_in_from_right);
-                            viewFlipper.setOutAnimation(context, R.anim.slide_out_to_left);
-                            viewFlipper.showPrevious();
-                            selectDot(Math.abs(imageDisplay)%NUM_IMAGES);
-                        }
+                    }
+                    case MotionEvent.ACTION_MOVE: {
                     }
                 }
                 return true;
@@ -388,7 +385,44 @@ public class HomeActivity extends AppCompatActivity {
 
 
         setLayoutManagersAndInitializeAdapters();
+
+        HomeActivity.appStarted = true;
     }
+
+
+
+    public void goToEvent(int num) {
+        ImageView[] bannerPhotos = {bannerPhoto_6, bannerPhoto_5, bannerPhoto_4, bannerPhoto_3, bannerPhoto_2, bannerPhoto_1};
+
+        Intent localIntent = new Intent(context, IndividualEventActivity.class);
+        localIntent.putExtra("Event Name", allEvents.get(num).getName());
+        localIntent.putExtra("Event Date", allEvents.get(num).getDateAndTime());
+        startActivity(localIntent);
+
+    }
+
+    public void setupBannerPhotos() {
+
+        bannerPhoto_1 = (ImageView) findViewById(R.id.bannerPhoto_1);
+        bannerPhoto_1.setBackgroundResource(allEvents.get(0).getPhotoID());
+
+        bannerPhoto_2 = (ImageView) findViewById(R.id.bannerPhoto_2);
+        bannerPhoto_2.setBackgroundResource(allEvents.get(1).getPhotoID());
+
+        bannerPhoto_3 = (ImageView) findViewById(R.id.bannerPhoto_3);
+        bannerPhoto_3.setBackgroundResource(allEvents.get(2).getPhotoID());
+
+        bannerPhoto_4 = (ImageView) findViewById(R.id.bannerPhoto_4);
+        bannerPhoto_4.setBackgroundResource(allEvents.get(3).getPhotoID());
+
+        bannerPhoto_5 = (ImageView) findViewById(R.id.bannerPhoto_5);
+        bannerPhoto_5.setBackgroundResource(allEvents.get(4).getPhotoID());
+
+        bannerPhoto_6 = (ImageView) findViewById(R.id.bannerPhoto_6);
+        bannerPhoto_6.setBackgroundResource(allEvents.get(5).getPhotoID());
+
+    }
+
 
 
     /**
@@ -420,6 +454,7 @@ public class HomeActivity extends AppCompatActivity {
             //System.out.println("organizationInfo: " + organizationInfo[0] + " " + organizationInfo[1] + " " + organizationInfo[2] + " " + organizationInfo[3] + " " + organizationInfo[4]);
         }
     }
+
 
     /**
      * Reads the CSV file of Categories and creates the Category objects.
