@@ -104,6 +104,7 @@ public class Event implements Parcelable {
 
         in.readStringArray(data);
         Event temp = Event.getEventWithNameAndDateAndTime(data[0],data[1]);
+        System.out.println("temp: name: " + temp.getName());
         this.name = temp.getName();
         this.start = temp.getStartCalendar();
         this.end = temp.getEndCalendar();
@@ -134,6 +135,7 @@ public class Event implements Parcelable {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        System.out.println("writeToParcel: " + this.getName());
         dest.writeStringArray(new String[] {this.getName(), this.getDateAndTime()});
     }
 
@@ -437,7 +439,7 @@ public class Event implements Parcelable {
     @Nullable
     public static Event getEventWithNameAndDateAndTime(String name, String dateAndTime) {
         for (Event event: allEvents) {
-            if (event.getDateAndTime().equals(dateAndTime)) {
+            if (event.getDateAndTime().equals(dateAndTime) && event.getName().equals(name)) {
                 return event;
             }
         }
@@ -456,7 +458,7 @@ public class Event implements Parcelable {
     public static ArrayList<Event> getAllEvents() {
         ArrayList<Event> allEvents = new ArrayList<Event>();
         allEvents.addAll(Event.allEvents);
-        return allEvents;
+        return Event.sortEventsByStartDate(allEvents);
     }
 
     /**

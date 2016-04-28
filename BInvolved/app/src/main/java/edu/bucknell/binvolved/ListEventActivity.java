@@ -51,10 +51,11 @@ public class ListEventActivity extends AppCompatActivity/*FragmentActivity*/ {
         followingEvents = getIntent().getParcelableArrayListExtra("Following Events");
         followingEvents = Event.sortEventsByStartDate(followingEvents);
         allEvents = getIntent().getParcelableArrayListExtra("All Events");
-        allEvents = Event.sortEventsByStartDate(allEvents);
+        //allEvents = Event.sortEventsByStartDate(allEvents);
 
         System.out.println("ListEventActivity.java: onCreate(): allEvents size: " + allEvents.size());
         System.out.println("ListEventActivity.java: onCreate(): followingEvents size: " + followingEvents.size());
+
 
         // add the data to the list view
         setListAdapterStuff(0);

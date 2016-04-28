@@ -122,13 +122,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // if already loaded, don't redo data
-        //if (HomeActivity.appStarted == true) {
-        //
-        //    return;
-        //}
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Home");
@@ -146,69 +139,6 @@ public class HomeActivity extends AppCompatActivity {
             allCategories = Category.getAllCategories();
             allEvents = Event.getAllEvents();
         }
-
-        /*
-        // button to go to individual category page
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                Intent localIntent = new Intent(context, ListEventActivity.class);
-                ArrayList<Event> events = new ArrayList<Event>();
-                events.add(new Event("name1", "4/7/2016", "7:00 PM", "10:00 PM", "location",
-                        R.drawable.ace, "org1", "Free Food;Alcohol(21+)", "description"));
-                events.add(new Event("name2", "4/20/2016", "6:15 PM", "11:30 AM", "location",
-                        R.drawable.ace, "org2", "Dance;Music", "description"));
-                events.add(new Event("name3", "4/30/2016", "7:00 PM", "2:00 AM", "location",
-                        R.drawable.ace, "org1", "Theater;Social", "description"));
-                localIntent.putParcelableArrayListExtra("Following Events", events);
-
-                ArrayList<Event> events2 = new ArrayList<Event>();
-                events2.add(new Event("name10", "5/7/2016", "7:00 PM", "10:00 PM", "location",
-                        R.drawable.ace, "org10", "Free Food;Alcohol(21+)", "description"));
-                events2.add(new Event("name20", "5/20/2016", "6:15 PM", "11:30 AM", "location",
-                        R.drawable.ace, "org20", "Dance;Music", "description"));
-                events2.add(new Event("name30", "5/30/2016", "7:00 PM", "2:00 AM", "location",
-                        R.drawable.ace, "org10", "Theater;Social", "description"));
-                localIntent.putParcelableArrayListExtra("All Events", events2);
-
-                startActivity(localIntent);
-            }
-        });
-
-        button2 = (Button) findViewById(R.id.button2);
-        button2.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                Intent localIntent = new Intent(context, ListOrganizationActivity.class);
-                //localIntent.putExtra("Event Name", "Some Event Name");
-                ArrayList<Organization> organizations = new ArrayList<>();
-                organizations.addAll(allOrganizations.subList(0,10));
-                localIntent.putParcelableArrayListExtra("All Organizations", organizations);
-                ArrayList<Organization> organizations2 = new ArrayList<>();
-                organizations2.addAll(allOrganizations.subList(0,5));
-                localIntent.putParcelableArrayListExtra("Following Organizations", organizations2);
-                startActivity(localIntent);
-            }
-        });
-
-        button3 = (Button) findViewById(R.id.button3);
-        button3.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                Intent localIntent = new Intent(context, ListCategoryActivity.class);
-                //localIntent.putExtra("Organization Name", "Uptown");
-                ArrayList<Category> categories = new ArrayList<>();
-                categories.addAll(allCategories.subList(0,10));
-                localIntent.putParcelableArrayListExtra("All Categories", categories);
-                ArrayList<Category> categories2 = new ArrayList<>();
-                categories2.addAll(allCategories.subList(0,5));
-                localIntent.putParcelableArrayListExtra("Following Categories", categories2);
-                startActivity(localIntent);
-            }
-        });
-        */
-
 
         moreCategories = (Button) findViewById(R.id.more_categories);
         moreCategories.setOnClickListener(new OnClickListener() {
@@ -257,15 +187,11 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
 
-
-
         addDots();
         selectDot(0);
 
-
         viewFlipper = (ViewFlipper) findViewById(R.id.view_flipper);
         setupBannerPhotos();
-
 
         // change the banner photo
         viewFlipper.setOnTouchListener(new View.OnTouchListener() {
@@ -309,9 +235,6 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-
-
 
 
         // create drawer and build for each screen
@@ -403,7 +326,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void setupBannerPhotos() {
-
         bannerPhoto_1 = (ImageView) findViewById(R.id.bannerPhoto_1);
         bannerPhoto_1.setBackgroundResource(allEvents.get(0).getPhotoID());
 
@@ -421,7 +343,6 @@ public class HomeActivity extends AppCompatActivity {
 
         bannerPhoto_6 = (ImageView) findViewById(R.id.bannerPhoto_6);
         bannerPhoto_6.setBackgroundResource(allEvents.get(5).getPhotoID());
-
     }
 
 
@@ -506,7 +427,11 @@ public class HomeActivity extends AppCompatActivity {
             int photoID = context.getResources().getIdentifier(eventData[5], "drawable", context.getPackageName());
             allEvents.add(new Event(eventData[0], eventData[1], eventData[2], eventData[3], eventData[4],
                     photoID, eventData[6], eventData[7], description));
+
+
+            //System.out.println("ADD Event: " + eventData[0]);
         }
+
     }
 
     private void setLayoutManagersAndInitializeAdapters() {
