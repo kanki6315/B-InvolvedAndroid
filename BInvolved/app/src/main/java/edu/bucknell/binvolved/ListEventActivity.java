@@ -168,9 +168,8 @@ public class ListEventActivity extends AppCompatActivity/*FragmentActivity*/ {
                             startActivity(localIntent);
                         }
                         else {
-                            if(!drawerItem.equals(allEvents.getIdentifier()) || !drawerItem.equals(yourEvents.getIdentifier())) {
-                                finish();
-                            }
+                            if(!drawerItem.equals(allEvents.getIdentifier()) || !drawerItem.equals(yourEvents.getIdentifier()))
+                            finish();
                         }
                         return false;
                     }

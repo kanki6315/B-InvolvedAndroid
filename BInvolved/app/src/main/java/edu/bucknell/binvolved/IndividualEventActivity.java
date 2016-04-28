@@ -239,13 +239,7 @@ public class IndividualEventActivity extends AppCompatActivity {
                 .build();
 
         //resultDrawer.setSelection(allEvents);
-
-        organizationPhoto = (ImageView) findViewById(R.id.category_photo);
-        organizationText = (TextView) findViewById(R.id.category_name);
-        organizationText.setText(getAllOrganizationNames(eventOrganizationsList));
-        organizationPhoto.setImageResource(eventOrganizationsList.get(0).getImages()[0]);
-
-        }
+    }
 
 
     public String getTimeRange() {
