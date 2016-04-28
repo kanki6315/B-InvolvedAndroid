@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:id="@+id/card_view">
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardElevation="@dimen/card_view_elevation"
+    card_view:cardCornerRadius="@dimen/card_view_corner_radius">
 
     <RelativeLayout
         android:layout_width="@dimen/layout_in_card_view_width"
         android:layout_height="@dimen/layout_in_card_view_height"
-        android:background="@drawable/back"
-        android:padding="1dip"
         android:layout_margin="@dimen/layout_in_card_view_margin">
 
         <ImageView
@@ -23,11 +24,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingLeft="@dimen/card_view_text_padding"
             android:id="@+id/category_name"
             android:layout_below="@+id/category_photo"
             android:textSize="@dimen/card_view_text_size"
-            android:textAlignment="center"
-            android:layout_toStartOf="@+id/category_option_shortcut"
+            android:textAlignment="viewStart"
             android:lines="2"
             android:ellipsize="end" />
 

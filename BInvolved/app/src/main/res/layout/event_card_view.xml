@@ -13,10 +13,9 @@
     <RelativeLayout
         android:layout_width="@dimen/layout_in_card_view_width"
         android:layout_height="@dimen/layout_in_card_view_height"
+        android:layout_margin="@dimen/layout_in_card_view_margin"
         >
-        <!--android:background="@drawable/back"
-        android:padding="1dip"
-        android:layout_margin="@dimen/layout_in_card_view_margin"-->
+
 
         <ImageView
             android:layout_width="match_parent"
@@ -29,10 +28,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/event_name"
+            android:paddingLeft="@dimen/card_view_text_padding"
             android:layout_below="@+id/event_photo"
             android:textSize="@dimen/card_view_text_size"
-            android:textAlignment="center"
-            android:layout_toStartOf="@+id/event_option_shortcut"
+            android:textAlignment="viewStart"
             android:lines="2"
             android:ellipsize="end"/>
 
@@ -46,7 +45,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="3dp"
+            android:layout_height="2dp"
             android:id="@+id/space"
             android:layout_below="@id/event_name"/>
 
