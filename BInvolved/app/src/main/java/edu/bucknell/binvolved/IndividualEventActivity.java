@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,8 +26,10 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Layout for an individual Event
@@ -64,9 +68,9 @@ public class IndividualEventActivity extends AppCompatActivity {
     // Event
     Event event;
 
-    // Things for organization thingy
-    TextView organizationText;
-    ImageView organizationPhoto;
+    // parts for recycler view 1: Upcoming Categories
+    private List<Category> categories;
+    private RecyclerView rv1;
 
     final Context context = this;
 
@@ -239,6 +243,42 @@ public class IndividualEventActivity extends AppCompatActivity {
                 .build();
 
         //resultDrawer.setSelection(allEvents);
+
+        // get elements for recycler views
+        rv1 =(RecyclerView)findViewById(R.id.recycler_view_1);
+        initializeData();
+        setLayoutManagerAndInitializeAdapter();
+    }
+
+    /**
+     * Sets up the layout manager and adapter for the recycler view of events.
+     */
+    private void setLayoutManagerAndInitializeAdapter() {
+        LinearLayoutManager llm1 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rv1.setLayoutManager(llm1);
+        rv1.setHasFixedSize(true);
+
+        CardViewCategoryAdapter adapter1 = new CardViewCategoryAdapter(context, categories);
+        rv1.setAdapter(adapter1);
+    }
+
+    /**
+     * Initializes the data for the recycler view of events.
+     */
+    private void initializeData() {
+        List<Category> allCategories = event.getCategories();
+        categories = new ArrayList<Category>();
+
+        int min = Math.min(allCategories.size(), 10);
+        int count = 0;
+        for (Category category : allCategories) {
+            if (count == min) {
+                break;
+            }
+            categories.add(category);
+            count += 1;
+        }
+
     }
 
 
