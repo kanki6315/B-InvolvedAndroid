@@ -151,7 +151,8 @@ public class ListCategoryActivity extends AppCompatActivity {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // clicked item
                         if(drawerItem.equals(home.getIdentifier())) {
-                            finish();
+                            Intent localIntent = new Intent(context, HomeActivity.class);
+                            startActivity(localIntent);
                         }
                         if(drawerItem.equals(yourEvents.getIdentifier())) {
                             Intent localIntent = new Intent(context, ListEventActivity.class);

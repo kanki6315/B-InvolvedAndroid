@@ -140,7 +140,8 @@ public class IndividualCategoryActivity extends AppCompatActivity {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // clicked item
                         if(drawerItem.equals(home.getIdentifier())) {
-                            finish();
+                            Intent localIntent = new Intent(context, HomeActivity.class);
+                            startActivity(localIntent);
                         }
                         if(drawerItem.equals(yourEvents.getIdentifier())) {
                             Intent localIntent = new Intent(context, ListEventActivity.class);
@@ -195,7 +196,7 @@ public class IndividualCategoryActivity extends AppCompatActivity {
      */
     public void addListenerOnButton() {
         buttonFollowCategory = (Button) findViewById(R.id.follow_update);
-        if (category.getFollowingCategories().contains(Category.getCategoryWithName(category.getName()))) {
+        if (Category.getFollowingCategories().contains(Category.getCategoryWithName(category.getName()))) {
             following = true;
             buttonFollowCategory.setText(R.string.unfollow);
         } else {
@@ -283,15 +284,6 @@ public class IndividualCategoryActivity extends AppCompatActivity {
         //System.out.println("today: " + today.getStartTime());
         //System.out.println("one week: " + calendarNextWeek.getStartTime());
         events1 = new ArrayList<Event>();
-
-        /*
-        events1.add(new Event("name1", "4/7/2016", "7:00 PM", "10:00 PM", "location",
-                R.drawable.ace, "org1", "Free Food;Alcohol(21+)", "description"));
-        events1.add(new Event("name2", "4/20/2016", "6:15 PM", "11:30 AM", "location",
-                R.drawable.ace, "org2", "Dance;Music", "description"));
-        events1.add(new Event("name3", "4/30/2016", "7:00 PM", "2:00 AM", "location",
-                R.drawable.ace, "org1", "Theater;Social", "description"));
-        */
         for (Event event:categoryEvents) {
             if (event.getStartCalendar().after(today) && event.getStartCalendar().before(calendarNextWeek)) {
                 events1.add(event);
@@ -304,27 +296,21 @@ public class IndividualCategoryActivity extends AppCompatActivity {
         events2 = new ArrayList<Event>();
         int min2 = Math.min(categoryEvents.size(), 5);
         int count2 = 0;
+        int decider = 0;
         for (Event event:categoryEvents) {
+
             if (event.getStartCalendar().after(today)) {
-                events2.add(event);
-                count2 += 1;
+                decider += 1;
+                if (decider %3 == 0) {
+                    System.out.println("ADDED");
+                    events2.add(event);
+                    count2 += 1;
+                }
             }
             if (count2 == min2) {
                 break;
             }
         }
-        /*
-        events2.add(new Event("name1", "4/7/2016", "7:00 PM", "10:00 PM", "location",
-                R.drawable.ace, "org1", "Free Food;Alcohol(21+)", "description"));
-        events2.add(new Event("name2", "4/20/2016", "6:15 PM", "11:30 AM", "location",
-                R.drawable.ace, "org2", "Dance;Music", "description"));
-        events2.add(new Event("name3", "4/30/2016", "7:00 PM", "2:00 AM", "location",
-                R.drawable.ace, "org1", "Theater;Social", "description"));
-        events2.add(new Event("name4", "5/5/2016", "11:00 AM", "3:00 PM", "location",
-                R.drawable.ace, "org1", "Free Food;Alcohol(21+)", "description"));
-        events2.add(new Event("name5", "5/10/2016", "10:00 AM", "5:00 PM", "location",
-                R.drawable.ace, "org2", "Free Food", "description"));
-        */
         System.out.println("events2 size: " + events2.size());
 
         // a subset of all Events
