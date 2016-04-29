@@ -183,7 +183,9 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/eventTextDescription"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="0.17" />
+                android:layout_weight="0.17"
+                android:layout_marginLeft="@dimen/text_section_margins"
+                android:layout_marginRight="@dimen/text_section_margins" />
 
         </LinearLayout>
 

@@ -1,6 +1,8 @@
 package edu.bucknell.binvolved;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -70,6 +72,7 @@ public class HomeActivity extends AppCompatActivity {
     ImageView bannerPhoto_5;
     ImageView bannerPhoto_6;
 
+    CustomTabActivityHelper mCustomTabActivityHelper;
 
     float x1 = 0;
     float x2 = 0;
@@ -121,6 +124,8 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        mCustomTabActivityHelper = new CustomTabActivityHelper(); // create tab object
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -297,6 +302,9 @@ public class HomeActivity extends AppCompatActivity {
                             localIntent.putParcelableArrayListExtra("Following Categories", Category.getFollowingCategories());
                             startActivity(localIntent);
                         }
+                        if(drawerItem.equals(help.getIdentifier())) {
+                            openCustomTab();
+                        }
                         if (drawerItem.equals(settings.getIdentifier())) {
                             Intent localIntent = new Intent(context, SettingsActivity.class);
                             //localIntent.putExtra("On Tab", "Following");
@@ -313,7 +321,22 @@ public class HomeActivity extends AppCompatActivity {
         HomeActivity.appStarted = true;
     }
 
+    private void openCustomTab() {
+        String url = "https://github.com/kanki6315/B-InvolvedAndroid/blob/master/README.md";
 
+        CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
+        int color = getResources().getColor(R.color.midnightBlue);
+        intentBuilder.setToolbarColor(color);
+        intentBuilder.setShowTitle(true);
+
+        intentBuilder.setStartAnimations(this,
+                R.anim.slide_out_left, R.anim.slide_in_right);
+        intentBuilder.setExitAnimations(this,
+                android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+
+        CustomTabActivityHelper.openCustomTab(
+                this, intentBuilder.build(), Uri.parse(url), null);
+    }
 
     public void goToEvent(int num) {
         ImageView[] bannerPhotos = {bannerPhoto_6, bannerPhoto_5, bannerPhoto_4, bannerPhoto_3, bannerPhoto_2, bannerPhoto_1};

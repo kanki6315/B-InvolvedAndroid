@@ -152,8 +152,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/organizationDescription"
-            android:layout_marginStart="@dimen/section_margin_left"
-            android:layout_marginEnd="@dimen/section_margin_right"/>
+            android:layout_marginStart="@dimen/text_section_margins"
+            android:layout_marginEnd="@dimen/text_section_margins"/>
 
         <Space
             android:layout_width="match_parent"
