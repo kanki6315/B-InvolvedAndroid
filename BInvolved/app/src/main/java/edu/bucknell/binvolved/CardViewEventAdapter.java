@@ -5,6 +5,7 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class CardViewEventAdapter extends RecyclerView.Adapter<CardViewEventAdapter.EventViewHolder> {
 
-    //private Context context;
+    private Context context;
     //private LayoutInflater inflater;
     List<Event> events;
 
@@ -58,7 +59,7 @@ public class CardViewEventAdapter extends RecyclerView.Adapter<CardViewEventAdap
     }
 
     CardViewEventAdapter(Context context, List<Event> events) {
-        //this.context = context;
+        this.context = context;
         //this.inflater = LayoutInflater.from(this.context);
         this.events = events;
     }
@@ -74,8 +75,9 @@ public class CardViewEventAdapter extends RecyclerView.Adapter<CardViewEventAdap
         return new EventViewHolder(v);
     }
 
+
     @Override
-    public void onBindViewHolder(EventViewHolder eventViewHolder, int i) {
+    public void onBindViewHolder(final EventViewHolder eventViewHolder, int i) {
         eventViewHolder.eventName.setText(events.get(i).getName());
         eventViewHolder.eventDateTime.setText(events.get(i).getDateAndTime());
         eventViewHolder.eventPhoto.setImageResource(events.get(i).getPhotoID());
@@ -84,6 +86,21 @@ public class CardViewEventAdapter extends RecyclerView.Adapter<CardViewEventAdap
             public void onClick(View v) {
                 PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
                 MenuInflater menuInflater = popupMenu.getMenuInflater();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if(item.getItemId() == R.id.share) {
+                            Intent sendIntent = new Intent();
+                            sendIntent.setAction(Intent.ACTION_SEND);
+                            String sendString = "Hey! I found " + events.get(eventViewHolder.getAdapterPosition()).getName() + " using the B-Involved app. Want to go?";
+                            sendIntent.putExtra(Intent.EXTRA_TEXT, sendString);
+                            sendIntent.setType("text/plain");
+                            context.startActivity(Intent.createChooser(sendIntent, "Send to"));
+
+                        }
+                        return false;
+                    }
+                });
                 menuInflater.inflate(R.menu.popup_event, popupMenu.getMenu());
                 popupMenu.show();
                 System.out.println("CardViewEventAdapter: event shortcut option pressed");
